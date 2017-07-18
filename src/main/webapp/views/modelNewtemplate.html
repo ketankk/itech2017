@@ -1,0 +1,116 @@
+<div class="panel panel-default" > <div class="panel-heading"><b>{{tranformType}}</b></div><div class="panel-body"><div class="col-md-14 lessPadd" style="background-color:#fff"> 
+<div class="form-group"> 
+<br/>
+<form name="modelForm">
+ <div class="form-group col-sm-14" ng-if = "tranformType == 'Decision Tree Classification'">
+	<label for="Step size" class="col-sm-6 control-label ">Number of classes</label>
+	<div class="col-sm-10 ">
+		<input type="text"  ng-model="editData.numofclasses" id="numofclasses" value=2 name="numofclasses"  class="form-control" ng-pattern="/^[1-9]\d*$/" ng-init="editData.numofclasses = editData.numofclasses == null ? '2' : editData.numofclasses">
+		<span class="alert-danger" ng-show="modelForm.numofclasses.$error.pattern">Please enter Integer only</span>
+	</div>
+	 <div class="clearfix">&nbsp;</div>
+	</div>
+	<div class="form-group col-sm-14" ng-if = "tranformType == 'SVM Classification'">
+	<label for="Step size" class="col-sm-12 control-label ">Number of Iterations</label>
+	<div class="col-sm-10 ">
+		<input type="text"  ng-model="editData.iteration" id="iteration"  name="iteration"  value=100 class="form-control" ng-pattern="/^[1-9]\d*$/" ng-init="editData.iteration = editData.iteration == null ? '100' : editData.iteration">
+		<span class="alert-danger" ng-show="modelForm.iteration.$error.pattern">Please enter Integer only</span>
+	</div>
+	 <div class="clearfix">&nbsp;</div>
+	</div>
+	 <div class="form-group col-sm-14" ng-if = "tranformType == 'SVM Classification'">
+	<label for="Step size" class="col-sm-6 control-label ">Step size</label>
+	<div class="col-sm-10 ">
+		<input type="text"  ng-model="editData.stepsize" id="stepsize"  name="stepsize"  value=0.001 class="form-control" ng-pattern="/^\d*\.?\d*$/" ng-init="editData.stepsize = editData.stepsize == null ? '0.001' : editData.stepsize">
+		<span class="alert-danger" ng-show="modelForm.stepsize.$error.pattern">Please enter Integer only</span>
+	</div>
+	 <div class="clearfix">&nbsp;</div>
+	</div>	
+	<div class="form-group col-sm-14" ng-if = "tranformType == 'Decision Tree Classification' || tranformType == 'Decision Tree Regression'">
+	<label for="Max Depth" class="col-sm-12 control-label ">Max Depth</label>
+	<div class="col-sm-10 ">
+		<input type="text"  ng-model="editData.depth" id="MaxDepth"  name="depth"  value=5 class="form-control" ng-pattern="/^[1-9]\d*$/" ng-init="editData.depth = editData.depth == null ? '5' : editData.depth">
+		<span class="alert-danger" ng-show="modelForm.depth.$error.pattern">Please enter Integer only</span>
+	</div>
+	 <div class="clearfix">&nbsp;</div>
+	</div>
+	<div class="form-group col-sm-14" ng-if = "tranformType == 'Decision Tree Classification' || tranformType == 'Decision Tree Regression'">
+	<label for="Max Bins" class="col-sm-6 control-label ">Max Bins</label>
+	<div class="col-sm-10 ">
+ 	<input type="text"  ng-model="editData.bins" id="bins"  name="bins"  value=32 class="form-control" ng-pattern="/^[1-9]\d*$/" ng-init="editData.bins = editData.bins == null ? '32' : editData.bins">
+		<span class="alert-danger" ng-show="modelForm.bins.$error.pattern">Please enter Integer only</span>
+	</div>
+	 <div class="clearfix">&nbsp;</div>
+	</div>
+	<div class="form-group col-sm-14" ng-if = "tranformType == 'Decision Tree Classification' || tranformType == 'Decision Tree Regression'">
+	<label for="Step size" class="col-sm-12 control-label ">Impurity</label>
+	<div class="col-sm-10 ">
+ 	<select class="form-control" ng-model="editData.impurity" name="Impurity" ng-init="editData.impurity = editData.impurity == null ? 'gini' : editData.impurity">
+							<option  value="gini">gini</option>
+							<option  value="entropy">entropy</option>           
+	</select> 
+	
+	</div>
+	 <div class="clearfix">&nbsp;</div>
+	</div>
+	
+	<div class="form-group col-sm-14" ng-if = "tranformType == 'SVM Classification'">
+	<label for="Step size" class="col-sm-12 control-label ">Regularization Parameter</label>
+	<div class="col-sm-10 ">
+		<input type="text"  ng-model="editData.regParam" id="RegParam"  name="RegParam"  value=0.01 class="form-control" ng-pattern="/^(?:1(?:\.0)?|[0-1]?|0?\.[0-9]*)$/" ng-init="editData.regParam = editData.regParam == null ? '0.01' : editData.regParam">
+		<span class="alert-danger" ng-show="modelForm.RegParam.$error.pattern">Please enter Integer between 0-1</span>
+	</div></div>
+	<div class="form-group col-sm-14" ng-if = "tranformType == 'SVM Classification'">
+	<label for="Step size" class="col-sm-12 control-label ">Min Batch Fraction</label>
+	<div class="col-sm-10 ">
+		<input type="text"  ng-model="editData.minBatchFraction" id="MinBatchFraction"  name="MinBatchFraction"  value=1 class="form-control" ng-pattern="/^(?:1(?:\.0)?|[0-1]?|0?\.[0-9]*)$/" ng-init="editData.minBatchFraction = editData.minBatchFraction == null ? '1' : editData.minBatchFraction">
+		<span class="alert-danger" ng-show="modelForm.MinBatchFraction.$error.pattern">Please enter Integer between 0-1</span>
+	</div>
+	 <div class="clearfix">&nbsp;</div>
+	</div>
+	<div class="form-group col-sm-14" ng-if = "tranformType == 'Naive Bayes Classification'">
+	<label for="Number of trees" class="col-sm-12 control-label ">Lambda</label>
+	<div class="col-sm-10 ">
+		<input type="text"  ng-model="editData.lambda" id="lambda"  name="lambda"  value=12345   class="form-control" ng-pattern="/^[1-9]\d*$/" ng-init="editData.lambda = editData.lambda == null ? '1' : editData.lambda">
+		<span class="alert-danger" ng-show="modelForm.lambda.$error.pattern">Please enter Integer only</span>
+	</div>
+	 <div class="clearfix">&nbsp;</div>
+	</div>
+	<input type="text" ng-model="editData.sourceID" ng-show="false">
+</div>
+<textarea ng-model="editData.version" ng-show="false"></textarea>
+	<textarea ng-model="editData.id" ng-show="false"></textarea>
+
+ <div class="clearfix">&nbsp;</div></div></div>
+ 
+<div class="col-md-12"><input type="submit" value="Save" name="Save" class="btn btn-primary col-sm-4" ng-click = "(permissionLevel == 5 || permissionLevel == 7) && saveTransform(editData,'model')";></div>
+</div>
+
+</div>
+</form>
+<table class="table" style="background-color:#fff">
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].runStatus != undefined">
+		<td><b>Run Status</b></td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].runStatus != undefined">
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].runStatus}}</td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].startTime != undefined">
+		<td ><b>Start Time</b></td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].startTime != undefined">
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].startTime}}</td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].endTime != undefined">
+		<td ><b>End Time</b></td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].endTime != undefined">
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].endTime}}</td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].details != undefined">
+		<td ><b>Details</b></td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].details != undefined">
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].details}}</td>
+	</tr>
+</table>

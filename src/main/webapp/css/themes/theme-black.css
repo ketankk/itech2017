@@ -1,0 +1,202 @@
+.headerbar {
+  background-color: #212134;
+  position: relative;
+  min-height: 64px;
+}
+
+.headerbar-left {
+    position: absolute;
+    background-color: #1A1A2B;
+    width: 186px;
+}
+
+.modal-header {
+    background-color: #212134;
+    border-bottom: 1px solid #e5e5e5;
+    color: #fff;
+    min-height: 16.4286px;
+    padding: 15px;
+}
+
+.modal-footer {
+    background-color: #ebe8f6;
+    border-top: 1px solid #e5e5e5;
+    margin-top: 15px;
+    padding: 19px 20px 20px;
+    text-align: right;
+}
+
+.headertext {
+    color: #000;
+    background-color: #D3D3D3;
+    opacity: 1 !important;
+}
+
+.card-head {
+    height: 50px;
+    position: relative;
+    min-height: 13px;
+    margin-top: -3px;
+    vertical-align: middle;
+    border-radius: 2px 2px 0 0;
+    background-color: #4b4d61;
+}
+
+.filtercss {
+    margin-top: 7px;
+    font-size: 1.5em !important;
+    color: #fff;
+}
+
+.panelPosition {
+    position: absolute;
+    right: 0;
+    margin-top: -42px;
+    border-radius: 5px;
+    background-color: #cecdd7;
+    height: 100%;
+}
+.add-seperator {
+    max-width: 100%;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #A6A6B7;
+}
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #212134;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #CECDD7;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #212134;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #19507B;
+}
+
+.filtercss{
+	margin-top: 7px;
+	font-size: 1.5em !important;
+	color: #FCFCFC;
+}
+.ltable{
+	z-index: 400;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+.tabContent{
+	background-color: transparent;
+
+}
+.graphoverlay{
+		margin-top: 0px;
+		height: 600px;
+		max-height: 100%;
+		background-color:#F4F3F7;
+	}
+.detailoverlay{
+		margin-top: 15px;
+		max-height: 100%;
+		height: 100%;
+		background-color: #F4F3F7;
+		
+}
+.activeTab{
+		background-color: #D3d3d3  !important;
+		
+		}
+.tabCSS{
+		/*background-color: #7CB7E2;*/
+		color: #000 !important;
+		cursor:pointer;
+		opacity:1 !important
+		}
+
+.tablescroll{
+    max-height: 780px;
+    margin: 10px;
+    overflow: auto;
+    #background: #eee;
+    position:relative;
+    width: 99%;
+    
+}
+.bulktable {
+    
+    margin: 10px;
+    overflow: auto;
+    #background: #eee;
+    position:relative;
+    width: 99%;
+    
+}
+.tablebg{
+	background-color:#F0EFF5;
+}
+.sidebarbg{
+  background-color: #212134 !important;
+}
+.activesidebarnav {
+    background-color: #212134; 
+    border-left: #428bca 2px solid;
+}
+
+.nav-tabs > li > a:hover {
+    border-color: #e5e6e6 #e5e6e6 #dddddd;
+    background-color: #ECECEC !important; 
+}
+.selectTag{
+  background-color: #F0EFF5;
+  border-radius: 5px;
+  
+}
+.subMenuOpen {
+    width: 15em;
+    height: 92%;
+    margin-top: 60px;
+    border-radius: 5px;
+    background-color: #cecdd7;
+}
+
+.panel {
+    border: 0px solid transparent;
+    border-radius: 4px;
+    background-color: #cecdd7;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: #cecdd7;
+    border-color: #ddd;
+}
+section .style-default-bright, .offcanvas-pane .style-default-bright, 
+.card .style-default-bright, section.style-default-bright, 
+.offcanvas-pane.style-default-bright, .card.style-default-bright {
+    background-color: #fcfcfc;
+    border-color: #ffffff;
+    color: #313534;
+  }

@@ -1,0 +1,69 @@
+<div class="panel panel-default" > <div class="panel-heading"><b>{{tranformType}}</b></div><div class="panel-body"><div class="col-md-14 lessPadd" style="background-color:#fff"> 
+<div class="form-group"> 
+
+<form name="partForm">
+<div class="form-group col-sm-14">
+	<label for="Percentage" class="col-sm-12 control-label ">Data Percentage For First Partition</label>
+	<div class="col-sm-9 ">
+		<input type="text"  ng-model="editData.percentage"  id="Percentage" placeholder="Percentage" name="Percentage" ng-pattern="/^([0-9][0-9]{0,1}|100)$/" class="form-control" max =100>
+		
+		<span class="alert-danger" ng-show="partForm.Percentage.$error.pattern">Please enter number between 0 to 100</span>
+	</div>
+	
+	</div>
+	<div class="clearfix">&nbsp;</div>	
+	<div ng-switch="tranformType">
+	<div class="form-group col-sm-14" ng-switch-when="Subset">
+	<label for="Sampleing" class="col-sm-6 control-label ">Sampling</label>
+	<div class="col-sm-9 ">
+				<select class="form-control" name="Sampling" ng-model="editData.sampling" ng-init="editData.sampling='Random_Sampling'">
+				<option value="Random_Sampling">Random_Sampling</option>
+				<option value="Head">Head</option>
+				</select>
+	</div>
+	
+	</div>	
+	<div class="clearfix">&nbsp;</div>	
+	</div>		
+	<input type="text" ng-model="editData.columnlist" ng-show="false">
+	<textarea ng-model="editData.version" ng-show="false"></textarea>
+	<textarea ng-model="editData.version" ng-show="false"></textarea>
+	<textarea ng-model="editData.id" ng-show="false"></textarea>
+</div>
+
+
+ <div class="clearfix">&nbsp;</div></div></div>
+ 
+<div class="col-md-12"><input type="submit" value="Save" name="Save" class="btn btn-primary col-sm-4"  ng-disabled ="partForm.Percentage.$error.pattern" ng-click = "(permissionLevel == 5 || permissionLevel == 7) &&  saveTransform(editData,'partition')";></div>
+</div>
+
+</div>
+</form>
+
+ <div class="clearfix">&nbsp;</div>
+<table class="table" style="background-color:#fff">
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].runStatus != undefined">
+		<td width="100px;"><b>Run Status</b></td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].runStatus != undefined">
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].runStatus}}</td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].startTime != undefined">
+		<td width="100px;"><b>Start Time</b></td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].startTime != undefined">
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].startTime}}</td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].endTime != undefined">
+		<td width="100px;"><b>End Time</b></td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].endTime != undefined">
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].endTime}}</td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].details != undefined">
+		<td width="100px;"><b>Details</b></td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].details != undefined">
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].details}}</td>
+	</tr>
+</table>

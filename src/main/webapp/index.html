@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+<head>
+
+<meta charset="UTF-8" />
+<title>Taphius</title>
+
+<base href="/WebModule/">
+
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+
+<body ng-app="userApp" ng-controller="mainController">
+	<div class="container responsive">
+		<ng-include src="'includes/header.html'"></ng-include>
+
+		<ng-view></ng-view>
+	</div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-filestyle.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-resource.min.js"></script>
+<script src="js/angular-route.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.js"></script>
+<script src="js/mainLocal.js"></script>
+<script src="js/ui-bootstrap-0.11.2.js"></script>
+<script src="js/ui-bootstrap-tpls-0.11.2.js"></script>
+</html>

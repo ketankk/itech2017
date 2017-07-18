@@ -1,0 +1,249 @@
+<svg 
+  class="draggable-container"
+  xmlns="http://www.w3.org/2000/svg"
+  ng-mousedown="mouseDown($event)"
+  ng-mousemove="mouseMove($event)"  
+  >
+  <defs>
+  <marker id="myMarker"
+      viewBox="0 0 10 10" refX="0" refY="5" 
+      markerUnits="strokeWidth"
+      markerWidth="4" markerHeight="3"
+      orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" />
+    </marker>
+  </defs>
+  <defs>
+        <pattern id="tile-ww" x="0" y="0" patternunits="userSpaceOnUse" width="24" height="24">    
+            <image xlink:href="images/play2.png" width="24" height="24" x="0" y="0">
+        </pattern>
+        <pattern id="tile-us" x="0" y="0" patternunits="userSpaceOnUse" width="24" height="24">
+            <image xlink:href="images/play2.png" width="24" height="24" x="0" y="0">
+        </pattern>
+    </defs>
+  
+  <defs>
+    <linearGradient 
+      spreadMethod="pad" 
+      y2="0" 
+      x2="0" 
+      y1="1" 
+      x1="0" 
+      id="nodeBackgroundGradient"
+      >
+      <stop 
+        offset="0" 
+        stop-opacity="0.99609" 
+        stop-color="#cccccc"
+        />
+        <stop 
+        offset="0.63934" 
+        stop-opacity="0.99219" 
+        stop-color="#dddddd"
+        />
+    </linearGradient>
+  </defs>
+  
+  <g
+    ng-repeat="node in chart.nodes"
+    ng-mousedown="nodeMouseDown($event, node)"
+    ng-attr-transform="translate({{node.x()}}, {{node.y()}})"
+    >
+    <!-- style="fill: #A7BF80;"  -->
+    <rect id="myRectangle1" style="fill: #BFC966;"
+      ng-attr-class="{{node.selected() && 'selected-node-rect' || (node == mouseOverNode && 'mouseover-node-rect' || 'node-rect')}}"
+      ry="10" 
+      rx="-13" 
+      x="0" 
+      y="2" 
+      ng-attr-width="{{node.width()}}" 
+      ng-attr-height="{{node.height()}}" 
+      ng-show="node.nodeSchema() == 'stage'" title="{{node.name()}}" alt="{{node.name()}}">
+	<title>{{node.name()}}</title>
+    </rect>
+    <image xlink:href="images/Stage Icon.png" height="40" width="54" y="4" id="myImage1" ng-show="node.nodeSchema() == 'stage'" />
+     <rect  id="myRectangle" style="fill: #F5F9C6;"
+      ng-attr-class="{{node.selected() && 'selected-node-rect' || (node == mouseOverNode && 'mouseover-node-rect' || 'node-rect')}}"
+      ry="10" 
+      rx="-13" 
+      x="0" 
+      y="2" fill="url(#tile-ww)"
+      ng-attr-width="{{node.width()}}" 
+      ng-attr-height="{{node.height()}}" 
+      ng-show="node.nodeSchema() == 'dataSet'">
+	 <title>{{node.name()}}</title>
+    </rect>
+    <image xlink:href="images/Input Database Icon.png" height="37" width="40" y="4" id="myImage" ng-show="node.nodeSchema() == 'dataSet'" />
+   <!--   <ellipse style="fill: #D9EDBB;" ng-attr-class="{{node.selected() && 'selected-node-circle' || (node == mouseOverNode && 'mouseover-node-circle' || 'node-circle')}}"  ry="25" rx="76" cy="22" cx="75" fill="white" ng-show="node.nodeSchema() == 'dataSet'"/>-->
+
+    <text 
+      ng-attr-x="{{node.width()/2 + 5}}"
+      y="25"
+      text-anchor="middle"
+      alignment-baseline="middle"
+      style="font-weight: bold;" >
+      {{node.name()}}
+    </text>
+
+
+    <g
+      ng-repeat="connector in node.inputConnectors"
+      ng-mousedown="connectorMouseDown($event, node, connector, $index, true)"
+      class="connector input-connector"
+     >
+      <text
+        ng-attr-x="{{connector.x() + 20}}"
+        ng-attr-y="{{connector.y()}}"
+        text-anchor="left"
+        alignment-baseline="middle"
+        ng-show="node.nodeSchema() == 'stage'" >
+       
+      </text>
+      <text
+        ng-attr-x="{{connector.x() + 10}}"
+        ng-attr-y="{{connector.y() + 4}}"
+        text-anchor="left"
+        alignment-baseline="middle"
+        ng-show="node.nodeSchema() == 'dataSet'" >
+       
+      </text>
+      
+      <circle       
+        ng-attr-class="{{connector == mouseOverConnector && 'mouseover-connector-circle' || 'connector-circle'}}"
+        ng-attr-r="{{connectorSize}}" 
+        ng-attr-cx="{{connector.x()}}"
+        ng-attr-cy="{{connector.y()}}"
+         style="fill: #a2a2a2;"/>
+    </g>
+
+    <g
+      ng-repeat="connector in node.outputConnectors"
+      ng-mousedown="connectorMouseDown($event, node, connector, $index, false)"
+      class="connector output-connector"
+      >
+      <text
+        ng-attr-x="{{connector.x() - 20}}"
+        ng-attr-y="{{connector.y()}}"
+        text-anchor="end"
+        alignment-baseline="middle"
+       ng-show="node.nodeSchema() == 'stage'" >
+       
+      </text>
+		<text
+        ng-attr-x="{{connector.x() - 10}}"
+        ng-attr-y="{{connector.y() + 5}}"
+        text-anchor="end"
+        alignment-baseline="middle"
+        ng-show="node.nodeSchema() == 'dataSet'">
+      
+      </text>
+      <circle             
+        ng-attr-class="{{connector == mouseOverConnector && 'mouseover-connector-circle' || 'connector-circle'}}"
+        ng-attr-r="{{connectorSize}}" 
+        ng-attr-cx="{{connector.x()}}"
+        ng-attr-cy="{{connector.y()}}"
+       style="fill: #a2a2a2;" />
+    </g>
+  </g>
+
+  <g>
+    <g
+      ng-repeat="connection in chart.connections"
+      class="connection"
+      ng-mousedown="connectionMouseDown($event, connection)"
+      >
+        <path
+          ng-attr-class="{{connection.selected() && 'selected-connection-line' || (connection == mouseOverConnection && 'mouseover-connection-line' || 'connection-line')}}"
+          ng-attr-d="M {{connection.sourceCoordX()}}, {{connection.sourceCoordY()}}
+                     C {{connection.sourceTangentX()}}, {{connection.sourceTangentY()}}
+                       {{connection.destTangentX()}}, {{connection.destTangentY()}}
+                       {{connection.destCoordX()}}, {{connection.destCoordY()}}"
+          marker-end="url(#myMarker)" style="stroke: #cccccc;">
+        </path>
+       <!--   <circle
+            ng-attr-class="{{connection.selected() && 'selected-connection-endpoint' || (connection == mouseOverConnection && 'mouseover-connection-endpoint' || 'connection-endpoint')}}"
+            r="5" 
+            ng-attr-cx="{{connection.sourceCoordX()}}" 
+            ng-attr-cy="{{connection.sourceCoordY()}}" 
+           style="fill: #a2a2a2;" >
+        </circle>
+
+        <circle
+            ng-attr-class="{{connection.selected() && 'selected-connection-endpoint' || (connection == mouseOverConnection && 'mouseover-connection-endpoint' || 'connection-endpoint')}}"
+            r="5" 
+            ng-attr-cx="{{connection.destCoordX()}}" 
+            ng-attr-cy="{{connection.destCoordY()}}" 
+           style="fill: #a2a2a2;" >
+        </circle>-->
+    </g>
+  </g>
+
+  <g
+    ng-if="draggingConnection"
+    >
+    <path
+      class="dragging-connection dragging-connection-line"
+      ng-attr-d="M {{dragPoint1.x}}, {{dragPoint1.y}}
+                 C {{dragTangent1.x}}, {{dragTangent1.y}}
+                   {{dragTangent2.x}}, {{dragTangent2.y}}
+                   {{dragPoint2.x}}, {{dragPoint2.y}}"
+      >
+    </path>
+
+   <!--   <circle
+        class="dragging-connection dragging-connection-endpoint"
+        r="4" 
+        ng-attr-cx="{{dragPoint1.x}}" 
+        ng-attr-cy="{{dragPoint1.y}}" 
+        >
+    </circle>
+
+    <circle
+        class="dragging-connection dragging-connection-endpoint"
+        r="4" 
+        ng-attr-cx="{{dragPoint2.x}}" 
+        ng-attr-cy="{{dragPoint2.y}}" 
+        >
+    </circle>-->
+  </g>
+
+  <rect
+      ng-if="dragSelecting"
+      class="drag-selection-rect"
+      ng-attr-x="{{dragSelectionRect.x}}"
+      ng-attr-y="{{dragSelectionRect.y}}"
+      ng-attr-width="{{dragSelectionRect.width}}"
+      ng-attr-height="{{dragSelectionRect.height}}"
+    >
+  </rect>
+  
+
+   <script>
+   $(document).ready(function() {
+       var numCircles = $("rect").length;
+       console.log("numCircles = " + numCircles);
+
+       $("rect").popover({trigger:'hover', placement:'bottom', title:'Title!', content:'Content'});
+
+    //  $("rect").css({"stroke":"blue"});
+
+       $("svg").popover({trigger:'hover', placement:'bottom', title:'Title!', content:'Content'});
+   } );
+var rectNode = document.getElementById("myRectangle");
+var rectNode1 = document.getElementById("myRectangle1");
+var imgNode = document.getElementById("myImage");
+var imgNode1 = document.getElementById("myImage1");
+var xlinkns = "http://www.w3.org/1999/xlink";
+ 
+// Will turn the rectangle green
+rectNode.setAttributeNS(null, "fill", "green");
+rectNode1.setAttributeNS(null, "fill", "green")
+// Will switch to a different image. Requires namespace to be set.
+imgNode.setAttributeNS(xlinkns, "xlink:href", "images/Input Database Icon.png");
+imgNode1.setAttributeNS(xlinkns, "xlink:href", "images/Stage Icon.png");
+//
+// Global accessor.
+//
+// Module.
+</script>
+</svg>

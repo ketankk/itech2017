@@ -1,0 +1,11 @@
+<center>
+		<div class="wizard">
+			<a ng-repeat="obj in progressArray track by $index" ng-class="{ current: '{{pageLocation}}' == '{{obj.tab}}'}" class="disabled progressPadding"><span class="badge">{{$index+1}}</span>
+			<i class="fa fa-check green" ng-show = "'{{obj.tab}}' == '{{progressArray[$index].tab}}' && '{{pageLocation}}' == '{{progressArray[$index + 1].tab}}' || 
+			  '{{obj.tab}}' == '{{progressArray[$index].tab}}' && '{{pageLocation}}' == '{{progressArray[$index + 2].tab}}'">
+			  </i>&nbsp;
+			<b>{{obj.title}}</b>
+			  </a>
+			<!-- <a ng-repeat="obj in progressArray track by $index" ><span class="badge">{{$index+1}}</span><b>{{progressArray[$index]}}</b></a> -->
+		</div>
+</center>

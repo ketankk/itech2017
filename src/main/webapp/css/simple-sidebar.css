@@ -1,0 +1,341 @@
+/*!
+ * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Toggle Styles */
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: absolute;
+    left: 250px;
+    width: 0; /* disini agar ketika di kecilkan tidak hilang semua default 0*/
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+	 overflow-x: hidden;
+    background: #212134; 
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 0px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+.fixed-brand{
+    width: auto;
+}
+.s_table thead{display:block;position:absolute;background-color:#FFF;opacity:1 !important;color:#00;}
+.s_table tbody{display:block;height:700px;overflow:auto;}
+.s_table >thead>tr>th{width:15.86% !important;}
+.s_table >tbody>tr>td{width:15.75% !important;}
+.glyphicon{position:initial !important;}
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: relative;
+    top: 0;
+    width: 192px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    margin-top: 0px;
+    margin-left:7px;
+}
+
+.sidebar-nav li {
+    text-indent: 5px;
+    line-height: 47px;
+}
+
+.liellipsis{
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+}
+.sidebar-nav li a {
+	  cursor:pointer;
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+.subMenuTogg{
+	float:right;
+	margin-right:10px;
+	
+}
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+   /*  border-left: #428bca 2px solid; */
+}
+.activesidebarnav{
+/*background-color: #A7D1F5;*/
+border-left: #428bca 2px solid;
+
+}
+.activesidebarnavSub{
+border-left: red 2px solid;
+}
+.activesidebarnavSubsub{
+border-left: #7ed13f 2px solid;
+}
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+   # color: #fff;
+    background: none;
+}
+.no-margin{
+    margin:0;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+    .fixed-brand{
+    width: 250px;
+}
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 192px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 250px;
+    }
+    #wrapper.toggled-2 #sidebar-wrapper {
+        width: 50px;
+    }
+    /*#wrapper.toggled-2 #sidebar-wrapper:hover {
+        width: 250px;
+    }*/
+
+
+    #page-content-wrapper {
+        padding: 0px;
+        position: relative;
+         -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+        padding-left: 250px;
+
+    }
+        #wrapper.toggled-2 #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+        margin-left: -200px;
+         -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+    }
+}
+
+
+
+
+
+/* ************** */
+
+@import url("//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css");
+.menu, .menu-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background: #f7f7f7;
+    z-index:10;  
+    overflow:hidden;
+    box-shadow: 2px 0 18px rgba(0, 0, 0, 0.26);
+}
+.menu li a{
+  display: inline-block;
+  text-indent: -500em;
+  height: 5em;
+  width: 20em;
+  line-height: 5em;
+  text-align:center;
+  color: #72739f;
+  position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background 0.1s ease-in-out;
+}
+.menu li a:before {
+  font-family: FontAwesome;
+  speak: none;
+  text-indent: 0em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 1.4em;
+}
+.menu li a.search:before {
+  content: "\f002";
+}
+.menu li a.archive:before {
+  content: "\f187";
+}
+.menu li a.pencil:before {
+  content: "\f040";
+}
+.menu li a.contact:before {
+  content: "\f003";
+}
+.menu li a.about:before {
+  content: "\f007";
+}
+.menu li a.home:before {
+  content: "\f039";
+}
+.menu-bar li a:hover,
+.menu li a:hover,
+.menu li:first-child a {
+  /* background: #267fdd; */
+  #color: #fff;
+}
+.menu-bar{
+
+    overflow-x:hidden;
+    overflow-y:auto;
+    left:40px;
+    z-index:5;
+    width:0;
+    height:0;
+    transition: all 0.1s ease-in-out;
+}
+.menu-bar li a{
+text-align: left !important;
+  display: block;
+  height: 4em;
+  line-height: 4em;
+  text-align:center;
+  color: #000;
+  text-decoration:none;  
+  position: relative;
+  font-family:verdana;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background 0.1s ease-in-out;
+}
+.menu-bar li:first-child a{
+  text-align:left;
+    height:5em;
+    #background: #267fdd;
+  #  color: #fff;    
+    line-height:5
+}
+
+
+.para{
+    color:#033f72;
+    padding-left:100px;
+    font-size:3em;
+    margin-bottom:20px;
+}
+
+.subMenuOpen {
+  width: 15em;
+  height: 92%;
+  margin-top: 60px;
+  border-radius: 5px;
+  background-color: #cecdd7;
+  #color: #fff;
+}
+
+.subMenuClose{
+	width:0px;
+	height:0px;
+}
+@media all and (max-width: 500px) {
+    .container{
+        margin-top:100px;
+    }
+    .menu{
+        height:5em;
+        width:100%;
+    }
+    .menu li{
+        display:inline-block;
+        float:left;
+    }
+    .menu-bar li a{
+        width:100%;
+    }
+    .menu-bar{
+        width:100%;
+        left:0;
+        height:0;
+    }
+    .open{
+        width:100%;
+        height:auto;
+    }
+    .para{
+    padding-left:5px;
+}  
+}
+@media screen and (max-height: 34em){
+  .menu li,
+  .menu-bar {
+    font-size:70%;
+  }
+}
+@media screen and (max-height: 34em) and (max-width: 500px){
+  .menu{
+        height:3.5em;
+    }
+}

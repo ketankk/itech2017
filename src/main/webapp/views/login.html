@@ -1,0 +1,135 @@
+<center><div style="padding-top:200px;" id="loginLoader"><img src="images/loader.gif"></div></center>
+<section ng-controller="userController" id="loginPageContent" style="display:none">
+	<div class="container" ng-show="loginForm" id="loginform">
+	<div class="row loginpadding">
+	<div class="col-md-6 col-sm-6 zeroPadd" style="background-image:url('images/bg1.png');background-size:100% 100%; height:586px;text-align:center;">
+	 <img src="images/ZEAS.png" alt="" class="paddingLogo" />
+<p class="titleline">Big Data Enriched Transformed Analyzed</p>
+<p class="subtitleline">Z Enterprise Analytics System</p>
+  <img src="images/ITC.png" alt="ITC Infotech Logo" />
+  
+</figure>
+
+	</div>
+		<div id="loginbox" class="mainbox col-md-6 col-sm-6 zeroPadd" style="background-color:#fff;height:586px;">
+			<div class="panel">
+				<div class="panel-heading">
+					<div class="panel-title"><h2>Sign In</h2></div>
+
+				</div>
+				<div ng-show="wrgPass" id="login-alert" class="alert alert-danger">
+					<p>Userid or Password incorrect</p>
+				</div>
+				<div ng-show="conMail" id="login-alert" class="alert alert-success">
+					<p>your new password is 'login@123'.Please reset your passwod</p>
+				</div>
+				<div ng-show="resPass" id="login-alert" class="alert alert-success">
+					<p>New Password has been reset</p>
+				</div>
+				<div class="panel-body">
+
+
+
+					<form id="loginform2" class="form-horizontal" role="form"
+						ng-submit="submitUserDetails()" >
+
+						<div  class="input-group login-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span> <input id="login-username"
+								type="text" class="form-control" name="username" value=""
+								placeholder="username or email" ng-model="username" autofocus required />
+						</div>
+						<div class="input-group">&nbsp;</div>
+						<div class="input-group login-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-lock"></i></span> <input id="login-password"
+								type="password" class="form-control" name="password"
+								placeholder="password" ng-model="password" required />
+						</div>
+
+
+
+						<div class="input-group" style="margin-left:16px;">
+							<div class="checkbox">
+								<span><input
+									id="login-remember" type="checkbox" name="remember" value="1">
+									Remember me</span>
+							</div>
+							<div></div>
+							<div class="input-group">&nbsp;</div>
+							<!-- <div>
+								<span><a href="#"
+									data-toggle="modal" data-target="#loginModal"
+									ng-click="forgetPass();">Forgot password?</a></span> <span
+									><a href="#" class="link"
+									data-target="#password_modal">Reset</a></span>
+							</div> -->
+							<div class="input-group">&nbsp;</div>
+						</div>
+
+
+						<div class="form-group">
+							<!-- Button -->
+
+							<div class="col-sm-7 col-sm-7 controls">
+								<input type="submit" id="btn-login"
+									class="btn btn-lg btn-block" name="login"
+									value="Login" ng-click="showOtherTab = true">
+
+
+							</div>
+						</div>
+
+
+
+					</form>
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+		<div class="modal fade" id="forgetModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Enter your User Name</h4>
+					</div>
+					<form ng-submit="loadLoginConfirm(forgetUser)">
+					<div class="modal-body">
+					
+					<div class="form-group col-sm-12">
+								<label class="col-sm-3 control-label " for="genomeName">Username<sup><span
+										aria-hidden="true" class="glyphicon glyphicon-asterisk red"></span></sup></label>
+								<div class="col-sm-9 ">
+									<input type="text" class="form-control input-lg" name="Email" ng-model="forgetUser"
+								value="" placeholder="username" required />
+								</div>
+						<!-- <div class="form-group">
+							<input type="email" class="form-control input-lg" placeholder="Email" ng-model="userEmail" required/>
+							<input type="text" class="form-control input-lg" name="Email" ng-model="forgetUser"
+								value="" placeholder="username" required />
+						</div> -->
+
+					
+					
+					</div></div>
+					&nbsp;<div class="modal-footer">
+						<div class="col-md-8">
+							<input type="submit" id="btn-login"
+								class="btn btn-primary" name="reset"
+								value="Let reset my password">
+						</div>
+					</div></form>
+				</div>
+			</div>
+		</div>
+	
+</section>
+<script  src="js/menuload.js"></script>

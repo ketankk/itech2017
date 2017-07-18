@@ -1,0 +1,140 @@
+<div class="panel panel-default" > <div class="panel-heading"><b>{{tranformType}}</b></div><div class="panel-body"><div class="col-md-6 lessPadd"> 
+<select  id="columnSelect" class="form-control nopadd" ng-model="editData.columnNameByID"  multiple="multiple" style="background-color:#fff">
+									<option ng-repeat="v in columnNameByID" value="{{v}}">{{v.name}}</option>
+									</select> 
+  <!-- <select id="columnSelect"
+	
+	ng-options="columnNameByID[K].name as t for (k,t) in columnNameByID track by columnNameByID[k].name" 
+	ng-required="required" multiple="multiple" ng-model="editData.columnNameByID" class="form-control nopadd">
+</select> -->
+  <a href="#" id="add">add &gt;&gt;</a>  
+ </div>  
+ <div class="col-md-6 lessPadd">  
+ <!--  <select ng-options="columnNameByID2[K].name as t for (k,t) in columnNameByID2 track by columnNameByID2[k].name" 
+  multiple="multiple" id="select2" ng-model="editData.columnNameByID2" class="form-control nopadd"></select>   -->
+  <select  id="select2"
+									class="form-control nopadd" ng-model="editData.columnNameByID2"  multiple="multiple" style="background-color:#fff">
+									<option ng-repeat="v in columnNameByID2" value="{{v}}">{{v.name}}</option>
+									</select> 
+  <a href="#" id="remove">&lt;&lt; remove</a> 
+ </div>  
+ <div class="clearfix" ng-show="cleanModeSelect">&nbsp;</div>
+	<textarea ng-model="editData.filterColumn" ng-show="false"></textarea>
+	<textarea ng-model="editData.version" ng-show="false"></textarea>
+	<textarea ng-model="editData.id" ng-show="false"></textarea>
+
+<div class="col-md-12">
+
+ <select  ng-show="cleanModeSelect" ng-options="cleanMode[k] as t for (k,t) in cleanMode"
+	  ng-model="editData.cleanModeSelected" class="form-control" style="background-color:#fff">
+</select></div>
+<div class="clearfix" ng-show="cleanModeSelect == true && editData.cleanModeSelected == 'Custom Value'">&nbsp;</div>
+<div class="col-md-12">
+<input type="text" ng-model="editData.customValue" ng-show="cleanModeSelect == true && editData.cleanModeSelected == 'Custom Value'" class="form-control" placeholder = "Replace Value" style="background-color:#fff"></div>
+<div class="clearfix">&nbsp;</div>
+<div class="col-md-12"><input type="submit" value="Save" name="Save" class="btn btn-primary col-sm-4" ng-click = saveTransform(editData);></div>
+</div>
+
+</div>
+<table class="table" style="background-color:#fff">
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].runStatus != undefined">
+		<td width="100px;"><b>Run Status</b></td>
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].runStatus}}</td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].startTime != undefined">
+		<td width="100px;"><b>Start Time</b></td>
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].startTime}}</td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].endTime != undefined">
+		<td width="100px;"><b>End Time</b></td>
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].endTime}}</td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].details != undefined">
+		<td width="100px;"><b>Details</b></td>
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].details}}</td>
+	</tr>
+</table>
+<script>
+var str = "";
+$().ready(function() {  
+	$('#add').click(function() {  
+		//str = "";
+	   
+	    $('#columnSelect option:selected').appendTo('#select2');
+	    $('#columnSelect option:selected').remove();
+	    var a = [];
+	    $( "#select2 option" ).each(function() {
+	    	
+	    	//if(str.indexOf($( this ).text()) === -1){
+	    		 a.push(eval('(' + $( this ).val().trim() + ')'));
+	    		 // str += $( this ).text() +", ";
+	    		  //$('#columnSelect').find("option:contains("+$( this ).text()+")").remove();
+	    		//  $('#columnSelect').find("option:contains("+$( this ).text()+")").remove();
+	    	//}
+	    	/* else{
+	    		 $('#select2 option').remove($( this ).text());
+	    		 var val = $( this ).text();
+	    		 $(val).appendTo('#select2');
+	    	} */
+		    //<span aria-hidden="true" class="glyphicon glyphicon-remove"></span>;//
+		    });
+	    	str = a.join(', ');
+		    //$( "#displaySelected" ).text( str );
+			var scope = angular.element(document.getElementById("pipeGraph")).scope();
+		    scope.$apply(function () {
+		    scope.changeColumn(a);
+		    });
+	    return false;  
+	   });  
+	$('#remove').click(function() {  
+	 $('#select2 option:selected').appendTo('#columnSelect');  
+	 $("#select2 option:selected").remove();
+	 var a = [];
+	 $( "#select2 option" ).each(function() {
+		 //$("#select2 option[value='"+$( this ).val()+"']").remove();
+	    	//if(str.indexOf($( this ).text()) === -1){
+	    		 a.push(eval('(' + $( this ).val().trim() + ')'));
+	    		 // str += $( this ).text() +", ";
+	    		  //$('#columnSelect').find("option:contains("+$( this ).text()+")").remove();
+	    		//  $('#columnSelect').find("option:contains("+$( this ).text()+")").remove();
+	    	//}
+	    	/* else{
+	    		 $('#select2 option').remove($( this ).text());
+	    		 var val = $( this ).text();
+	    		 $(val).appendTo('#select2');
+	    	} */
+		    //<span aria-hidden="true" class="glyphicon glyphicon-remove"></span>;//
+		    });
+	    	str = a.join(', ');
+		    //$( "#displaySelected" ).text( str );
+			var scope = angular.element(document.getElementById("pipeGraph")).scope();
+		    scope.$apply(function () {
+		    scope.changeColumn(a);
+		    });
+	    return false;  
+	   });  ;  
+}); 
+/* $(window).unload(function () {
+	alert('hiiiiiiiii');
+    if (isChange) {
+        alert('Handler for .unload() called.');
+    }
+}); */
+/* $( "#select2" )
+  .change(function () {
+     var str = "";
+    $( "#select2 option:selected" ).each(function() {
+      str += $( this ).text() +", ";//<span aria-hidden="true" class="glyphicon glyphicon-remove"></span>;//
+    });
+    //$( "#displaySelected" ).text( str );
+	var scope = angular.element(document.getElementById("pipeGraph")).scope();
+    scope.$apply(function () {
+    scope.changeColumn(str);
+    });
+  //  $scope.changeColumn();
+  })  */
+//  .change();
+</script>
+  
+</body>
+</html>

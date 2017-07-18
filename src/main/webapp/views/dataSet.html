@@ -1,0 +1,292 @@
+<div class="page-content blocky" my-directive ng-controller="dataSet">
+         <div class="container">
+
+
+            <div class="mainy">
+              
+                  <div class="row">
+                     <div class="col-md-12"> <div class="awidget full-width">
+                                          <div class="page-content blocky" ng-hide="isLoginPage()" ng-controller="SortableCTRL">
+	<div class="container">
+		 <div class="mainy">
+		  <div class="row">
+		  <div class="col-md-12">
+			   <div class="awidget-head" >
+		         <div class="col-md-9">
+		        
+						<ul class="nav nav-wizard" id='sortable'>
+						<li ng-repeat="obj in dataTab"  	ng-class="{ active: $route.current.activetab == '{{obj.Tab}}'}"><a ng-href="/{{obj.pageUrl}}" ng-click="event" >{{obj.sourceName}}</a></li>                    
+						</ul>
+					 </div>
+					 <div>
+		<form>
+			<div class="col-lg-2 ">
+				<button type="submit" class="btn btn-primary pull-right col-lg-12"
+					ng-click="addUpdateDataSet()" ng-show="addNewBtn">Add Dataset</button>
+			</div></form></div>
+										  
+			       <!--   <div class="col-md-3">
+			             <div class="input-group form">
+			                    <input type="text" placeholder="Something..." class="form-control">
+			                    <span class="input-group-btn">
+			                    <button type="button" class="btn btn-info">Search</button>
+			                    </span>
+			              </div>
+			         </div>-->
+		  		</div>
+   			</div>
+          </div>
+     </div>
+</div>
+                     <div>
+			<!-- 	<div class="col-lg-3 col-md-4 col-sm-4  pull-right">
+				<div class="input-group">
+					<input type="text" class="form-control"> <span
+						class="input-group-btn">
+						<button class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</span>
+
+				</div>
+
+			</div>
+ -->
+		
+
+		<div class="row">&nbsp;</div>
+		<div ng-show="totalSourcer > 0">
+			<table class="table table-hover table-bordered table-striped" ng-show="viewing" >
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Operations </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="obj in detaildataSet track by $index"
+						ng-hide="obj.isRowHidden">
+						<td><span class="btn-link" data-toggle="modal"
+							data-target="#detailModal" ng-click="fetchDetails(obj.id)">{{obj.name}}</span></td>
+						<td>{{obj.description}}</td>
+						<td><a class="fa fa-pencil-square-o color"
+							ng-click="addUpdateDataSet(obj.id)" title="Edit"></a>&nbsp;
+							<a class="fa fa-trash color" title="Delete"
+							ng-click="showconfirm(obj.id,obj, obj.name)"></a></td>
+					</tr>
+
+					<!-- Modal -->
+					<div class="modal fade" id="detailModal" tabindex="-1"
+						role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">
+										<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+									</button>
+									<h4 class="modal-title" id="myModalDetailsLabel">Dataset Details: {{jData.name}}</h4>
+
+								</div>
+								<div class="modal-body">
+									<div class="row-fluid clearfix">
+
+										<div class="col-md-4">Name</div>
+										<div class="col-md-8">{{data.name}}</div>
+									</div>
+									<div class="row-fluid clearfix">
+
+										<div class="col-md-4">Description</div>
+										<div class="col-md-8">{{jData.description}}</div>
+									</div>
+									<div class="row-fluid clearfix">
+
+										<div class="col-md-4">Schema</div>
+										<div class="col-md-8">{{jData.Schema}}</div>
+									</div>
+									<div class="row-fluid clearfix">
+
+										<div class="col-md-4">Location</div>
+										<div class="col-md-8">{{jData.location}}</div>
+									</div>
+									<div class="row-fluid clearfix">
+
+										<div class="col-md-4">BatchStructure</div>
+										<div class="col-md-8">{{jData.batchStructure}}</div>
+									</div>
+									<div class="row-fluid clearfix">
+
+										<div class="col-md-4">Created on</div>
+										<div class="col-md-8">{{data.createdDate}}</div>
+									</div>
+									<div class="row-fluid clearfix">
+
+										<div class="col-md-4">Updated By</div>
+										<div class="col-md-8">{{data.updatedBy}}</div>
+									</div>
+																		<div class="row-fluid clearfix">
+
+										<div class="col-md-4">Last Updated</div>
+										<div class="col-md-8">{{data.updatedDate}}</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">Close</button>
+						
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="modal fade" id="deleteConfirmModal" tabindex="-1"
+						role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title" id="deleteLabel">
+										Delete Dataset: <span>{{getDataSetName}}</span>
+									</h4>
+								</div>
+								<div class="modal-body">
+									<p>Do you want to delete?</p>
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger" id="deleteConfirm"
+										data-ng-click="delete1()">Yes</button>
+									<button type="button" class="btn btn-success"
+										data-dismiss="modal">No</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</tbody>
+
+			</table>
+			</div>
+		</div>
+		<div class="col-md-12" ng-show="totalSourcer == 0">
+			<div class="col-md-12">
+				<h4 class="text-center">No DataSet found</h4>
+			</div>
+		</div>
+
+
+
+
+
+
+<div class="row clearfix">&nbsp;</div>
+	<div class="row">&nbsp;</div>
+	<form class="form-horizontal" role="form" name="form" ng-show="editing"
+		ng-submit="saveAddUpdateDataSet(editData)">
+		<div class="row-fluid clearfix">
+		<div class="row-fluid">&nbsp;</div>
+			<div class="col-sm-6">
+				<div class="form-group col-sm-12">
+					<label for="genomeName" class="col-sm-3 control-label">Name<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk alert-danger"></span></sup></label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" ng-model="editData.name"
+							id="genomeName" placeholder="Name"
+							pattern="^[a-zA-Z][a-zA-Z0-9- _\.]{1,50}$" required="required">
+					</div>
+				</div>
+
+				<div class="form-group col-sm-12">
+					<label for="Schema" class="col-sm-3 control-label">Schema</label>
+					<div class="col-sm-9" ng-controller="getTypeList">
+						<select class="form-control" id="Schema"
+							ng-model="editData.Schema"
+							ng-options="schemalist for schemalist in data"
+							ng-required="required">
+						</select>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group col-sm-12">
+					<label for="Description" class="col-sm-4 control-label">Description</label>
+					<div class="col-sm-8">
+						<textarea type="text" class="form-control" id="Description"
+							ng-model="editData.description" placeholder="Description"
+							></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix row-fluid ">
+			<div class="col-sm-6">
+				<div class="form-group col-sm-12">
+					<label for="Location" class="col-sm-3 control-label">Location<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk alert-danger"></span></sup></label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control"
+							ng-model="editData.location" id="Location" placeholder="Location"
+							required="required">
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group col-sm-12">
+
+					<label for="Location" class="col-sm-4 control-label">Batch
+						Structure<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk alert-danger"></span></sup></label>
+					<div class="col-sm-8">
+						<input type="text" placeholder="YYYY-MM-DD" class="form-control"
+							ng-model="editData.batchStructure" ng-required="true">
+					</div>
+
+				</div>
+			</div>
+			<!-- <div ng-controller="DatepickerDemoCtrl" class="form-group col-sm-6">
+					<label for="Location" class="col-sm-2 control-label">Batch
+						Structure</label>
+
+					<div class="col-sm-10">
+						<p class="input-group">
+							<input ng-disabled="true" type="text"
+								placeholder="Batch Structure" class="form-control"
+								datepicker-popup="{{format}}" ng-model="editData.BatchStructure"
+								is-open="opened" min-date="minDate" max-date="'2015-06-22'"
+								datepicker-options="dateOptions"
+								date-disabled="disabled(date, mode)" ng-required="true"
+								close-text="Close" /> <span class="input-group-btn"
+								required="required">
+								<button type="button" class="btn btn-default"
+									ng-click="open($event)">
+									<i class="glyphicon glyphicon-calendar"></i>
+								</button>
+							</span>
+						</p>
+					</div>
+
+				</div> -->
+
+		</div>
+
+
+
+
+
+		<div class="clearfix">&nbsp;</div>
+		<div class="row-fluid clearfix">
+			<div class="form-group col-sm-9 pull-right">
+				<div class="col-sm-2 pull-right">
+					<button type="button" class="btn btn-default col-sm-12"
+						ng-click="cancelADD()">Cancel</button>
+				</div>
+				<div class="col-sm-2 pull-right">
+					<button type="submit" class="btn btn-primary col-sm-12">Save</button>
+				</div>
+			</div>
+		</div>
+
+	</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

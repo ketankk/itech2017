@@ -1,0 +1,49 @@
+													<div class="panel panel-default" > <div class="panel-heading"><b>{{editData.name}}</b></div>
+																		<div class="panel-body"><div class="col-md-12 lessPadd"> 
+																		 <table class="table" style="background-color:#fff">
+																		<tr>
+																			<td><b>Name</b></td>
+																		</tr>
+																		<tr>
+																			<td>{{editData.name}}</td>
+																		</tr>
+																		<tr>
+																			<td><b>Description</b></td>
+																		</tr>
+																		<tr>
+																			<td>{{editData.description}}</td>
+																		</tr>
+																		<tr>
+																			<td><b>Created on</b></td>
+																		</tr>
+																		<tr>
+																			<td>{{editData.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+																		</tr>
+																		<tr>
+																			<td><b>Created By</b></td>
+																		</tr>
+																		<tr>
+																			<td>{{editData.updatedBy}}</td>
+																		</tr>
+																		<tr ng-show = "jsonData[editData.id].runStatus != undefined">
+																			<td width="100px;"><b>Run Status</b></td>
+																		</tr>
+																		<tr ng-show = "jsonData[editData.id].runStatus != undefined">
+																			<td>{{jsonData[editData.id].runStatus}}</td>
+																		</tr>
+																		<tr ng-show = "jsonData[editData.id].startTime != undefined">
+																			<td width="100px;"><b>Start Time</b></td>
+																		</tr>
+																		<tr ng-show = "jsonData[editData.id].startTime != undefined">
+																			<td>{{jsonData[editData.id].startTime}}</td>
+																		</tr>
+																		<tr ng-show = "jsonData[editData.id].endTime != undefined">
+																			<td width="100px;"><b>End Time</b></td>
+																		</tr>
+																		<tr ng-show = "jsonData[editData.id].endTime != undefined">
+																			<td>{{jsonData[editData.id].endTime}}</td>
+																		</tr>
+																	</table>
+																		
+															</div>
+														</div></div>

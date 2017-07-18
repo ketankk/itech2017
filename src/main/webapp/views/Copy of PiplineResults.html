@@ -1,0 +1,134 @@
+<div class="page-content blocky " ng-controller="PiplineResults">
+	<div class="container">
+		<div class="row-fluid">
+			<div class="clearfix">&nbsp;</div>
+			<table class="table table-bordered"
+				ng-controller="userApp.runMachineLearning">
+				<thead>
+					<tr>
+
+						<th class="col-md-3">Dataset</th>
+
+						<th class="col-md-3">Data Type</th>
+						<th class="col-md-3">Algorithm</th>
+						<th class="col-md-3">Action</th>
+					</tr>
+				</thead>
+				<form>
+					<tbody ng-controller="userApp.getPipelines">
+						<tr>
+							<td><select ng-model="objrun.training" class="form-control"
+								ng-options="dataSet.dataSet for dataSet in data"></select></td>
+
+							<td><div class="radio">
+									<label> <input type="radio" id="optionsRadios1"
+										value="Training Data" name="training" ng-checked="true"
+										ng-model="objrun.training.dataType" checked> Training
+										Data
+									</label>
+								</div>
+								<div class="radio">
+									<label> <input type="radio" id="optionsRadios2"
+										value="Test Data" name="testing"
+										ng-model="objrun.testing.dataType"> Test Data
+									</label>
+								</div></td>
+							<td rowspan="2"><select class="form-control"
+								ng-model="objrun.algorithm">
+									<option selected="selected">Random Forest</option>
+									<option>Logistic Regression</option>
+
+							</select></td>
+							<td rowspan="2"><button ng-click="runMachine(objrun)"
+									class="btn btn-primary">
+									Run ML <span class="cancel" ng-show="loader.loading">Loading...
+										<i class="fa fa-spinner fa-spin"></i>
+
+
+									</span>
+								</button></td>
+
+						</tr>
+						<tr>
+							<td><select ng-model="objrun.testing" class="form-control"
+								ng-options="dataSet.dataSet for dataSet in data">
+
+							</select></td>
+
+							<td><div class="radio">
+									<label> <input type="radio" id="optionsRadios3"
+										ng-model="objrun.training.dataType" name="training"
+										value="Training
+									Data" checked> Training Data
+									</label>
+								</div>
+								<div class="radio">
+									<label> <input type="radio" name="testing"
+										ng-checked="true" ng-model="objrun.testing.dataType"
+										id="optionsRadios4" value="Test Data"> Test Data
+									</label>
+								</div></td>
+						</tr>
+					</tbody>
+				</form>
+			</table>
+		</div>
+		<div>
+			<strong>Machine Learning Results</strong>
+		</div>
+		<table class="table table-hover table-bordered table-striped">
+			<thead>
+				<tr>
+
+					<th>Dataset</th>
+					<th>Completion Time</th>
+					<th>Data Type</th>
+					<th>Algorithm</th>
+					<th>Confidence (%)</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody ng-controller="userApp.getMLAnalysis">
+				<tr ng-repeat="getML in data">
+
+					<td>{{getML.training.dataSet}}
+						<div>{{getML.testing.dataSet}}</div>
+					</td>
+					<td>{{getML.completion}}</td>
+					<td>{{getML.training.dataType}}
+						<div>{{getML.testing.dataType}}</div>
+					</td>
+					<td>{{getML.algorithm}}</td>
+					<td>{{getML.accuracy}}</td>
+					<td><a title="Delete this record"
+						ng-click="showconfirm(getML.id,getML, getML.testing.name)"><i
+							class="glyphicon glyphicon-trash"></i></a></td>
+				</tr>
+
+
+			</tbody>
+		</table>
+	</div>
+	<div class="modal fade" id="deleteConfirmModal" tabindex="-1"
+		role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="deleteLabel">
+						Delete a Dataset: <span>{{getDataSetName}}</span>
+					</h4>
+				</div>
+				<div class="modal-body">
+					<p>Do you want to delete?</p>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="deleteConfirm"
+						data-ng-click="delete1()">Yes</button>
+					<button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

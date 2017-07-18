@@ -1,0 +1,263 @@
+<div class="page-content blocky" my-directive
+	ng-controller="driveCtrl">
+
+	<div class="container">
+
+
+		<div class="mainy">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="awidget full-width">
+
+						<div class="page-content blocky" ng-controller="SortableCTRL"
+							ng-hide="isLoginPage()">
+							<div class="container">
+								<div class="mainy">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="awidget-head">
+												<!-- <div class="col-md-8">
+
+													<ul class="nav nav-wizard" id='sortable'>
+														<li ng-repeat="obj in dataTab"
+															ng-class="{ active: $route.current.activetab == '{{obj.Tab}}'}"><a
+															ng-href="/{{obj.pageUrl}}" ng-click="event">{{obj.sourceName}}</a></li>
+													</ul>
+												</div> -->
+												<div class="col-lg-11">
+													<!-- <div class="col-lg-2 colPadding"><a  title="Add a Schema" ng-click="addUpdateSchema()" class="btn btn-primary pull-right col-lg-12">Add Schema</a></div>
+						<div class="col-lg-2 colPadding">&nbsp;</div> -->
+													<!-- <div class="col-lg-3 col-md-3 pull-right" ng-show="addSchema">
+
+														<div class="input-group">
+															<span class="input-group-addon" ng-click="addUpdateSchema();">Add Schema</span> <select
+																class="form-control" ng-model="editData.addSchemaMed" ng-change="addUpdateSchema();">
+																<option ng-repeat="v in addSchemaMed" >{{v.name}}</option>
+															</select>
+														</div>
+
+														
+										</div> -->
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-lg-11">
+							<div class="row clearfix">&nbsp;</div>
+							<!-- <div class="col-xs-3"><div class="input-group">
+								<select ng-model="model.link" ng-change="stramORDriver(model.link);">
+								 <option value="Select">Select</option>
+								  <option value="Streaming">Stream Consumer</option>
+								  <option value="Profile">Profile</option>
+								</select>
+							</div> </div> -->
+							
+							<div class="col-lg-3 col-md-3 pull-right">
+							
+								<div class="input-group">
+								<span class="input-group-addon" ng-click="stramORDriver();">Streaming</span>
+								<select class="form-control" ng-model="model.link" ng-change="stramORDriver(model.link);">
+								 <option value="Select">Select</option>
+								  <option value="Streaming">Stream Consumers</option>
+								  <option value="Profile">Profile</option>
+								</select>
+							</div> </div>
+							
+											</div>
+							<div class="col-md-11">
+								<div class="calendarNav tab-pane fade in active"
+									id="standardNav">
+									<h2>Streaming Jobs</h2>
+									<div ng-show="totalSourcer == 0">
+										<div>
+											<h4 class="text-center">No Jobs currently running</h4>
+										</div>
+									</div>
+									<div>
+										<span id="schemarunID" style="color: green"></span>
+									</div>
+									<table class="table table-bordered" ng-show="viewing"
+										 ts-wrapper>
+										<thead>
+											<tr>
+												<th><a ts-criteria="id|lowercase" ts-default>Job Id</th></a>
+												<th><a ts-criteria="consumerName|lowercase">Consumer Name</th></a>
+												<th ts-criteria="startAt|lowercase">start At</th>
+												<th ts-criteria="startBy|lowercase">start By</th>
+												<!-- <th ts-criteria="Port|lowercase">Port</th>
+												<th ts-criteria="Group_ID|lowercase">Group ID</th>
+												<th ts-criteria="Output_Location|lowercase">Output Location</th>
+												<th ts-criteria="duration|lowercase">Duration</th> -->
+												<th>Operations</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr
+												ng-class="{'test': $index == 0 && fromAutoSchema == true }"
+												ng-repeat="obj in detailDriver | orderObjectBy:orderByField:reverse" ts-repeat
+												ng-hide="obj.isRowHidden">
+													<td contenteditable="true" ng-model="obj.id">{{obj.id}}</td>
+													<td contenteditable="true" ng-model="obj.consumerName">{{obj.consumerName}}</td>
+													<td contenteditable="true" ng-model="obj.startAt">{{obj.startAt}}</td>
+													<td contenteditable="true" ng-model="obj.startBy">{{obj.startBy}}</td>
+													<!-- <td contenteditable="true" ng-model="obj.Port">{{obj.start_by}}</td>
+													<td contenteditable="true" ng-model="obj.Group_ID">{{obj.Group_ID}}</td>
+													<td contenteditable="true" ng-model="obj.Output_Location">{{obj.Output_Location}}</td>
+													<td contenteditable="true" ng-model="obj.duration">{{obj.duration}}</td> -->
+													<td><a ng-click="showconfirm(obj.id,obj)"" title="Stop"><span
+														class="fa fa-stop color"></span></a>
+														</td> 
+											</tr>
+											<!-- Modal -->
+											
+
+
+											 <div class="modal fade" id="deleteConfirmModal" tabindex="-1"
+												role="dialog" aria-labelledby="deleteLabel"
+												aria-hidden="true">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h4 class="modal-title" id="deleteLabel">Stop
+																Driver: {{DelObj.consumerName}}</h4>
+														</div>
+														<div class="modal-body">
+															<p>Do you want to Stop?</p>
+
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-danger"
+																id="deleteConfirm" data-ng-click="delete1()">Yes</button>
+															<button type="button" class="btn btn-success"
+																data-dismiss="modal">No</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										<!--</tbody>
+									</table>
+								</div>
+								 <pagination total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+
+							</div>
+						</div>
+
+						
+						
+<div class="row clearfix">&nbsp;</div>
+	<div class="row">&nbsp;</div>
+	<form class="form-horizontal col-sm-11" role="form" name="form" ng-show="editing"
+		ng-submit="saveAddUpdateDataSet(editData)">
+		<div class="row-fluid clearfix">
+		<div class="row-fluid">&nbsp;</div>
+			<div class="col-sm-6">
+				<div class="form-group col-sm-12">
+					<label for="genomeName" class="col-sm-4 control-label">Consumer Name<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk alert-danger"></span></sup></label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" ng-model="editData.Consumer_Name"
+							id="genomeName" placeholder="Name"
+							pattern="^[a-zA-Z][a-zA-Z0-9- _\.]{1,50}$" required="required">
+					</div>
+				</div>
+
+				<div class="form-group col-sm-12">
+					<label for="Schema" class="col-sm-4 control-label">Hostname</label>
+					
+					<div class="col-sm-8">
+						<input type="text" class="form-control" ng-model="editData.Hostname"
+							id="genomeName" placeholder="Name"
+							required="required">	
+					</div>
+				
+			</div>
+			<div class="col-sm-12">
+				<div class="form-group col-sm-12">
+					<label for="Description" class="col-sm-4 control-label">Port</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" ng-model="editData.Port"
+							id="genomeName" placeholder="Name"
+							required="required">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix row-fluid ">
+			<div class="col-sm-6">
+				<div class="form-group col-sm-12">
+					<label for="Location" class="col-sm-4 control-label">Group_ID<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk alert-danger"></span></sup></label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control"
+							ng-model="editData.Group_ID" id="Group_ID" placeholder="Group_ID"
+							required="required">
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group col-sm-12">
+
+					<label for="Location" class="col-sm-4 control-label">Output_Location
+						<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk alert-danger"></span></sup></label>
+					<div class="col-sm-8">
+						<input type="text" placeholder="Output_Location" class="form-control"
+							ng-model="editData.Output_Location" ng-required="true">
+					</div>
+
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group col-sm-12">
+
+					<label for="Location" class="col-sm-4 control-label">Topic
+						<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk alert-danger"></span></sup></label>
+					<div class="col-sm-8">
+						<input type="text" placeholder="Topic" class="form-control"
+							ng-model="editData.Topic" ng-required="true">
+					</div>
+
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group col-sm-12">
+
+					<label for="Location" class="col-sm-4 control-label">Duration
+						<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk alert-danger"></span></sup></label>
+					<div class="col-sm-8">
+						<input type="text" placeholder="Duration" class="form-control"
+							ng-model="editData.duration" ng-required="true">
+					</div>
+
+				</div>
+			</div>
+			
+		</div>
+
+
+
+
+
+		<div class="clearfix">&nbsp;</div>
+		<div class="row-fluid clearfix">
+			<div class="form-group col-sm-9 pull-right">
+				<div class="col-sm-2 pull-right">
+					<button type="button" class="btn btn-default col-sm-12"
+						ng-click="cancelADD()">Cancel</button>
+				</div>
+				<div class="col-sm-2 pull-right">
+					<button type="submit" class="btn btn-primary col-sm-12">Save</button>
+				</div>
+			</div>
+		</div>
+
+	</form>
+ -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+							
+	
+</div>

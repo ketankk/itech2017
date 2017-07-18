@@ -1,0 +1,212 @@
+<!-- BEGIN HEADER-->
+<header id="header"  ng-hide="isLoginPage()" ng-controller="headerCtrl">
+	<div class="headerbar col-sm-14">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="headerbar-left col-sm-2">
+			<ul class="header-nav header-nav-options">
+				<li class="header-nav-brand" >
+					<div class="brand-holder">
+						<!-- <a href="index.html"> -->
+							<!-- <span class="text-lg text-bold text-primary">ITC ZEAS.</span>  -->
+							<!-- Make ZEAS white. Leave ITC as is. Shall work on a logo for ZEAS rather than ITC infotech logo. -->
+							<h2  class="icon" style="color: #FFFFFF; font-weight: bold;">ZEAS<!-- <img title="" src="images/logo.png" style="height:40px;"> --></h2>
+						<!-- </a> -->
+					</div>
+				</li>
+ 
+			</ul>
+		</div>
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<!-- <link rel="stylesheet" ng-href="css/themes/{{css}}.css"> -->
+
+		<div class="headerbar-middle col-sm-7" ng-hide="isLoginPage()">
+		<ul class="header-nav header-nav-options">
+				<li ng-click="golocation('Dashboard','icon-data');" class="pointerCursor"><b>Home</b></li>
+		<ul class="header-nav header-nav-options">
+				<li><b>Tutorial</b></li>
+		</ul>
+		<ul class="header-nav header-nav-options">
+				<li><b>Resources</b></li>
+		</ul>
+		<ul class="header-nav header-nav-options">
+				<li><b>Help</b></li>
+		</ul>
+		<!-- <ul class="header-nav header-nav-options">
+				<li><b>Theme</b></li>
+				<select  ng-model="css" ng-options="bootstrap.url as bootstrap.name for bootstrap in bootstraps" > Theme 
+                </select>
+		</ul> -->
+		<!-- <ul class="header-nav header-nav-options pointerCursor">
+				<li data-toggle="modal" data-target="#logModal" ng-click="clearLog();"><b>Log</b></li>
+		</ul> -->
+		</div>
+		<div class="headerbar-right" ng-hide="isLoginPage()">
+			<ul class="header-nav header-nav-options">
+				
+				<li style="padding-top:18px;cursor:pointer;  padding-right: 12px;"><i class="fa fa-search icon-color" aria-hidden="true"></i></li>
+				<li style="padding-top:18px;cursor:pointer"><i class="fa fa-bullhorn icon-color" aria-hidden="true"></i></li>
+				<li style="padding-top:18px;cursor:pointer;  padding-right: 12px;">
+					<!-- Search form -->
+					<form class="navbar-search" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" name="headerSearch" placeholder="Enter your keyword">
+						</div>
+						<!--button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button-->
+					</form>
+				</li>
+				<li class="dropdown hidden-xs" style="padding-top:18px;cursor:pointer;  padding-right: 12px;">
+					<a href="javascript:void(0);"  data-toggle="dropdown" ng-click="fetchNoti();">
+					<i class="fa fa-bell-o icon-color" aria-hidden="true"></i>
+					<sup class="badge style-danger" ng-show="notiCount != 0">{{notiCount}}</sup>
+					</a>
+					<ul class="dropdown-menu animation-expand" style="top:60px;overflow-y: auto;overflow-x: hidden;max-height:546px;" id="ex3">
+						<li class="col-md-6"><span style="color:black" class="ng-binding"><font color="black">Notifications</font> ({{notiLen}})</span></li>
+						<li ng-repeat="obj in notiDataArr" ng-show="notiLen > 0">
+								<a class="alert alert-callout alert-warning notiWrap" href="javascript:void(0);" ><!-- ng-click="redirectNotiPage(obj.component_id,obj.component_type,obj.operation_type);" -->
+									<img class="pull-right img-circle dropdown-avatar" />
+									{{obj.status_message}}<br/>
+									<span style="color:grey"><small>{{obj.timeInfo}}</small></span>
+								</a>
+							
+						</li>
+						<li><a class="alert alert-callout alert-warning" href="javascript:void(0);" ng-show="notiLen == 0">
+								<img class="pull-right img-circle dropdown-avatar" />{{noNoti}}</a></li>
+						<!-- <li>
+							<a class="alert alert-callout alert-info" href="javascript:void(0);">
+								<img class="pull-right img-circle dropdown-avatar"  />
+								<strong>Data Source</strong><br/>
+								<small>MySql datasource deployed.</small>
+							</a>
+						</li> -->
+
+					</ul><!--end .dropdown-menu -->
+				</li><!--end .dropdown -->
+
+			</ul><!--end .header-nav-options -->
+			<ul class="header-nav header-nav-profile" >
+				<li class="dropdown">
+					<a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown-menu">
+					<i class="fa fa-user icon-color" aria-hidden="true"></i>
+						
+						<span class="profile-info">
+							<!-- <small> --><span id="userDName"></span><!-- </small> --><!-- <span id="userDName"></span> -->
+						</span>
+					</a>
+					<ul class="dropdown-menu animation-dock">
+						<!-- li class="dropdown-header">Account settings.</li-->
+						<li  id="isAdmin"><a ng-click="userdetails();" class="pointerCursor">User Management</a></li>
+                        <li class=account-settings><a ng-click="openModel('resetodal');" class="pointerCursor">Reset Password</a></li>
+						<!--<li><a href="#">Account</a></li>-->
+						<!--li class="divider"></li-->
+						<!-- <li><a href="#"><i class="fa fa-fw fa-lock"></i> Lock</a></li> -->
+						<li class="account-settings logout"><!--a href="#"--> <a ng-click="logOutPage();" href="#"><i class="fa fa-fw fa-power-off text-danger"></i>Logout</a></li>
+					</ul><!--end .dropdown-menu -->
+				</li><!--end .dropdown -->
+			</ul><!--end .header-nav-profile -->
+<!-- <ul class="header-nav header-nav-toggle">
+<li>
+<a class="btn btn-icon-toggle btn-default" href="#offcanvas-search" data-toggle="offcanvas" data-backdrop="false">
+<i class="fa fa-ellipsis-v"></i>
+</a>
+</li>
+</ul> -->
+<!--end .header-nav-toggle -->
+</div><!--end #header-navbar-collapse -->
+
+</div>
+<!-- <div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="logModal" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content" style="width:800px">
+				<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+				<span aria-hidden="true">&times;</span><span
+					class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title" id="logModallabel">LOG</h4>
+					</div>
+					<div class="modal-body"  style="overflow-y:auto;max-height:600px;">
+					<div class="col-sm-4"><select class="form-control" name="logtypeSelect" ng-model="logtype" ng-change="getLogDetails('first');">
+							<option value="">Select</option>
+							<option value="databridge">databridge</option>
+							<option value="webmodule">webmodule</option>
+  						</select></div>
+  						
+  						 <div class="col-sm-12" ng-show="totalPages > 0 || logtype != ''"><posts-pagination></posts-pagination></div>
+					<div class="col-sm-12" ng-show="totalPages > 0"><p ng-repeat="obj in logData track by $index" class="logCss">{{obj}}</p>
+					</div>
+					<div class="col-sm-12" ng-show="totalPages == 0 && currentPage != 1">No LOG found
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+							
+								<div class="form-group col-sm-14">
+									<div class="col-sm-7">
+										<button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+
+									</div>
+									
+
+                
+							</div></div>
+			</div>
+		</div></div> -->
+</header>
+<!-- END HEADER-->
+<div class="modal fade" id="resetodal" tabindex="-1"
+		role="dialog" aria-labelledby="deleteLabel"
+		aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Reset Password</h4>
+					</div>
+					<form role="form" class="form" id="stageForm1" ng-model="stageForm" name="stageForm1" ng-submit="resetUserId(edituserData)">
+					<div class="modal-body" style="min-height:200px;">
+					
+                          <div class="row-fluid">&nbsp;</div>
+                          <div class="form-group col-sm-11">
+                            <label for="userName" class="col-sm-4 control-label">Current Password<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk red"></span></sup>
+                            </label>
+                            <div class="col-sm-7">
+                              <input type="password" class="form-control" ng-model="edituserData.curpass" id="username" placeholder="username" name="username"  required="required">
+                            </div>
+                          </div>
+                          <div class="form-group col-sm-11" >
+                            <label for="oassword" class="col-sm-4 control-label">New Password<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk red"></span></sup>
+                            </label>
+                            <div class="col-sm-7">
+                              <input type="password" class="form-control" ng-model="edituserData.newpass" id="Password" placeholder="Password" name="Password"  required="required">
+                            </div>
+                          </div>
+                           <div class="form-group col-sm-11">
+                            <label for="stageName" class="col-sm-4 control-label">Confirm Password<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk red"></span></sup>
+                            </label>
+                            <div class="col-sm-7">
+                              <input type="password" class="form-control" ng-model="edituserData.conpass" id="conpass" placeholder="Confirm Password" name="conpass"  required="required">
+                             
+                            </div>
+                          </div>
+                         
+					
+					</div>
+					<div class="modal-footer">
+						<div class="form-group col-sm-12">
+                              <div class="col-sm-6 ">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                              </div>
+                              <div class="col-sm-2">
+                                <input type="submit" value="Save" name="Save" class="btn btn-primary">
+                              </div>
+
+                            </div>					
+</div></form>
+				</div>
+			</div>
+			
+
+		</div>

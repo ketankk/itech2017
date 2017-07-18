@@ -1,0 +1,68 @@
+
+<style>
+.fa-stack {
+  position: relative;
+  display: inline-block;
+  width: 2em !important;
+  height: 2em;
+  line-height: 2em;
+  vertical-align: middle;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus {
+  color: #fff;
+  background-color: #029BBB;
+}
+.dragMe {
+  padding-left: 0px;
+}
+ul
+{
+list-style-type: none;
+}
+</style>
+<!-- Side bar doesn't bind with js right now if included using angularjs . -->
+<!-- BEGIN OFFCANVAS LEFT -->
+			<div ng-controller="leftbarCtrl" id="leftmenuDiv">
+			<div class="offcanvas" ng-hide="isLoginPage()">
+			<div id="wrapper">
+        <!-- Sidebar -->
+
+        <div id="sidebar-wrapper">
+       <div style="height:40px;">
+        <img src="images/leftarrow.png" id="menu-toggle-2" style="z-index:10000!important; margin-top: 10px; cursor:pointer; margin-left:92%">
+        </div>
+            <ul class="sidebar-nav nav-pills nav-stacked" id="menu" style="margin-top: 20px">
+						
+							<li class="menu-button-hide" ng-class="{activesidebarnav: pageURL() == '/Dashboard/' }">
+							 	<a  ng-click="golocation('Dashboard','icon-data');"><span class="fa-stack fa-lg pull-left"><i class="fa fa-line-chart icon-color" aria-hidden="true"></i></span> Dashboard</a>
+							</li>
+							<li class="menu-button-hide" ng-class="{activesidebarnav: pageURL() == '/DataSchema/' }">
+							 	<a  ng-click="golocation('DataSchema','icon-data');"><span class="fa-stack fa-lg pull-left"><i class="fa fa-database icon-color" aria-hidden="true"></i></span> Datasets</a>
+							</li>
+							 <li class="menu-button" ng-class="{activesidebarnav: pageURL() == '/project/' }">
+							 	<a  ng-click="golocation('project','icon-data');" ><span class="fa-stack fa-lg pull-left"><i class="fa fa-suitcase icon-color" aria-hidden="true"></i></span> Projects</a>
+							</li>
+							<li class="menu-button-hide" ng-class="{activesidebarnav: pageURL() == '/workintrainprogress/' }">
+							 	<a  ng-click="golocation('workintrainprogress','icon-data');"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cogs icon-color" aria-hidden="true"></i></span> Trained Models</a>
+							</li>
+							<li class="menu-button-hide" ng-class="{activesidebarnav: pageURL() == '/Streaming/' }">
+							 	<a  ng-click="golocation('Streaming','icon-data');"><span class="fa-stack fa-lg pull-left"><i class="fa fa-spotify icon-color" aria-hidden="true"></i></span> Streaming</a>
+							</li>
+							<!-- <li ng-class="{active: pageURL() == '/PiplineResults/' }">
+							 	<a  ng-click="golocation('PiplineResults','icon-data');"><span class="fa-stack fa-lg pull-left"><img src="images/Project.png"></span> Machine Learning</a>
+							</li> -->
+							<li class="menu-button-hide" ng-class="{activesidebarnav: pageURL() == '/workinprogress/' }">
+							 	<a  ng-click="golocation('workinprogress','icon-data');"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cog icon-color" aria-hidden="true"></i></span> Settings</a>
+							</li>
+							<li class="menu-button-hide" ng-class="{activesidebarnav: pageURL() == '/dataLineage/' }">
+							 	<a  ng-click="golocation('dataLineage','icon-data');"><span class="fa-stack fa-lg pull-left"><i class="fa fa-pencil-square-o icon-color" aria-hidden="true"></i></span> Data Lineage</a>
+							</li>
+		</ul>
+			
+		<ul class="sidebar-nav nav-pills nav-stacked menu-bar" >
+		 <li> <img class="menu-button" id="subMenuCls" src="images/leftarrowsub.png"  style="float:right;padding:5px; margin-top: 8px;margin-right:0px;cursor: pointer;"> <div style="display:inline-block">  </span></img></li>
+		<ng-include src="'views/projectsubmenu.html'" class="clearfix"></ng-include>
+   	 </ul>
+        </div>	</div></div>	</div>	
+<script src="js/sidebar_menu.js"></script>	

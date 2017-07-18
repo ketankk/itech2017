@@ -1,0 +1,93 @@
+<script>
+   $(document).ready(function() {
+   	$(".draggable").draggable({
+   	     start: function( event, ui ) {
+   	     },
+   	     stop: function( event, ui ) {
+   	     }
+   	 });
+   
+   });
+</script>
+<li class="page_collapsible">
+   <a id="clickableone" ng-click="getScope('firstLink');showDB=!showDB;showTR=flase" ng-class="{activesidebarnavSub: showDB}">
+   Saved Datasets
+   <span id="firstLinkSpan" class="subMenuTogg"><img src="images/expand.png"></span></a>
+   <ul class="collapse" id="firstLink" >
+      <li class="pull-left"><input type="text" style="background-color:#fff;" class="form-control" placeholder="Search" ng-model="querysub" ng-change="addDragClass();"></li>
+      <br/>
+      <li ng-repeat="obj in detaildataSet | filter:querysub" class="liellipsis draggable ui-draggable ui-draggable-handle ng-scope">
+         <span class="window dragMe mp-submenu jsplumb-draggable ui-draggable-handle ui-draggable ng-binding" data-nodetype="Dataset" data-nodeid="{{obj.id}}" data-noodever="{{obj.version}}" style="cursor:move;" title={{obj.name}} id="jsPlumb_{{obj.id}}">{{obj.name}}</span>
+      </li>
+   </ul>
+</li>
+
+<li class="page_collapsible" id="clickablethreesub">
+   <a  ng-click="getScope('thirdSubLink');showIng=!showIng;showSR3=false;" ng-class="{activesidebarnavSubsub: showIng}">
+   Ingestion<span id="thirdSubLinkSpan"  class="subMenuTogg"><img src="images/expand.png"></span></a>
+   <ul class="collapse" id="thirdSubLink">
+      <li ng-repeat="obj in transFormCustom track by $index" class="liellipsis draggable"><span class="window dragMe mp-submenu jsplumb-draggable"  data-nodetype="{{transFormCustom[$index]}}"  data-nodeid="sampleid" id="jsPlumb_{{transFormCustom[$index]}}"  style="cursor:move;" title={{transFormCustom[$index]}}>{{transFormCustom[$index]}}</span></li>
+   </ul>
+</li>
+<div id="clickabletwosub">
+<li class="page_collapsible"> 
+<a  ng-click="getScope('secondLink');showTR=!showTR;showSR3=false;showSR2=false;showDB=false" ng-class="{activesidebarnavSub: showTR}">
+			 Transformation<span id="secondLinkSpan"  class="subMenuTogg"><img src="images/expand.png"></span>
+          	<!-- <span ng-show="showTR" class="subMenuTogg"><img src="images/collapse.png"></span> --></a>
+<ul class="collapse" id="secondLink">
+	<li class="page_collapsible"> 
+		<a  ng-click="getScope('secondSubLink');showTRM=!showTRM;showTRC=false;" ng-class="{activesidebarnavSubsub: showTRM}">
+			 Manipulation<span id="secondSubLinkSpan"  class="subMenuTogg"><img src="images/expand.png"></span>
+          	<!-- <span ng-show="showTR" class="subMenuTogg"><img src="images/collapse.png"></span> --></a>
+	<ul class="collapse" id="secondSubLink" style="overflow-y: auto; max-height: 200px;">
+		<li ng-repeat="obj in transFormData track by $index" class="liellipsis draggable"><span class="window dragMe mp-submenu jsplumb-draggable"  data-nodetype="{{transFormData[$index]}}" data-noodever="{{obj.version}}" data-nodeid="sampleid" id="jsPlumb_{{transFormData[$index]}}"  style="cursor:move;" title={{transFormData[$index]}}>{{transFormData[$index]}}</span></li>
+	</ul> </li>
+
+	<li class="page_collapsible"> 
+		<a ng-click="getScope('thirdSubLink1');showTRC=!showTRC;showTRM=false" ng-class="{activesidebarnavSubsub: showTRC}">
+			 Custom<span id="thirdSubLink1Span" class="subMenuTogg"><img src="images/expand.png"></span>
+          	   </a>
+	<ul class="collapse" id="thirdSubLink1">
+		<li ng-repeat="obj in transFormCustom_trans track by $index" class="liellipsis draggable"><span class="window dragMe mp-submenu jsplumb-draggable"  data-nodetype="{{transFormCustom_trans[$index]}}"  data-nodeid="sampleid" id="jsPlumb_{{transFormCustom_trans[$index]}}"  style="cursor:move;" title={{transFormCustom_trans[$index]}}>{{transFormCustom_trans[$index]}}</span></li> 
+		<!--<li class="liellipsis draggable"><span class="window dragMe mp-submenu jsplumb-draggable" data-nodetype="Hive" data-nodeid="sampleid"  style="cursor:move;" title="Hive" id="jsPlumb_Hive">Hive</span></li>
+		<li class="liellipsis draggable"><span class="window dragMe mp-submenu jsplumb-draggable" data-nodetype="Pig" data-nodeid="sampleid"  style="cursor:move;" title="Pig" id="jsPlumb_Pig">Pig</span></li>
+		<li class="liellipsis draggable"><span class="window dragMe mp-submenu jsplumb-draggable" data-nodetype="MapReduce" data-nodeid="sampleid"  style="cursor:move;" title="Mapreduce" id="jsPlumb_Mapreduce">Mapreduce</span></li> -->
+	</ul>
+
+	</li>
+</ul>
+
+</li>
+
+
+<li class="page_collapsible"> 
+<a  ng-click="getScope('thirdLink');showML=!showML;showTR=false;showSR5=false;showDB=false" ng-class="{activesidebarnavSub: showML}">
+			 Machine Learning<span id="thirdLinkSpan"  class="subMenuTogg"><img src="images/expand.png"></span>
+          	<!-- <span ng-show="showTR" class="subMenuTogg"><img src="images/collapse.png"></span> --></a>
+<ul class="collapse" id="thirdLink">
+	<li class="page_collapsible"> 
+		<a id="clickablefifthsub" ng-click="getScope('fifthSubLink');showSR4=!showSR4;showSR5=false" ng-class="{activesidebarnavSubsub: showSR4}">Model<span id="fifthSubLinkSpan"  class="subMenuTogg"><img src="images/expand.png"></span>
+          	<!-- <span ng-show="showTR" class="subMenuTogg"><img src="images/collapse.png"></span> --></a>
+	<ul class="collapse" id="fifthSubLink" style=" overflow-y: auto;max-height: 200px;">
+		<li ng-repeat="obj in transFormModel track by $index" class="liellipsis draggable"><span class="window dragMe mp-submenu jsplumb-draggable"  data-nodetype="{{transFormModel[$index]}}"  data-nodeid="sampleid" id="jsPlumb_{{transFormModel[$index]}}"  style="cursor:move;" title={{transFormModel[$index]}}>{{transFormModel[$index]}}</span></li>
+		<!-- <li class="liellipsis draggable"><span class="window dragMe mp-submenu jsplumb-draggable"  data-nodetype="LinearRegression"  data-nodeid="sampleid" id="jsPlumb_LinearRegression"  style="cursor:move;" title="Linear Regression">Linear Regression</span></li>
+		<li class="liellipsis draggable"><span class="window dragMe mp-submenu jsplumb-draggable"  data-nodetype="LogisticRegression"  data-nodeid="sampleid" id="jsPlumb_BinaryRegression"  style="cursor:move;" title="Binary Regression">Binary Regression</span></li>
+		<li class="liellipsis draggable"><span class="window dragMe mp-submenu jsplumb-draggable"  data-nodetype="LogisticRegression"  data-nodeid="sampleid" id="jsPlumb_MapperClassRegression"  style="cursor:move;" title="MapperClass Regression">MapperClass Regression</span></li> -->
+	</ul>
+
+</li>
+	<li class="page_collapsible"> 
+		<a id="clickablesixthsub" ng-click="getScope('sixthSubLink');showSR5=!showSR5;showSR4=false;" ng-class="{activesidebarnavSubsub: showSR5}">
+			 Action<span id="sixthSubLinkSpan"  class="subMenuTogg"><img src="images/expand.png"></span>
+          	<!-- <span ng-show="showTR" class="subMenuTogg"><img src="images/collapse.png"></span> --></a>
+	<ul class="collapse" id="sixthSubLink" style=" max-height: 200px;">
+		<li ng-repeat="obj in transFormAction track by $index" class="liellipsis draggable"><span class="window dragMe mp-submenu jsplumb-draggable"  data-nodetype="{{transFormAction[$index]}}"  data-nodeid="sampleid" id="jsPlumb_{{transFormAction[$index]}}"  style="cursor:move;" title={{transFormAction[$index]}}>{{transFormAction[$index]}}</span></li>
+		<!-- <li class="liellipsis draggable"><span class="window dragMe mp-submenu jsplumb-draggable" data-nodetype="Train" data-nodeid="sampleid" style="cursor:move;" title="Train" id="jsPlumb_Train">Train</span></li>
+		<li class="liellipsis draggable"><span class="window dragMe mp-submenu jsplumb-draggable" data-nodetype="Test" data-nodeid="sampleid"  style="cursor:move;" title="Test" id="jsPlumb_Test">Test</span></li> -->
+	</ul>
+
+	</li>
+</ul>
+
+</li>
+</div>

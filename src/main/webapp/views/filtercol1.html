@@ -1,0 +1,207 @@
+ <div class="panel panel-default" > 
+	<div class="panel-heading"><b>{{tranformType}}</b></div>
+	<div class="panel-body"><div class="col-md-14 lessPadd" style="overflow-y:auto;max-height:450px"> 
+<!--   <table class="table borderless" style="background-color:#fff">-->
+ <table class="table striped" style="background-color:#fff">
+ 		<tr ng-if = "tranformType == 'Clean Missing Data'"><td><label >Select Columns to be cleaned:</label></td></tr>
+ 		<tr ng-if = "tranformType == 'Column Filter'"><td><label >Select Columns to be Projected:</label></td></tr>
+		<tr ng-repeat="v in columnNameByID" class="col-md-12 lessPadd"  ng-if = "tranformType != 'Ingestion'">
+			<td><input type="checkbox" checkbox-group ng-checked="columnNameByID2[v.name]" ng-if = "tranformType != 'Ingestion'"> {{v.name}}</td>				
+		</tr>
+		<!-- --------- table for Ingestion ----->
+		<tr ng-if = "tranformType == 'Ingestion'" style="background-color:#fff"><td nowrap>Ingestion Type </td></tr>
+		<tr ng-if = "tranformType == 'Ingestion'" style="background-color:#fff">	
+		   <td nowrap><select class="form-control" name="type" ng-model="editData.type">
+						  <option value="time_based">Time based</option>
+						  <option value="event_based">Event based</option>
+						</select> 	
+		    </td></tr>
+		 <tr ng-if = "editData.type == 'time_based' || editData.type == 'event_based'" style="background-color:#fff"><td nowrap> Start <span id="utc_start_time"></span></td></tr>
+		 <tr ng-if = "editData.type == 'time_based' || editData.type == 'event_based'" style="background-color:#fff">
+		 	<td nowrap><div class='input-group date' id='startTime' >
+					         <input type='text' class="form-control" ng-model="editData.startTime" id="sdate"  />
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar" onclick="startTime()"></span>
+				                    </span>
+					    </div>
+					   
+			    </td>
+		 </tr>
+		 <tr ng-if = "editData.type == 'time_based' || editData.type == 'event_based'" style="background-color:#fff"><td nowrap> End <span id="utc_end_time"></span></td></tr>
+		 <tr ng-if = "editData.type == 'time_based' || editData.type == 'event_based'" style="background-color:#fff">
+		 	<td nowrap><div class='input-group date' id='endTime' >
+					         <input type='text' class="form-control" ng-model="editData.endTime" id="edate" />
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar" onclick="endTime()"></span>
+				                    </span>
+					    </div>
+			    </td>
+		 </tr>
+		 <tr ng-if = "editData.type == 'time_based'" style="background-color:#fff"><td nowrap> Repeats </td></tr>
+		 <tr ng-if = "editData.type == 'time_based'" style="background-color:#fff">
+		 	<td nowrap><select class="form-control"  id="repeats" ng-model="editData.repeats" name="repeats" ng-options="opt for opt in ['minutes', 'hours','days','months']" required>
+				  <option></option>
+				</select>
+			</td>
+		 </tr>
+		 <tr ng-if = "editData.type == 'time_based'" style="background-color:#fff"><td nowrap> Frequency </td></tr>
+		 <tr ng-if = "editData.type == 'time_based'" style="background-color:#fff">
+		 	<td nowrap><input class="form-control" type="text"  maxlength="2" ng-model="editData.frequency" id="frequency"></td>
+		 </tr>
+	</table> 
+	<!-- ------------ INGESTION TYPE ENDS HERE --------------- -->
+ </div>  
+ <div class="clearfix" ng-show="cleanModeSelect">&nbsp;</div>
+	<textarea ng-model="editData.filterColumn" ng-show="false"></textarea>
+	<textarea ng-model="editData.version" ng-show="false"></textarea>
+	<textarea ng-model="editData.id" ng-show="false"></textarea>
+	<textarea ng-model="editData.columnNameByID" ng-show="false"></textarea>
+	<input type="text" ng-model="editData.tagetSet" ng-show="false">
+	<div ng-if = "tranformType == 'Clean Missing Data'" class="col-md-12"><label >Action</label></div>
+<div class="col-md-12">
+
+ <select  ng-show="cleanModeSelect" ng-options="cleanMode[k] as t for (k,t) in cleanMode"
+	  ng-model="editData.cleanModeSelected" class="form-control" style="background-color:#fff">
+</select></div>
+<div class="clearfix" ng-show="cleanModeSelect == true && editData.cleanModeSelected == 'Custom Value'">&nbsp;</div>
+<div class="col-md-12">
+<input type="text" ng-model="editData.customValue" ng-show="cleanModeSelect == true && editData.cleanModeSelected == 'Custom Value'" class="form-control" placeholder = "Replace Value" style="background-color:#fff"></div>
+<div class="clearfix">&nbsp;</div>
+<div class="col-md-12" ng-if = "tranformType != 'Ingestion'" >
+<input type="submit" value="Save" name="Save" class="btn btn-primary col-sm-4" ng-click = "(permissionLevel == 5 || permissionLevel == 7) && saveTransform(editData,'cleanColumn');">
+<button text="export"></button>
+</div>
+
+<div class="col-md-12" ng-if = "tranformType == 'Ingestion'"><input type="submit" value="Save" name="Save" class="btn btn-primary col-sm-4" ng-click = "(permissionLevel == 5 || permissionLevel == 7) && saveTransform(editData,'Ingestion');"></div>
+
+</div>
+
+</div>
+<table class="table" style="background-color:#fff">
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].runStatus != undefined">
+		<td><b>Run Status</b></td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].runStatus != undefined">
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].runStatus}}</td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].startTime != undefined">
+		<td ><b>Start Time</b></td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].startTime != undefined">
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].startTime}}</td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].endTime != undefined">
+		<td ><b>End Time</b></td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].endTime != undefined">
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].endTime}}</td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].details != undefined">
+		<td ><b>Details</b></td>
+	</tr>
+	<tr ng-show = "moduleRunStatus[editData.id+'_'+editData.version].details != undefined">
+		<td>{{moduleRunStatus[editData.id+'_'+editData.version].details}}</td>
+	</tr>
+</table>
+<script>
+var str = "";
+$().ready(function() {  
+	$('#add').click(function() {  
+		//str = "";
+	   
+	    $('#columnSelect option:selected').appendTo('#select2');
+	    $('#columnSelect option:selected').remove();
+	    var a = [];
+	    $( "#select2 option" ).each(function() {
+	    
+	    		 a.push(eval('(' + $( this ).val().trim() + ')'));
+	    		
+		 });
+	    	str = a.join(', ');
+		    //$( "#displaySelected" ).text( str );
+			var scope = angular.element(document.getElementById("pipeGraph")).scope();
+		    scope.$apply(function () {
+		    	scope.changeColumn(a);
+		    });
+	    return false;  
+	   });  
+	 $('#remove').click(function() {  
+	 $('#select2 option:selected').appendTo('#columnSelect');  
+	 $("#select2 option:selected").remove();
+	 var a = [];
+	 $( "#select2 option" ).each(function() {
+		 
+	    	a.push(eval('(' + $( this ).val().trim() + ')'));
+	    		
+	 });
+	     	str = a.join(', ');
+		    //$( "#displaySelected" ).text( str );
+			var scope = angular.element(document.getElementById("pipeGraph")).scope();
+		    scope.$apply(function () {
+		    	scope.changeColumn(a);
+		    });
+	    return false;  
+	   });  
+}); 
+
+////////DATE FUNCTION
+
+//$('#sdate').on();
+
+function startTime(){
+	$('#startTime').datetimepicker({
+		format : 'DD/MM/YYYY HH:mm'
+		  	
+	}) .on("dp.change", function(selectedDate) { 
+	      var sdate = $("#sdate").val();
+		  
+		  array = sdate.split(' ');
+		  var date = array[0].split('/');
+		  var time = array[1];
+		  var final_date = date[1]+"/"+date[0]+"/"+date[2] +" "+time;
+	      
+		  var UTCstring = (new Date(final_date)).toUTCString();
+		  $("#utc_start_time").html("[ " +UTCstring+ " ]");
+        //$("#end").datetimepicker({ minDate: selectedDate });
+    });
+	
+	
+   
+}
+
+function endTime(){
+	$('#endTime').datetimepicker({
+		format : 'DD/MM/YYYY HH:mm'
+		
+	}) .on("dp.change", function(selectedDate) { 
+	      var edate = $("#edate").val();
+	      
+		  array = edate.split(' ');
+		  var date = array[0].split('/');
+		  var time = array[1];
+		  var final_date = date[1]+"/"+date[0]+"/"+date[2] +" "+time;
+	      
+		  var UTCstring = (new Date(final_date)).toUTCString();
+		  $("#utc_end_time").html("[ " +UTCstring+ " ]");
+        //$("#end").datetimepicker({ minDate: selectedDate });
+    });
+}
+
+/*$("#sdate").on("blur", function(e) {
+    alert('hey');
+});*/
+
+function dateChanged(ev) {
+	alert('hi');
+    $(this).datetimepicker('hide');
+    if ($('#startdate').val() != '' && $('#enddate').val() != '') {
+        $('#period').text(diffInDays() + ' d.');
+    } else {
+        $('#period').text("-");
+    }
+}
+
+               
+</script> 
+</body>
+</html>

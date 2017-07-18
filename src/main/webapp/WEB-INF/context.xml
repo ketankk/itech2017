@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:jee="http://www.springframework.org/schema/jee" xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:security="http://www.springframework.org/schema/security"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+			http://www.springframework.org/schema/mvc
+			http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+	<context:annotation-config />
+
+
+
+
+	<import resource="classpath:spring/persistance.xml" />
+	<!-- <import resource="classes/spring/persistance.xml" /> this is also correct -->
+	<import resource="classes/spring/spring-security.xml" />
+
+	<bean id="userDao" class="com.itc.zeas.usermanagement.user.JpaUserDao">
+	</bean>
+
+	<bean id="dataBaseInitializer" class="com.itc.zeas.usermanagement.user.DataBaseInitializer"
+		  init-method="initDataBase">
+		<constructor-arg ref="userDao" />
+		<constructor-arg ref="passwordEncoder" />
+	</bean>
+
+	<!-- Deepak <tx:annotation-driven transaction-manager="transactionManager" 
+		/> -->
+
+	<bean id="multipartResolver"
+		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="107374182400" />
+	</bean>
+
+
+
+</beans>

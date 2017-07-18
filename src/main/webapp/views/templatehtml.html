@@ -1,0 +1,256 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><b>{{tranformType}}</b></div>
+    <div class="panel-body">
+        <input type="text" ng-model="editData.sourceID" ng-show="false">
+        <textarea ng-model="editData.version" ng-show="false"></textarea>
+        <textarea ng-model="editData.id" ng-show="false"></textarea>
+        <input type="text" ng-model="editData.tagetSet" ng-show="false">
+        <div ng-show="editData.seletType =='Hive'">
+            <div class="form-group ">
+                <form>
+                    <textarea name="hiveSql" placeholder="Query" id="hiveSql" ng-model="editData.hiveSql" class="form-control" style="background-color:#fff"></textarea>
+
+                    <input type="submit" value="Run" name="Run" ng-click="(permissionLevel == 5 || permissionLevel == 7) && runHiveQuery(editData.hiveSql);" />
+                </form>
+            </div>
+            <!-- modal-->
+             <div class="modal fade" id="RunhiveQuery" tabindex="-1" role="dialog" aria-labelledby="exportModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+																<span aria-hidden="true">&times;</span>
+																<span class="sr-only">Close</span>
+																	
+																</button>
+                            <h4 class="modal-title" id="deleteLabel">Query Result</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table">
+
+                                <tbody>
+                                    <th ng-repeat="header in headerArray">{{header}}</th>
+
+                                    <tr ng-repeat="data in runHiveData">
+                                        <td ng-repeat="header in headerArray">{{data[header]}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+
+            <!-- -->
+            <div class="">
+                <label for="HiveJar" class="">Upload Hive UDF jar</label>
+                <div class="">
+                    <input type="file" onchange="angular.element(this).scope().uploadJarFile(this.files)" id="HiveJarId" name="HiveJar" class="uploadButt">{{editData.udfJarPath}}
+                    <div class="clearfix">&nbsp;</div>
+                </div>
+            </div>
+            <div class="" ng-show="jarLocation != undefined || editData.udfJarPath != undefined">
+                <label for="HiveJar" class="">Upload OutputSchemaFile</label>
+                <div class="">
+                    <input type="file" onchange="angular.element(this).scope().uploadOutputSchemaFile(this.files)" id="uploadSchemaHive" name="HiveJar">
+                    <div class="clearfix">&nbsp;</div>
+                </div>
+            </div>
+            <div class="" ng-show="columnNameAndDatatype != undefined || editData.columnList != undefined">
+                <label for="HiveJar" class="">Temporary Function</label>
+                <div class="">
+                    <textarea name="tempFunc" placeholder="Query" id="tempFunc" ng-model="editData.temporaryFunc" class="form-control" style="background-color:#fff"></textarea>
+                    <div class="clearfix">&nbsp;</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div ng-show="editData.seletType =='Pig'">
+            <div class="form-group ">
+                <div class="">
+                    <label for="MapReduceJar" class="">Upload OutputSchemaFile</label>
+                    <div class="">
+                        <input type="file" onchange="angular.element(this).scope().uploadOutputSchemaFile(this.files)" id="uploadSchema" name="MapReduceJar">
+                        <div class="clearfix">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <textarea name="pig" placeholder="Statement" id="pig" ng-model="editData.pig" class="form-control" style="background-color:#fff"></textarea></div>
+                <div class="">
+                    <label for="PigJar" class="">Upload Pig UDF jar</label>
+                    <div class="">
+                        <input type="file" onchange="angular.element(this).scope().uploadJarFile(this.files)" id="PigJarId" name="PigJar" class="uploadButt">{{editData.udfJarPath}}
+                        <div class="clearfix">&nbsp;</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div ng-show="editData.seletType =='MapReduce'" class="">
+
+
+            <div class="">
+                <label for="MapReduceJar" class="">Upload MapReduceJar</label>
+                <div class="">
+                    <input type="file" onchange="angular.element(this).scope().uploadJarFile(this.files)" id="uploadJarFile" name="MapReduceJar" class="uploadButt">{{editData.MRjarPath}}
+                    <div class="clearfix">&nbsp;</div>
+                </div>
+            </div>
+
+            <div class="">
+                <label for="MapReduceJar" class="">Upload OutputSchemaFile</label>
+                <div class="">
+                    <input type="file" onchange="angular.element(this).scope().uploadOutputSchemaFile(this.files)" id="uploadSchema" name="MapReduceJar" class="ng-pristine ng-valid">
+                    <div class="clearfix">&nbsp;</div>
+                </div>
+            </div>
+
+
+
+            <div class="">
+                <label for="mapclass" class="">MapperClass</label>
+                <div class="">
+                    <input type="text" class="form-control ng-pristine ng-valid" ng-model="editData.mapclass" id="mapclass" placeholder="MapperClass Path" name="mapclass" style="background-color:#fff">
+                    <div class="clearfix">&nbsp;</div>
+                </div>
+
+            </div>
+            <div class="">
+                <label for="stageprocess" class="">ReduceClass</label>
+                <div class="">
+
+                    <input type="text" class="form-control ng-pristine ng-valid" ng-model="editData.reduceclass" id="reduceclass" placeholder="ReducerClass Path" name="reduceclass" style="background-color:#fff">
+                    <div class="clearfix">&nbsp;</div>
+                </div>
+            </div>
+
+            <div class="">
+                <label for="mapclass" class="">Output KeyClass</label>
+                <div class="">
+                    <input type="text" class="form-control ng-pristine ng-valid" ng-model="editData.OutputKeyClass" id="outputkeyclass" placeholder="OutputKeyClass Name" name="outputkeyclass" style="background-color:#fff">
+                    <div class="clearfix">&nbsp;</div>
+                </div>
+            </div>
+            <div class="">
+                <label for="stageprocess" class="">Output ValueClass</label>
+                <div class="">
+
+                    <input type="text" class="form-control ng-pristine ng-valid" ng-model="editData.OutputValueClass" id="outputvalueclass" placeholder="OutputValueClass Name" name="outputvalueclass" style="background-color:#fff">
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="clearfix">&nbsp;</div>
+        <div class="col-md-12">
+            <input type="submit" value="Save" name="Save" class="btn btn-primary col-sm-4" ng-click="(permissionLevel == 5 || permissionLevel == 7) && saveTransform(editData);" />
+
+        </div>
+
+    </div>
+</div>
+<div class="form-group col-md-12">
+    <table class="table" style="background-color:#fff">
+        <tr ng-show="moduleRunStatus[editData.id+'_'+editData.version].runStatus != undefined">
+            <td><b>Run Status</b></td>
+        </tr>
+        <tr ng-show="moduleRunStatus[editData.id+'_'+editData.version].runStatus != undefined">
+            <td>{{moduleRunStatus[editData.id+'_'+editData.version].runStatus}}</td>
+        </tr>
+        <tr ng-show="moduleRunStatus[editData.id+'_'+editData.version].startTime != undefined">
+            <td><b>Start Time</b></td>
+        </tr>
+        <tr ng-show="moduleRunStatus[editData.id+'_'+editData.version].startTime != undefined">
+            <td>{{moduleRunStatus[editData.id+'_'+editData.version].startTime}}</td>
+        </tr>
+        <tr ng-show="moduleRunStatus[editData.id+'_'+editData.version].endTime != undefined">
+            <td><b>End Time</b></td>
+        </tr>
+        <tr ng-show="moduleRunStatus[editData.id+'_'+editData.version].endTime != undefined">
+            <td>{{moduleRunStatus[editData.id+'_'+editData.version].endTime}}</td>
+        </tr>
+        <tr ng-show="moduleRunStatus[editData.id+'_'+editData.version].details != undefined">
+            <td><b>Details</b></td>
+        </tr>
+        <tr ng-show="moduleRunStatus[editData.id+'_'+editData.version].details != undefined">
+            <td>{{moduleRunStatus[editData.id+'_'+editData.version].details}}</td>
+            <td><a id="download-data" ng-click="exportHiveFuncProj('m_'+editData.id+'_'+editData.version)" title="Export data of this table"><span
+										class="glyphicon glyphicon-export color pointerCursor"></span></a>
+            </td>
+        </tr>
+    </table>
+    </a>
+
+</div>
+
+<div>&nbsp;</div>
+
+<!-- <textarea ng-show = "columnNames[] != undefined"
+		 class="form-control">{{columnNames}}</textarea> -->
+<!-- <textarea ng-show = "columnNames[1] != undefined"
+		 class="form-control">{{columnNames[1]}}</textarea>   exportFunc(obj.schemaName,obj.dataSetTargetPath,obj.schemaId) -->
+<!-- <textarea ng-show = "columnNames[2] != undefined"
+		 class="form-control">{{columnNames[2]}}</textarea> -->
+<div class="form-group col-md-12">
+    <span ng-show="columnNames['table1'] != undefined">Table1</span>
+    <textarea ng-show="columnNames['table1'] != undefined" class="form-control" style="background-color:#fff" readonly>{{columnNames['table1']}}</textarea>
+    <span ng-show="columnNames['table2'] != undefined">Table2</span>
+    <textarea ng-show="columnNames['table2'] != undefined" class="form-control" style="background-color:#fff" readonly>{{columnNames['table2']}}</textarea>
+    <span ng-show="columnNames['table3'] != undefined">Table3</span>
+    <textarea ng-show="columnNames['table3'] != undefined" class="form-control" style="background-color:#fff" readonly>{{columnNames['table3']}}</textarea></div>
+
+
+
+
+<div class="modal fade" id="hiveQuerySampledata" tabindex="-1" role="dialog" aria-labelledby="exportModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+																<span aria-hidden="true">&times;</span><span
+																	class="sr-only">Close</span>
+																</button>
+                <h4 class="modal-title" id="deleteLabel">Export Path {{exportSchema}}</h4>
+            </div>
+            <div class="modal-body">
+                <form ng-submit="submitHiveExportProj(exportData,exportloc);" method="Post" name="fileexport">
+                    <div class="form-group col-sm-12" ng-init="exportloc='local'">
+                        <label class="radio-inline">
+								                                          <input type="radio" ng-model="exportloc" name="exportloc" value="local"> Local
+								                                      </label>
+                        <label class="radio-inline">
+								                                          <input type="radio" ng-model="exportloc" name="exportloc" value="server"> Server
+								                                      </label>
+                    </div>
+                    <div class="form-group col-sm-9 ">
+                        <label class="col-sm-3 control-label " for="type">Type<sup><span
+																				aria-hidden="true" class="glyphicon glyphicon-asterisk red"></span></sup></label>
+                        <div class="col-sm-6 ">
+                            <select class="form-control" ng-model="exportData.export_type" name="type" id="export_type" ng-options="opt for opt in ['JSON','CSV']" required>
+																			  <option></option>
+																			</select>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-14" ng-switch="exportloc != 'local'">
+                        <div class="col-sm-8" ng-switch-when='true'>
+                            <input type="text" ng-model="exportPath" id="editPath" ng-pattern="/^([a-zA-Z]:)?([\\\/][a-zA-Z0-9_\-]+)+\\?/" class="form-control" name="exportPath" placeholder="Name" required>
+
+                            <span class="alert-danger ng-hide" ng-show="fileexport.exportPath.$error.pattern">Please enter valid file path </span></div>
+                        <!-- <div class="col-sm-8" ng-show="exportloc == 'local'"><input type="file" onchange="angular.element(this).scope().uploadexportPath(this.files)"  id="exportServer"  name="MapReduceJar" class="ng-pristine ng-valid" ></div> -->
+                        <div class="col-sm-2">
+                            <input type="submit" class="btn btn-default" name="export" value="Export"></div>
+                        <div class="clearfix">&nbsp;</div>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>

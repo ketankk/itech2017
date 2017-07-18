@@ -1,0 +1,440 @@
+.demo {
+    /* for IE10+ touch devices */
+    touch-action:none;
+}
+
+.flowchart-demo .window {
+    border: 1px solid #346789;
+    box-shadow: 2px 2px 19px #aaa;
+    -o-box-shadow: 2px 2px 19px #aaa;
+    -webkit-box-shadow: 2px 2px 19px #aaa;
+    -moz-box-shadow: 2px 2px 19px #aaa;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    width: 150px;
+    height: 45px;
+    line-height: 28px;
+    cursor: pointer;
+    text-align: center;
+    z-index: 20;
+    position: absolute;
+    background-color: #eeeeef;
+    color: black;
+    font-family: helvetica;
+    padding: 0.5em;
+    font-size: 0.9em;
+    -webkit-transition: -webkit-box-shadow 0.15s ease-in;
+    -moz-transition: -moz-box-shadow 0.15s ease-in;
+    -o-transition: -o-box-shadow 0.15s ease-in;
+    transition: box-shadow 0.15s ease-in;
+    background-position: left center;
+    background-size: 38px 44px;
+    text-overflow: ellipsis;
+  	white-space: nowrap;
+ 	 overflow: hidden;
+}
+.flowchart-demo .Dataset {
+    background-color: #d9ac7f;
+}
+.flowchart-demo .ColumnFilter {
+    background-color: #8cdcf1 !important;
+}
+.flowchart-demo .CleanMissingData {
+    background-color: #8cdcf1 !important;
+}
+.flowchart-demo .Join {
+    background-color: #8cdcf1 !important;
+}
+.flowchart-demo .GroupBy {
+    background-color: #8cdcf1 !important;
+}
+.flowchart-demo .MapReduce {
+ 	background-image: url("../images/mapreduce.png");
+    background-repeat: no-repeat;
+    background-size: 50px 52px;
+    background-color: #e988e0;
+}
+.flowchart-demo .Hive {
+ 	background-image: url("../images/hive.png");
+    background-repeat: no-repeat;
+    background-color: #e6467f;
+    left:0;
+}
+.flowchart-demo .Pig {
+ 	background-image: url("../images/pig.png");
+    background-repeat: no-repeat;
+    background-color: #71c18b;
+}
+.flowchart-demo .Spark {
+ 	background-image: url("../images/spark.png");
+    background-repeat: no-repeat;
+    background-color: #3daffb;
+}
+.flowchart-demo .ColumnFilterrightm {
+ 	background-image:   url("../images/right.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .CleanMissingDatarightm {
+ 	background-image:  url("../images/right.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .Joinrightm {
+ 	background-image:  url("../images/right.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .Partitionrightm {
+ 	background-image:  url("../images/right.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .Subsetrightm{
+ 	background-image:  url("../images/right.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .Trainrightm {
+ 	background-image:  url("../images/right.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .Testrightm {
+ 	background-image:  url("../images/right.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .GroupByrightm {
+ 	background-image:  url("../images/right.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .CompareModelrightm {
+ 	background-image:  url("../images/right.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .CleanMissingDatawaitmod {
+ 	background-image:  url("../images/smallloader.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position:right center;
+    right:0;
+}
+.flowchart-demo .ColumnFilterwaitmod{
+ 	background-image:  url("../images/smallloader.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .Joinwaitmod{
+ 	background-image:  url("../images/smallloader.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .Partitionwaitmod {
+ 	background-image:  url("../images/smallloader.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .Subsetwaitmod {
+ 	background-image:  url("../images/smallloader.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .Trainwaitmod{
+ 	background-image:  url("../images/smallloader.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .Testwaitmod{
+ 	background-image:  url("../images/smallloader.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .GroupBywaitmod{
+ 	background-image:  url("../images/smallloader.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .CompareModelwaitmod {
+ 	background-image:  url("../images/smallloader.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .ColumnFilterfailmod {
+ 	background-image: url("../images/wrong.png");
+    background-repeat: no-repeat;
+    background-size: 28px 37px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .CleanMissingDatafailmod {
+ 	background-image:  url("../images/wrong.png");
+    background-repeat: no-repeat;
+    background-size: 28px 37px;
+    background-position: right center;
+    right:0;
+}
+
+.flowchart-demo .Joinfailmod {
+ 	background-image: url("../images/wrong.png");
+    background-repeat: no-repeat;
+    background-size: 28px 37px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .Partitionfailmod {
+ 	background-image:  url("../images/wrong.png");
+    background-repeat: no-repeat;
+    background-size: 28px 37px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .Subsetfailmod {
+ 	background-image:  url("../images/wrong.png");
+    background-repeat: no-repeat;
+    background-size: 28px 37px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .Trainfailmod {
+ 	background-image: url("../images/wrong.png");
+    background-repeat: no-repeat;
+    background-size: 28px 37px;
+    background-position: right center;
+    right:0;
+}.flowchart-demo .Testfailmod {
+ 	background-image: url("../images/wrong.png");
+    background-repeat: no-repeat;
+    background-size: 28px 37px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .GroupByfailmod {
+ 	background-image:  url("../images/wrong.png");
+    background-repeat: no-repeat;
+    background-size: 28px 37px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .CompareModelfailmod {
+ 	background-image:  url("../images/wrong.png");
+    background-repeat: no-repeat;
+    background-size: 28px 37px;
+    background-position: right center;
+    right:0;
+}
+.flowchart-demo .Hiverightm {
+ 	background-image:  url("../images/hive.png"), url("../images/right.png");
+    background-repeat: no-repeat;
+    background-size: 38px 44px, 16px 16px;
+    background-position: left center,right center;
+    right:0;
+}
+.flowchart-demo .Pigrightm {
+ 	background-image:  url("../images/pig.png"), url("../images/right.png");
+    background-repeat: no-repeat;
+    background-size: 38px 44px, 16px 16px;
+    background-position: left center,right center;
+    right:0;
+}
+.flowchart-demo .MapReducerightm {
+ 	background-image:  url("../images/mapreduce.png"), url("../images/right.png");
+    background-repeat: no-repeat;
+    background-size: 50px 52px, 16px 16px;
+    background-position: left center,right center;
+    right:0;
+}
+.flowchart-demo .Sparkrightm {
+ 	background-image:  url("../images/spark.png"), url("../images/right.png");
+    background-repeat: no-repeat;
+    background-size: 38px 44px, 16px 16px;
+    background-position: left center,right center;
+    right:0;
+}
+.flowchart-demo .Hivefailmod {
+ 	background-image:  url("../images/hive.png"), url("../images/wrong.png");
+    background-repeat: no-repeat;
+    background-size: 38px 44px, 28px 37px;
+    background-position: left center,right center;
+    right:0;
+}
+.flowchart-demo .Pigfailmod {
+ 	background-image:  url("../images/pig.png"), url("../images/wrong.png");
+    background-repeat: no-repeat;
+    background-size: 38px 44px, 28px 37px;
+    background-position: left center,right center;
+    right:0;
+}
+.flowchart-demo .MapReducefailmod {
+ 	background-image:  url("../images/mapreduce.png"), url("../images/wrong.png");
+    background-repeat: no-repeat;
+    background-size: 50px 52px, 28px 37px;
+    background-position: left center,right center;
+    right:0;
+}
+.flowchart-demo .Sparkfailmod {
+ 	background-image:  url("../images/spark.png"), url("../images/wrong.png");
+    background-repeat: no-repeat;
+    background-size: 38px 44px, 28px 37px;
+    background-position: left center,right center;
+    right:0;
+}
+.flowchart-demo .Hivewaitmod {
+ 	background-image:  url("../images/hive.png"), url("../images/smallloader.png");
+    background-repeat: no-repeat;
+    background-size: 38px 44px, 16px 16px;
+    background-position: left center,right center;
+    right:0;
+}
+.flowchart-demo .Pigwaitmod {
+ 	background-image:  url("../images/pig.png"), url("../images/smallloader.png");
+    background-repeat: no-repeat;
+    background-size: 38px 44px, 16px 16px;
+    background-position: left center,right center;
+    right:0;
+}
+.flowchart-demo .MapReducewaitmod {
+ 	background-image:  url("../images/mapreduce.png"), url("../images/smallloader.png");
+    background-repeat: no-repeat;
+    background-size: 50px 52px, 16px 16px;
+    background-position: left center,right center;
+    right:0;
+}
+.flowchart-demo .Sparkwaitmod {
+ 	background-image:  url("../images/spark.png"), url("../images/smallloader.png");
+    background-repeat: no-repeat;
+    background-size: 38px 44px, 16px 16px;
+    background-position: left center,right center;
+    right:0;
+}
+
+.flowchart-demo .window:hover {
+    box-shadow: 2px 2px 19px #444;
+    -o-box-shadow: 2px 2px 19px #444;
+    -webkit-box-shadow: 2px 2px 19px #444;
+    -moz-box-shadow: 2px 2px 19px #444;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+}
+
+.flowchart-demo .active {
+   # border: 1px dotted green;
+}
+
+.flowchart-demo .hover {
+    border: 1px dotted red;
+}
+
+#flowchartWindow1 {
+    top: 34em;
+    left: 5em;
+}
+.dragMe {
+    #width: 24px;
+    #height: 24px;
+    #background: red;
+    padding-left:42px;
+}
+
+#flowchartWindow2 {
+    top: 7em;
+    left: 36em;
+}
+
+#flowchartWindow3 {
+    top: 27em;
+    left: 48em;
+}
+
+#flowchartWindow4 {
+    top: 23em;
+    left: 22em;
+}
+
+.flowchart-demo ._jsPlumb_connector {
+    z-index: 4;
+}
+
+.flowchart-demo ._jsPlumb_endpoint, .endpointTargetLabel, .endpointSourceLabel {
+    z-index: 21;
+    cursor: pointer;
+}
+
+.flowchart-demo .aLabel {
+    background-color: white;
+    padding: 0.4em;
+    font: 12px sans-serif;
+    color: #444;
+    z-index: 21;
+    border: 1px dotted gray;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    cursor: pointer;
+}
+
+.flowchart-demo .aLabel._jsPlumb_hover {
+    background-color: #5C96BC;
+    color: white;
+    border: 1px solid white;
+}
+
+.window._jsPlumb_connected {
+   #border: 2px solid green;
+}
+
+.jsplumb-drag {
+    border: 4px solid pink !important;
+}
+
+path, ._jsPlumb_endpoint {
+    cursor: pointer;
+}
+.window.selectedNode{
+	border-color:red;
+}
+.strokeStylecon{
+	stroke:red;
+}
+#contextMenu {
+  position: absolute;
+  display:none;
+  z-index:999999999999;
+}

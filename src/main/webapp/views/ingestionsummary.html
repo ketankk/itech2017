@@ -1,0 +1,191 @@
+<center><div style="padding-top:200px;" id="profileLoader"><img src="images/loader.gif"></div></center>
+<section  my-directive ng-controller="ingesstionsummary" id= "ingesstionsummaryID" style="padding:0px ! important;display:none;">
+					<div class="section-body">
+					<div class="row">
+					<div class="col-lg-12 zeroPadd">
+					<form role="form" class="form" id="ingestionForm" ng-model="ingestionForm" name="ingestionForm"
+							ng-submit="savefullIngenstion(editData);"><!-- savefullIngenstion(editData)chkTargetHDFSPathAcess(editData.setPath,editData); -->
+							<div class="col-lg-13">
+							<div class="card style-default-bright">
+									<div class="card-head" style="line-height:1.2">
+									<div class="col-md-3" >
+									<!-- div class="col-sm-5">
+									<input type="Submit" class="btn btn-primary" name="Confirm" value="Confirm" ng-disabled="sourcenamenotok == true || ingestionForm.DatasetPath.$error.pattern == true || ingestionForm.SourcePath.$error.pattern == true ">
+									</div-->
+									<!-- <div class="col-sm-5">
+									INPUT Type="button" VALUE="Back" onClick="history.go(-1);return true;"
+									<input type="button" id="btn-login" class="btn btn-default" name="Cancel" value="Cancel" ng-show="true" ng-click="canceloparation()">
+									</div> -->
+									
+				                   <span ><input type="image" src="images/back_inactive.png" ng-click="backoparation()" style="top:9px;margin-left:10%;" title="Previous" ng-disabled="datapreview.length == 0 || schemanamenotok == true || schemanameundefined == true " class="pointerCursor iconPadding" onmouseout="iconUnHover(this, 'back_inactive.png');" onmouseover="iconHover(this, 'back_active.png');">
+				                            </input>
+				                   </span>
+				                   <span ><input type="image" src="images/next_inactive.png" alt="Submit Form" style="top:9px;" title="Next " ng-disabled="sourcenamenotok == true || ingestionForm.DatasetPath.$error.pattern == true || ingestionForm.SourcePath.$error.pattern == true " class="pointerCursor iconPadding" onmouseout="iconUnHover(this, 'next_inactive.png');" onmouseover="iconHover(this, 'next_active.png');">
+				                            </input>
+				                   </span>
+				                    <span ><input type="image" src="images/cancel_inactive.png" ng-click="canceloparation()" style="top:9px;"  title="Cancel"class="pointerCursor iconPadding" onmouseout="iconUnHover(this, 'cancel_inactive.png');" onmouseover="iconHover(this, 'cancel_active.png');">
+				                    </input>
+				                    </span>
+									
+									</div></div></div></div>
+									<div class="col-lg-12 ">
+									<div class="card ">
+								
+									<div>
+									<div class="card style-default-bright">
+									<div class="col-md-5" style="padding-left:34px"><h3>Ingestion Summary</h3></div>
+									</div>
+								</div> 
+							</div>  
+						</div>
+							<div class="col-lg-12">
+
+									<div class="col-lg-12">
+
+								<div ><!-- class="card" -->
+								<div class=" style-default-bright">
+								<div class="row clearfix">&nbsp;</div>
+								<div ng-controller="SortableCTRL"><ng-include src="'includes/progressbar.html'" class="clearfix"></ng-include></div>
+								<div class="clearfix">&nbsp;</div>
+							<!-- savefullIngenstion(editData); -->
+							
+							<!-- <div class="col-sm-2 pull-right">
+						<button type="button" class="btn btn-default col-sm-12"
+							ng-click="canceloparation()">Cancel</button>
+					</div>
+					<div class="col-sm-2 pull-right">
+						<input type="Submit" class="btn btn-primary col-sm-12" name="Confirm" value="Confirm" ng-disabled="sourcenamenotok == true || ingestionForm.DatasetPath.$error.pattern == true || ingestionForm.SourcePath.$error.pattern == true ">
+					</div> -->
+				<div>
+				<div class="calendarNav tab-pane fade in active" id="standardNav">
+				<div class="row-fluid clearfix col-sm-9">
+				<label for="Location" class="col-sm-2 control-label">Source Path<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk red"></span></sup></label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control"
+						ng-model="editData.sourcePath" id="SourcePath" name="SourcePath" placeholder="Source Path" autofocus="autofocus" focus-me="ingestionForm" 
+						required="required"  ng-disabled = "editData.sourcePath == 'RDBMS' || desiredLocation.filetype == 'fileUpload'" ng-blur="chksourcePath(editData.sourcePath);">
+						<!-- <span class="alert-danger" ng-show="ingestionForm.SourcePath.$error.pattern">Please enter valid file path</span> -->
+                        <i ng-show="sourcenamenotok" class="fa fa-times red"> source location is already in use for another profile. Please place the file in another source location and try again.</i> 
+				</div>
+			</div>
+			<div class="row clearfix col-sm-8">&nbsp;</div>
+			<div class="row-fluid clearfix col-sm-9">
+				<label for="Location" class="col-sm-2 control-label">Source Type<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk red"></span></sup></label>
+				<div class="col-sm-4">
+					<select class="form-control"
+						ng-options="sourceFormat[k] as t for (k,t) in sourceFormat"
+						ng-model="editData.format" name="SourcerFormat" ng-disabled = 'true'></select><!-- ="editData.dataSchemaType == 'Automatic' " -->
+				</div>
+			</div>
+			<div class="row clearfix col-sm-8">&nbsp;</div>
+			<div class="row-fluid clearfix col-sm-9">
+				<label for="Location" class="col-sm-2 control-label">Destination Path<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk red"></span></sup></label>
+				<!--div class="col-sm-4">
+					<input type="text" class="form-control"
+						ng-model="editData.setPath" id="DatasetPath" name="DatasetPath" placeholder="Destination Path"
+						required="required" ng-pattern='/^([a-zA-Z]:)?([\\\/][a-zA-Z0-9_\-]+)+\\?/' >
+						<span class="alert-danger" ng-show="ingestionForm.DatasetPath.$error.pattern" >Please enter valid file path</span>
+						<span class="red" ng-show="hdfsPathAcess" ng-model="dataError">{{dataError}}</span>
+				</div-->
+				<div class="col-sm-4">
+					<input type="text" class="form-control"
+						ng-disabled="true" ng-model="editData.setPath" id="DatasetPath" name="DatasetPath" placeholder="Destination Path"
+						required="required">
+				</div>
+			</div>
+			<!--div class="row clearfix col-sm-8">&nbsp;</div-->  
+			<!--div class="row-fluid clearfix col-sm-9">
+				<label for="frequency" class="col-sm-2 control-label">Frequency<sup><span aria-hidden="true" class="glyphicon glyphicon-asterisk red"></span></sup></label>
+				<div class="col-sm-4">
+					<select class="form-control" ng-model="editData.frequency"
+						id="frequency" ng-options="obj for obj in frequencyArr"
+						required="required" ng-change="resetField()"></select>
+				</div-->
+			</div>
+			<div class="row clearfix col-sm-8">&nbsp;</div>
+			<!--div class="row-fluid clearfix col-sm-9">
+				<label for="startBatch" class="col-sm-2 control-label">Start Batch</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-disabled="editData.frequency == 'One Time'"
+						ng-model="editData.startBatch"  pattern="{{patterField.dateStructure}}" id="startBatch"
+						placeholder="YYYY-MM-DD" required="required">
+				</div>
+			</div-->
+			<!--div class="row clearfix col-sm-8">&nbsp;</div-->
+			<!-- div class="row-fluid clearfix col-sm-9">
+				<label for="endBatch" class="col-sm-2 control-label">End Batch</label>
+				<div class="col-sm-4">
+					<input type="text" ng-disabled="editData.frequency == 'One Time'" pattern="{{patterField.dateStructure}}"
+						ng-model="editData.endBatch" id="endBatch"
+						placeholder="YYYY-MM-DD" class="form-control"
+						>
+				</div>
+			</div-->
+			<div class="clearfix col-sm-8">&nbsp;</div>
+			<div class="row-fluid clearfix">
+				<div class="form-group col-sm-9 pull-right">
+					
+				</div>
+			</div>
+			</div>
+<!--  <pagination total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" ng-change="pageChanged()"></pagination>-->
+
+</div>
+</form>
+</div>
+				</div>
+				
+				</div>
+		</div>
+		</div>
+	</div>
+	<div class="modal fade" id="finalModel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Ingestion Confirm Page</h4>
+      </div>
+      <div class="modal-body">
+        <p id="finalmodalBODY"></p>
+        <p><center><input type="button" class="btn btn-primary" data-ng-click="runautoSchema();" name="Test Run" value="Test Run"></center></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" id="confirmRun" tabindex="-1"
+							role="dialog" aria-labelledby="confirmRun" aria-hidden="true">
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<!-- <button type="button" class="close" data-dismiss="modal">
+	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+</button> -->
+	</h4>
+</div>
+<div class="modal-body">
+	<p style="color: green;">Test Run was sucessful</p>
+				<p>
+					File Name: <span id="runFN"></span>
+				</p>
+				<p>
+					Bytes Transferred: <span id="runBT"></span>
+				</p>
+				<p>
+					Time Taken: <span id="runTT"></span> secs
+				</p>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" data-dismiss="modal" ng-click="canceloparation()"
+					class="btn btn-default">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+<script  src="js/menuload.js"></script>
