@@ -48,9 +48,9 @@
 	<security:intercept-url method="DELETE"
 		pattern="/rest/service/**" access="hasAnyRole('admin','user')" /> -->
 </security:http>
-	<bean id="unauthorizedEntryPoint" class="com.itc.zeas.usermanagement.user.security.rest.UnauthorizedEntryPoint" />
+	<bean id="unauthorizedEntryPoint" class="com.itc.itech.usermanagement.user.security.rest.UnauthorizedEntryPoint" />
 	<bean
-		class="com.itc.zeas.usermanagement.user.security.rest.AuthenticationTokenProcessingFilter"
+		class="com.itc.itech.usermanagement.user.security.rest.AuthenticationTokenProcessingFilter"
 		id="authenticationTokenProcessingFilter">
 		<constructor-arg ref="userDao" />
 	</bean>

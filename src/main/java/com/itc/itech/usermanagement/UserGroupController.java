@@ -1,4 +1,4 @@
-package com.itc.zeas.usermanagement;
+package com.itc.itech.usermanagement;
 
 import javax.servlet.http.HttpServletRequest;
 

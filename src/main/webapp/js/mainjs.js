@@ -10,7 +10,7 @@ var userApp = angular.module("userApp", [ "ngRoute", 'tableSort',
 		'scrollable-table' ]).run(function($rootScope, $location) {
 		    $rootScope.location = $location;
 });
-var proj_prefix = '/ZDP-Web/';  
+var proj_prefix = '/iTech/';  
 userApp.config(function($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true).hashPrefix('!#');
 	$routeProvider.when('/', {

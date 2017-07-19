@@ -26,7 +26,7 @@ public class ConnectionUtility {
 	 */
 	public static Connection getConnection() {
 		LOG.debug("Trying to get the connection");
-		Connection connection = ZeasDataSource.INSTANCE.getConnection();
+		Connection connection = ITECHDataSource.INSTANCE.getConnection();
 		LOG.debug("Got the connection successfully");
 		return connection;
 	}

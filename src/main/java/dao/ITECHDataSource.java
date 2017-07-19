@@ -15,7 +15,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  * @author 19217
  * 
  */
-public enum ZeasDataSource {
+public enum ITECHDataSource {
 
 	INSTANCE {
 		@Override
@@ -45,10 +45,10 @@ public enum ZeasDataSource {
 	 * 
 	 */
 	private static class LoggerHolder {
-		private static final Logger LOGGER = Logger.getLogger(ZeasDataSource.class);
+		private static final Logger LOGGER = Logger.getLogger(ITECHDataSource.class);
 	}
 
-	private ZeasDataSource() {
+	private ITECHDataSource() {
 		try {
 			init();
 		} catch (Exception e) {

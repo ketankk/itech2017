@@ -1,4 +1,4 @@
-package com.itc.zeas.usermanagement.user.security.rest;
+package com.itc.itech.usermanagement.user.security.rest;
 
 import java.io.IOException;
 

@@ -481,7 +481,6 @@ public class ZDPUserAccessImpl implements ZDPUserAccess {
 				preparedStatement1 = connection.prepareStatement(sqlQuery);
 				// insert into group_membership
 				// (group_id,user_id,created_at,createdBy,user_permission,group_admin)
-				// values ('zeas_west_region','prabhu',now(),'admin',7,0);
 				List<UserGroup> userGroupList = userDetails.getUserGroupList();
 				//
 				for (UserGroup userGroup : userGroupList) {

@@ -1,4 +1,4 @@
-package com.itc.zeas.usermanagement.user.security.rest.resources;
+package com.itc.itech.usermanagement.user.security.rest.resources;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itc.zeas.usermanagement.user.security.rest.TokenUtils;
-import com.itc.zeas.usermanagement.user.security.transfer.TokenTransfer;
-import com.itc.zeas.usermanagement.user.security.transfer.UserTransfer;
+import com.itc.itech.usermanagement.user.security.rest.TokenUtils;
+import com.itc.itech.usermanagement.user.security.transfer.TokenTransfer;
+import com.itc.itech.usermanagement.user.security.transfer.UserTransfer;
 
 import dao.UserService;
 import service.AuthenticationLogManager;

@@ -2,18 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>ZDP-Master</groupId>
-		<artifactId>ZDP-Master</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../pom.xml</relativePath>
-	</parent>
 
-	<groupId>ZDP-Web</groupId>
-	<artifactId>ZDP-Web</artifactId>
+	<groupId>com.itc</groupId>
+	<artifactId>itech</artifactId>
+	<version>0.0.1</version>
 
 	<packaging>war</packaging>
-	<name>ZDP-Web</name>
+	<name>Itech</name>
 
 	<properties>
 		<!-- Spring Security is based on Spring 3.0.7 -->
@@ -106,7 +101,21 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.7.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.4.1.3</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.json</groupId>
@@ -167,7 +176,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>ZDP-Web</finalName>
+		<finalName>iTech</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>

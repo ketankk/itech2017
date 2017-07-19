@@ -1,4 +1,4 @@
-package com.itc.zeas.usermanagement.user.security.rest;
+package com.itc.itech.usermanagement.user.security.rest;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -7,7 +7,7 @@ import java.util.Set;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Hex;
 
-import com.itc.zeas.usermanagement.user.User;
+import com.itc.itech.usermanagement.user.User;
 
 
 public class TokenUtils

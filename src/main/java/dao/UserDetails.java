@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 /**
- * This model class holds the details of a user,(A user who has account for zeas application)
+ * This model class holds the details of a user,(A user who has account for iTech application)
  */
 @Data
 public class UserDetails {

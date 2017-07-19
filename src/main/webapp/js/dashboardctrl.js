@@ -414,42 +414,8 @@ var dashboardCtrl = function($scope, $rootScope, $location, $http,$interval) {
 			//	console.log("Failed");
 			});
 	}
-	$scope.runningProcess = function(){
-		$scope.method = 'GET';
-		$scope.url = 'rest/service/dashboard/getNoOfRunningProcesses/';
-
-		$http({
-			method : $scope.method,
-			url : $scope.url,
-			headers : headerObj
-		}).success(function(data, status) {
-			$scope.status = status;
-			//console.log(data);
-			$scope.runningData = data;
-			if($scope.runningData.PROJECT)
-				$scope.projectRun = $scope.runningData.PROJECT; 
-			else
-				$scope.projectRun = 0;
-			if($scope.runningData.INGESTION)
-				$scope.ingestionRun = $scope.runningData.INGESTION; 
-			else
-				$scope.ingestionRun = 0;
-			if($scope.runningData.STREAMING)
-				$scope.streamingRun = $scope.runningData.STREAMING; 
-			else
-				$scope.streamingRun = 0;
-			//console.log($scope.projectRun);
-		}).error(function(data, status) {
-			if (status == 401) {
-				$location.path('/');
-			}
-			$scope.data = data || "Request failed";
-			$scope.status = status;
-		});
-	}
-	$scope.runningProcess();
-	$scope.ingestionGraph();
-	$scope.projectGraph();
+	
+	
 	var stoprunStatus = $interval(function() {
 		$scope.runningProcess();
 		}, 10000);

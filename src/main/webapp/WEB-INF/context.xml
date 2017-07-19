@@ -24,10 +24,10 @@
 	<!-- <import resource="classes/spring/persistance.xml" /> this is also correct -->
 	<import resource="classes/spring/spring-security.xml" />
 
-	<bean id="userDao" class="com.itc.zeas.usermanagement.user.JpaUserDao">
+	<bean id="userDao" class="com.itc.itech.usermanagement.user.JpaUserDao">
 	</bean>
 
-	<bean id="dataBaseInitializer" class="com.itc.zeas.usermanagement.user.DataBaseInitializer"
+	<bean id="dataBaseInitializer" class="com.itc.itech.usermanagement.user.DataBaseInitializer"
 		  init-method="initDataBase">
 		<constructor-arg ref="userDao" />
 		<constructor-arg ref="passwordEncoder" />

@@ -1,4 +1,4 @@
-package com.itc.zeas.usermanagement.user;
+package com.itc.itech.usermanagement.user;
 
 import java.io.Serializable;
 import java.util.Collection;

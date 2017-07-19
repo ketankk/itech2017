@@ -43,9 +43,7 @@ public class ConfigurationReader {
 	 */
 	public static String getProperty(String key)  {
 		String propVal=prop.getProperty(key);
-		/*if(propVal==null)
-			throw new ZeasException(ZeasErrorCode.CONFIGURTION_PROPERTY_NOT_FOUND,"Key not found in configuration file "+key);
-		*/return propVal;
+		return propVal;
 	}
 
 }

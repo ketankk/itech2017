@@ -1158,7 +1158,7 @@ a.text-success:hover {
 }
 
 .bglogin{
-	background-image:url('../images/bg.png');
+	/*background-image:url('../images/bg.png');*/
 	background-size:100% 100%;
 }
 #base > .backdrop {
