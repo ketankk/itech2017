@@ -34,14 +34,14 @@ list-style-type: none;
         </div>
             <ul class="sidebar-nav nav-pills nav-stacked" id="menu" style="margin-top: 20px">
 						
-							<li class="menu-button-hide" ng-class="{activesidebarnav: pageURL() == '/Dashboard/' }">
-							 	<a  ng-click="golocation('Dashboard','icon-data');"><span class="fa-stack fa-lg pull-left"><i class="fa fa-line-chart icon-color" aria-hidden="true"></i></span> List1</a>
+							<li class="menu-button-hide" ng-class="{activesidebarnav: pageURL() == '/Topics/' }">
+							 	<a  ng-click="golocation('Topics','icon-data');"><span class="fa-stack fa-lg pull-left"><i class="fa fa-line-chart icon-color" aria-hidden="true"></i></span> Topics</a>
 							</li>
-							<li class="menu-button-hide" ng-class="{activesidebarnav: pageURL() == '/DataSchema/' }">
-							 	<a  ng-click="golocation('DataSchema','icon-data');"><span class="fa-stack fa-lg pull-left"><i class="fa fa-database icon-color" aria-hidden="true"></i></span> List2</a>
+							<li class="menu-button-hide" ng-class="{activesidebarnav: pageURL() == '/Devices/' }">
+							 	<a  ng-click="golocation('Devices','icon-data');"><span class="fa-stack fa-lg pull-left"><i class="fa fa-database icon-color" aria-hidden="true"></i></span> Devices</a>
 							</li>
-							 <li class="menu-button" ng-class="{activesidebarnav: pageURL() == '/project/' }">
-							 	<a  ng-click="golocation('project','icon-data');" ><span class="fa-stack fa-lg pull-left"><i class="fa fa-suitcase icon-color" aria-hidden="true"></i></span> List3</a>
+							 <li class="menu-button" ng-class="{activesidebarnav: pageURL() == '/Menu3/' }">
+							 	<a  ng-click="golocation('Menu3','icon-data');" ><span class="fa-stack fa-lg pull-left"><i class="fa fa-suitcase icon-color" aria-hidden="true"></i></span> List3</a>
 							</li>
 							
 							
@@ -51,9 +51,6 @@ list-style-type: none;
 						
 		</ul>
 			
-		<ul class="sidebar-nav nav-pills nav-stacked menu-bar" >
-		 <li> <img class="menu-button" id="subMenuCls" src="images/leftarrowsub.png"  style="float:right;padding:5px; margin-top: 8px;margin-right:0px;cursor: pointer;"> <div style="display:inline-block">  </span></img></li>
-		<ng-include src="'views/projectsubmenu.html'" class="clearfix"></ng-include>
-   	 </ul>
+		
         </div>	</div></div>	</div>	
 <script src="js/sidebar_menu.js"></script>	

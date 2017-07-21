@@ -1045,7 +1045,6 @@ var headerCtrl = function(myService, $scope, $http, $templateCache, $location,
     // pagination controls
     $scope.currentPage = 1;
     //	$scope.totalItems = $scope.logData.length;
-    console.log($scope.totalItems);
     // items per page
     $scope.clearlog = function() {
 
@@ -1073,10 +1072,10 @@ var leftbarCtrl = function(myService, $scope, $http, $templateCache, $location,
     $scope.callSubMenu = function() {
         //alert($location.path());
 
-        if ($location.path() == '/project/') {
+        if ($location.path() == '/Topics/') {
 
             schemaSourceDetails(myService, $scope, $http, $templateCache, $rootScope,
-                $location, 'DataSet');
+                $location, 'Topics');
 
         }
 
@@ -1180,6 +1179,105 @@ var leftbarCtrl = function(myService, $scope, $http, $templateCache, $location,
 }
 var mainController = function(myService, $scope, $http, $templateCache, $location,
     $rootScope, $route, $interval) {
+		
+		/* topics */
+		
+		
+		
+				
+				
+		var fetchTopics = function(){
+			console.log('topics')
+			
+			$scope.method = 'GET';
+        
+        //$scope.url = 'https://hpz7pbrlx6.execute-api.us-east-1.amazonaws.com/prod/alltopics';
+		$scope.url='http://13.126.228.155:8081/NotificationPlatform/getAllTopics';
+		
+         $http({
+            method: $scope.method,
+            url: $scope.url,
+          //  cache : $templateCache,
+            headers: headerObj
+        }).success(function(data, status) {
+            $scope.status = status;
+            $scope.topics = data;
+            console.log(data)
+        }).error(function(data, status) {
+           
+            $scope.data = data || "Request failed";
+            $scope.status = status;
+        }); /*
+		
+			$scope.topics=[
+					{
+					"name": "test123",
+					"arn": "arn:aws:sns:us-east-1:038184107766:test123"
+					}
+				]*/
+		}
+		
+		
+		var fetchDevices = function(){
+			console.log('devices')
+			
+			$scope.method = 'GET';
+        
+        //$scope.url = 'https://hpz7pbrlx6.execute-api.us-east-1.amazonaws.com/prod/alldevice';
+		$scope.url='http://13.126.228.155:8081/NotificationPlatform/getAllDevices';
+		
+         $http({
+            method: $scope.method,
+            url: $scope.url,
+            //cache : $templateCache,
+            headers: headerObj
+        }).success(function(data, status) {
+            $scope.status = status;
+            $scope.devices = data;
+            console.log(data)
+        }).error(function(data, status) {
+           
+            $scope.data = data || "Request failed";
+            $scope.status = status;
+        }); 
+		
+		/*
+			$scope.devices=[
+    {
+        "id": 8,
+        "arn": "arn:aws:sns:us-east-1:038184107766:endpoint/GCM/iTechGCM/dca98fe6-e214-31e1-a916-f50096575110",
+        "token": "eNYwi1cBy5o:APA91bFmp6lDQI01e5esxryqGfqukp5ryP3iTJDTxGseoCqeiu3rvc8eQ_p-rv8I42TCwr3_plyGZwojxCSS-nfbaRYm_75VBEqMHLxjsZGC3HXWKp3sbgQ20Ik-ZcV6M4dgOoJTAUKq",
+        "os": "Android",
+        "osVersion": "5.0.2",
+        "deviceType": "slte",
+        "appVersion": "1.0.0",
+        "deviceId": "355427060420052",
+        "email": ""
+    },
+    {
+        "id": 2,
+        "arn": "arn:aws:sns:us-east-1:038184107766:endpoint/GCM/iTechGCM/d7d786e8-9460-3cdd-91f4-754fd92b2c60",
+        "token": "dAgJZHDG03o:APA91bG28juKwxyBZcx6SPXeVV08oYHvaq37j8e5bnDaN0V9bkJ9nF-1HfGzFSCdTSKKDpi4UxfGj4i_VZj_4uu3ihtxPCoVNPvHYOO1y9RHjZZzs9DM21xj3P9ihqmemYiqn85eqwRB",
+        "os": "Android",
+        "osVersion": "6.0.1",
+        "deviceType": "mido",
+        "appVersion": "1.0.0",
+        "deviceId": "863194039715708",
+        "email": ""
+    }
+]*/
+
+		}
+
+
+$('#streamLoader').hide()
+		
+		/* ends */
+		
+		
+		
+		
+		
 
     $scope.pipeEdit = false;
     $scope.pipelineStart = false;
@@ -1221,10 +1319,18 @@ var mainController = function(myService, $scope, $http, $templateCache, $locatio
     };
     $scope.icon = 'icon-data';
     $scope.golocation = function(path, icon) {
-        //console.log(path);	
+        console.log(path);	
         if (path != "#")
             $location.path("/" + path + "/");
         $scope.icon = icon;
+		
+		
+		if(path=="Topics"){
+			fetchTopics();
+		}
+		if(path=="Devices"){
+			fetchDevices();
+		}
 
         /*
          *  Added by 19726 on 23-11-2016
@@ -1290,34 +1396,8 @@ var mainController = function(myService, $scope, $http, $templateCache, $locatio
         $location.path("/userDetails/");
 
     }
-    var stopTime1 = $interval(function() {
-        //	console.log($scope.isLoginPage());
-        if ($scope.isLoginPage() === false && localStorage.getItem('itc.username') !== null) {
-            $scope.getNotiCount();
-        }
-
-    }, 60000);
-    $scope.getNotiCount = function() {
-        $scope.method = 'GET';
-        $scope.url = 'rest/service/getNotificationCount';
-
-        $http({
-            method: $scope.method,
-            url: $scope.url,
-            headers: headerObj
-        }).success(function(data, status) {
-
-            $scope.status = status;
-            $scope.notiCount = data;
-
-        }).error(function(data, status) {
-            if (status == 401) {
-                $location.path('/');
-            }
-            $scope.data = data || "Request failed";
-            $scope.status = status;
-        });
-    }
+    
+    
     $scope.redirectNotiPage = function(id, compType, opType) {
         //alert(id);
         console.log(id + '' + compType + '' + opType);
@@ -1521,13 +1601,13 @@ var userController = function($scope, $rootScope, $location, $http, $interval) {
             localStorage.setItem('itc.userRole', $scope.userRole);
             headerObj = {
                 'X-Auth-Token': localStorage.getItem('itc.authToken'),
-                'Cache-Control': "no-cache"
+				'Cache-Control': "no-cache"
             };
             if ($scope.rememberMe) {
                 $cookieStore.put('authToken', authToken);
             }
 
-            $location.path("/Dashboard/");
+            $location.path("/Topics/");
 
         }).error(function(data, status) {
 

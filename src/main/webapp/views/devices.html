@@ -1,0 +1,52 @@
+
+<section my-directive ng-controller="mainController"  id="">
+
+	<div>
+	
+		<div class="clearfix">&nbsp;</div>
+		<div class="clearfix">&nbsp;</div>
+		
+		<div class="col-md-12">
+		<div class="col-md-3">
+			<select ng-model="ddata.topicName" class="form-control" placeholder="Topic" ng-options="t.name for t in topics" id="">
+                                         <option value="">-Select Topic-</option>
+                                     </select>
+									 
+									 
+		</div>
+		<div>
+			<button class="btn btn-primary">SUBSCRIBE</button>
+		</div>
+		</div>
+		<div class="clearfix">&nbsp;</div>
+		<div class="col-md-12">
+		<div class="table-responsive tablebox" >
+                        <table class="table no-margin profile " ts-wrapper id="serviceClass">
+                            <thead style="opacity:1 !important">
+                                <tr class="headertext">
+                                    <th ><input type="checkbox" ng-model="dall" /></th>
+                                    <th>osVersion</th>
+									<th>deviceType</th>
+									<th>appVersion</th>
+									<th>deviceId</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="p in devices">
+
+                                    <td><input type="checkbox" ng-model="ddata.checked" ng-checked="dall"/></td>
+									<td>{{p.osVersion}}</td>
+									<td>{{p.deviceType}}</td>
+									<td>{{p.appVersion}}</td>
+									<td>{{p.deviceId}}</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+					</div>
+	</div>
+
+    </section>
+                                

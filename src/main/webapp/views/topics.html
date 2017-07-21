@@ -1,0 +1,31 @@
+
+<section my-directive ng-controller="mainController"  id="">
+
+	<div>
+	
+	<div class="clearfix">&nbsp;</div>
+	<div class="clearfix">&nbsp;</div>
+	
+		<div class="table-responsive tablebox" >
+                        <table class="table no-margin profile " ts-wrapper id="serviceClass">
+                            <thead style="opacity:1 !important">
+                                <tr class="headertext">
+                                    <th ><input type="checkbox" ng-model="tall" /></th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="topic in topics">
+
+                                    <td><input type="checkbox" ng-model="tdata.checked" ng-checked="tall" id="{{topic.topicARN}}" /></td>
+									<td>{{topic.name}}</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+	</div>
+
+    </section>
+                                

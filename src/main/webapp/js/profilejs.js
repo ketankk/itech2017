@@ -9,7 +9,7 @@ userApp
              * localStorage.getItem('itc.authToken');
              * $rootScope.authToken = authToken; }
              */
-            getHeader($scope, $location);
+            //getHeader($scope, $location);
             $scope.dUsername = localStorage.getItem('itc.username');
 
             // $scope.dataSrc.test = [0, 1];
@@ -45,12 +45,16 @@ userApp
             //console.log(userNameFromToken);
 
 
-            getLogonUser($scope, $http, $templateCache,
+          /*  getLogonUser($scope, $http, $templateCache,
                 $rootScope, $location, userNameFromToken);
-
+*/
             // $scope.editData.frequency = $scope.frequencyArr[0];
-            typeFormatFetch($scope, $http, $templateCache,
+            
+			
+			/*typeFormatFetch($scope, $http, $templateCache,
                 $rootScope, $location, 'Format', 'DataSource')
+				*/
+				
             // prevMenu = '';
             //changeMClass('one')
             // $scope.sourceType = ['file'];
@@ -466,7 +470,6 @@ userApp
                 }];
                 $scope.editData = new Object();
                 $scope.editData.addSchemaMed = "---Select---";
-                schemaSourceDetails(myService, $scope, $http, $templateCache, $rootScope, $location, 'DataSchema');
                 var stopckhStatus = $interval(function() {
                     $scope.getJobStatus();
                 }, 5000);
@@ -478,16 +481,7 @@ userApp
 
                 });
 
-            } else {
-                schemaSourceDetails(myService, $scope, $http,
-                    $templateCache, $rootScope, $location);
-            }
-            $scope.getSouceinfo = function(sourceId) {
-                schemaSourceDetails(myService, $scope, $http,
-                    $templateCache, $rootScope, $location,
-                    'DataSource');
-                // console.log($scope.detaildataSource);
-            }
+            } 
             $scope.exportFunc = function(schemaName, exportPath, schemaId) {
 
                 $scope.schemaId = schemaId;
