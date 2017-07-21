@@ -2,10 +2,33 @@
 <section my-directive ng-controller="mainController"  id="">
 
 	<div>
-	
+	<div class="row">
+			<div class="row">
+				<div class="col-lg-12 zeroPadd">
+
+					<div class="card style-default-bright">
+						<div class="card-head">
+							<div class="col-sm-5">
+							
+                     <!-- <span ng-click="addUpdateSchema();" class="glyphicon glyphicon-plus-sign fa-2x color"></span> -->
+                     <span class="iconPadding" ng-class="{'pointerCursor':'true'}"  ng-click="openCreateTopic();" style="top:9px;margin-left:10%;">
+                     <img src="images/new_inactive.png" onmouseover="iconHover(this, 'new_active.png');" onmouseout="iconUnHover(this, 'new_inactive.png');" ng-show="userProfileData.haveWritePermissionOnDataset === true || userProfileData.isSuperUser === true" class="icon-height">
+                     <img src="images/new_inactive.png" ng-show="userProfileData.haveWritePermissionOnDataset !== true && userProfileData.isSuperUser !== true"></span>
+                     <span class="pointerCursor iconPadding" title="Send message">
+					 <img src="images/msg_active.png" ng-click="openSendMsg();" onmouseover="iconHover(this, 'msg_in_active.png');" onmouseout="iconUnHover(this, 'msg_active.png');" class="icon-height"></a></span>
+                  </div>
+							
+							
+								<header style="color: white">&nbsp;</header>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
-	
 		<div class="table-responsive tablebox" >
                         <table class="table no-margin profile " ts-wrapper id="serviceClass">
                             <thead style="opacity:1 !important">
@@ -25,7 +48,205 @@
                             </tbody>
                         </table>
                     </div>
-	</div>
+					</div>
+					
+					
+					
+					<!--Modal started-->
+					
+					
+					 <div class="modal fade" id="createTopic" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
+        <div class="modal-dialog streamModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+                    <h4 id="myModalDetailsLabel" class="modal-title ng-binding">
+                        <b>Configure Dataset:</b>
+                    </h4>
+                </div>
+                <form role="form" class="form" id="datasetForm" name="datasetForm" ng-submit="saveStreamDataset(editData1)">
+                    <div class="modal-body">
+                        <div class="row-fluid clearfix">&nbsp;</div>
+
+                        <div class="row-fluid">
+
+                            <div class="col-xs-4">
+                                <label for="selectSchemaType">Dataset Name<sup><span
+												aria-hidden="true"
+												class="glyphicon glyphicon-asterisk red"></span></sup></label>
+                            </div>
+                            <div class="col-xs-6">
+                                <label for="selectSchemaType">Description</label>
+                            </div>
+                        </div>
+
+                        <div class="row-fluid">
+                            <div class="col-xs-4">
+                                <input type="text" editable-text="editname" ng-model="editData1.name" placeholder="Name" name="fname" class="form-control" id="sourceName" ng-pattern="/^[a-zA-Z0-9_\s]*$/" required ng-disabled="editData1.id != undefined" ng-blur="chkSchemaName(editData1.name);"> <span class="alert-danger" ng-show="schemaForm1.fname.$error.pattern">Special
+											Character Not allowed.</span>
+                                <i ng-show="schemanamenotok" class="fa fa-times red">Schema Name already exist,Use another name !</i>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <textarea class="form-control ng-pristine ng-valid ng-valid-required" ng-model="editData1.description" name="location" placeholder="Description" ng-keypress="savebutton = false"></textarea>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="text" editable-text="editname" ng-model="editData1.dataSchemaType" placeholder="schematype" name="schematype" class="form-control ng-pristine ng-invalid ng-invalid-required" id="schematype" ng-show=false />
+                            </div>
+
+
+                        </div>
+
+                        <!--div class="clearfix visible-xs-block"></div-->
+
+
+                        <div class="col-xs-12">
+
+                            <table>
+                                <br></br>
+
+
+                                <colgroup>
+                                    <col style="width:15%">
+                                    <col style="width:10%">
+                                    <col style="width:10%">
+                                </colgroup>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <input name="SchemaCreate" value="autoschema" type="radio" ng-model="valshow"><b>Upload Schema File</b><br>
+
+                                        </div>
+                                    </td>
+                                    <!-- ts-default -->
+                                    <td><input name="valshow" value="manualschema" type="radio" ng-model="valshow" checked="checked"><b>Manually Configure Dataschema</b></td>
+                                </tr>
+                            </table>
+
+
+
+
+
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="row-fluid clearfix" ng-show="valshow=='autoschema'">
+                                <input type="file" class="" name="file" ng-model="fileInput" id="file" onchange="angular.element(this).scope().uploadFile(this.files)">
+                            </div>
+                        </div>
+
+                        <br></br>
+
+
+                        <div class="clearfix visible-xs-block"></div>
+                        <div class="col-sm-12 controls" ng-show="valshow=='manualschema'">
+
+                            &nbsp;<button class="btn btn-primary" type="button" ng-click="newatrri($event,'manual')">Add Attribute</button>
+
+                            <div>&nbsp</div>
+                        </div>
+
+
+
+
+
+                        <div ng-show="valshow=='autoschema'">
+                            <div class="col-sm-12 controls" id="addAtribute" style="display: none;">
+                                <div class="row-fluid">&nbsp;</div>
+                                &nbsp;<button class="btn btn-primary" type="button" ng-click="newatrri($event)">Add Attribute</button>
+
+                                <div>&nbsp</div>
+                            </div>
+                            <div class="mega mega1" id="uploadedTable" style="display: none;">
+
+
+
+
+                                <table class=' headerfixed dataschemaheaderfixed table  table-bordered' ng-show="columnNameArray.length > 0">
+
+
+                                    <colgroup>
+                                        <col style="width:10%">
+                                        <col style="width:10%">
+                                        <col style="width:20%">
+                                        <col style="width:5%">
+                                    </colgroup>
+                                    <tr class="whiteRow">
+                                        <td>Name</td>
+                                        <!-- ts-default -->
+                                        <td>Type</td>
+                                        <td>Description</td>
+                                        <td>Operations</td>
+                                    </tr>
+                                </table>
+
+                                <table class="table table-bordered ">
+                                    <tr ng-repeat="dd in columnNameArray track by $index">
+                                        <td contenteditable="true" ng-model="dd.name" class="col-sm-1">{{dd.name}}</span>
+                                        </td>
+                                        <td class="col-sm-1"><select class="form-control" ng-init="dd.dataType = dd.dataType == null ? sourceType[0] : dd.dataType" ng-options="sourceType[k] as t for (k,t) in sourceType" ng-model="dd.dataType" name="Sourcertype"></select>
+                                        </td>
+                                        <td class="col-sm-2" contenteditable="true" ng-model="dd.description"></td>
+                                        <td ng-click="columnNameArray.splice($index, 1)" class="col-sm-1 pointerCursor"><i class="fa fa-times fa-2x red"></i></td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+
+                                
+                            </div>
+                        </div>
+
+
+                        <div class="mega mega1" ng-show="valshow=='manualschema'">
+
+                           
+                            <table class='headerfixed dataschemaheaderfixed table  table-bordered '>
+                                <colgroup>
+                                    <col style="width:10%">
+                                    <col style="width:10%">
+                                    <col style="width:20%">
+                                    <col style="width:5%">
+                                </colgroup>
+                                <tr class="whiteRow">
+                                    <td>Name</td>
+                                    <!-- ts-default -->
+                                    <td>Type</td>
+                                    <td>Description</td>
+                                    <td>Operations</td>
+                                </tr>
+                            </table>
+                            <table class="table table-bordered ">
+                                <tr ng-repeat="dd in ddArray">
+                                    <td contenteditable="true" ng-model="dd.Name" class="col-sm-1">{{dd.Name}}</span>
+                                    </td>
+                                    <td class="col-sm-1"><select class="form-control" ng-init="dd.dataType = dd.dataType == null ? sourceType[0] : dd.dataType" ng-options="sourceType[k] as t for (k,t) in sourceType" ng-model="dd.dataType" name="Sourcertype"></select>
+                                    </td>
+                                    <td class="col-sm-2" contenteditable="true" ng-model="dd.description">{{dd.description}}</td>
+                                    <td ng-click="ddArray.splice($index, 1)" class="col-sm-1 pointerCursor"><i class="fa fa-times fa-2x red"></i></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-sm-6">
+                            <span class="btn btn-primary col-sm"><input type="submit"
+								ng-show="true" name="Submit" value="Save"
+								class="btn btn-primary col-sm" id="btn-Upload"> </span>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+          
+        </div>
+    </div>
 
     </section>
                                 

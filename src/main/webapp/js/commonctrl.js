@@ -322,20 +322,7 @@ userApp.controller('ModalInstanceCtrl', function(myService, $scope,
 
     }
     $scope.fileDataContent = new Object();
-    $scope.checkSourceFiletype = function(files) {
-        srcFilename = document.getElementById('fileUploadForm2').elements["file"].value.toUpperCase();
-        allowedSuffix = $scope.editData.format.toUpperCase();
-        srcFileSuffix = srcFilename.slice((srcFilename.lastIndexOf(".") - 1 >>> 0) + 2).toUpperCase()
-        if ((srcFileSuffix == "XLSX") && (srcFileSuffix.indexOf(allowedSuffix) >= 0)) {
-            allowedSuffix = 'XLSX'
-        }
-        if (srcFileSuffix != allowedSuffix) {
-            alert('File type not allowed. Allowed file type: ' + allowedSuffix.toLowerCase());
-            document.getElementById('fileUploadForm2').elements["file"].value = '';
-        } else {
-            $scope.uploadFile(files)
-        }
-    }
+   
     //file format check for bulk ingestion
     $scope.bulkIngestionFiletype = function(files) {
         srcFilename = document.getElementById('bulkIngestionForm').elements["file"].value.toUpperCase();
@@ -355,544 +342,7 @@ userApp.controller('ModalInstanceCtrl', function(myService, $scope,
 
     }
 
-    $scope.resetFileBrowse = function() {
-        document.getElementById('fileUploadForm2').elements["file"].value = '';
-    }
-
-    $scope.uploadFile = function(files) {
-        var fd = new FormData();
-        fd.append("file", files[0]);
-
-        console.log(files[0]);
-        $scope.fileDataContent = files[0];
-        $scope.mflag = true;
-
-    }
-    //upload function for bulk ingestion
-    $scope.uploadBulk = function(filetype) {
-        console.log('profiletype:' + filetype);
-        console.log('profilename:' + $scope.editData.bulkName);
-        $scope.fileData = new Object();
-        if ($scope.fileDataContent.name == undefined) {
-            alert("Please upload file!");
-            return false
-        }
-        //console.log('filedata content name:'+$scope.fileDataContent.name);
-
-        $('#uploadLoaderBulk').show();
-        var fd1 = new FormData();
-
-        //console.log('name:'+$scope.fileDataContent.name +'format:'+srcFileSuffix);
-        $scope.fileData.fileName = $scope.fileDataContent.name;
-        $scope.fileData.fileType = srcFileSuffix;
-        $scope.fileData.profileType = filetype;
-        $scope.fileData.createdBy = localStorage.getItem('itc.username');
-        $scope.fileData.updatedBy = localStorage.getItem('itc.username');
-        //console.log('filedata:'+JSON.stringify($scope.fileData,null,4)); 
-
-
-        $scope.newStep = new Object();
-        $scope.newStep.fileData = $scope.fileData;
-
-        fd1.append("profileName", $scope.editData.bulkName);
-        fd1.append("fileType", $scope.fileData.fileType);
-        fd1.append("fileName", $scope.editData.bulkName + "." + $scope.fileData.fileType);
-        fd1.append("format", $scope.fileData.fileType);
-        fd1.append("createdBy", $scope.fileData.createdBy);
-        fd1.append("updatedBy", $scope.fileData.updatedBy);
-        fd1.append("profileType", $scope.fileData.profileType);
-
-        fd1.append("file", $scope.fileDataContent);
-
-
-        $http.post('rest/service/getSchemaForBulkUpload', fd1, {
-                headers: {
-                    'X-Auth-Token': localStorage
-                        .getItem('itc.authToken'),
-                    'Content-Type': undefined
-                },
-                transformRequest: angular.identity
-            })
-            .success(function(data, status) {
-
-                $scope.status = status;
-                $scope.newStep.bulkDatapreview = data;
-                // $scope.newStepBulk.filetype = filetype;
-                myService.set($scope.newStep);
-                $rootScope.closeModal();
-                $location.path("/bulkIngestionPreview/");
-
-
-                // datapreview = data
-
-            }).error(function(data, status) {
-                if (status == 401) {
-                    $location.path('/');
-                }
-                if (filetype == 'file') {
-                    $('#uploadLoader').hide();
-                } else {
-                    $('#connectLoader').hide();
-                }
-                $scope.errorCode = data; // data;
-
-            });
-    }
-
-    
-
-    //upload function
-    $scope.upload = function(filetype) {
-
-        //  console.log("filetype" + filetype);
-        $scope.errorCode = '';
-        $rootScope.errorCode = '';
-        $scope.fileData = new Object();
-        $scope.fileData.minsize = $scope.editData.minSize;
-        $scope.fileData.maxsize = $scope.editData.maxSize;
-        $scope.fileData.notifyEmail = $scope.editData.myCheckEmail;
-        $scope.fileData.notifyAlert = $scope.editData.myCheckAlert;
-
-
-        //alert('email:' + $scope.fileData.notifyEmail + "  alert:" + $scope.fileData.notifyAlert);
-
-        var fdl = new FormData();
-        $rootScope.fileSys = filetype;
-        if ($("#uploadField").val() == "" && $scope.metaData) {
-            alert("Upload Meta File !");
-            return false;
-        }
-
-        if (filetype == 'file') {
-            $scope.fileData.notificationSet = $scope.editData.fileNotificationSet;
-            $scope.fileData.mintype = $scope.editData.minType;
-            $scope.fileData.maxtype = $scope.editData.maxType;
-            $scope.fileData.contIngestion = $scope.editData.contFileIngestion;
-            var fileName = $scope.editData.filepath;
-            $rootScope.fileName = fileName;
-            if (fileName == undefined || fileName == '') {
-                alert('Please enter a valid file path');
-                return false;
-            }
-
-            //console.log(fileName);
-            $('#uploadLoader').show();
-
-
-            newSchemaName = $scope.getName(fileName)
-            newSchemaName = newSchemaName.split('.');
-            newSchemaName = newSchemaName[0];
-            $scope.fileData.fileName = fileName;
-            $scope.fileData.fileType = $scope.editData.format;
-            $scope.fileData.format = $scope.editData.format;
-
-
-            var filepathregex = /^([a-zA-Z]:)?(\\{2}|\/)?([a-zA-Z0-9\\s_@-^!#$%&amp;+=\-{}\[\]]+(\\{2}|\/)?)+(\.xls||\.csv||\.xml||\.json||\.xlsx+)?$/;
-            console.log(filepathregex.test(fileName));
-            console.log(fileName);
-            if ($scope.fileData.fileType != 'Delimited' && $scope.fileData.fileType != 'Fixed Width') {
-                if (filepathregex.test(fileName) === false) {
-                    alert('Please check the file path.');
-                    return false;
-                }
-            }
-
-
-            //alert($scope.fileData.fileType);
-            if ($scope.fileData.fileType != 'Delimited' && $scope.fileData.fileType != 'Fixed Width') {
-                //alert($scope.fileData.fileType);
-                if ($scope.fileData.fileName) {
-                    var fileExten = $scope.fileData.fileName.substr($scope.fileData.fileName.lastIndexOf('.') + 1);
-                    var fileExtenTemp = fileExten.toLowerCase();
-                    if (fileExtenTemp == 'xlsx') {
-                        fileExtenTemp = 'xls';
-                    }
-                    if ($scope.fileData.fileType.toLowerCase() != fileExtenTemp) {
-                        alert('Please verify file type');
-                        $('#uploadLoader').hide();
-                        return false;
-                    }
-                }
-            }
-
-
-            fdl.append("file", $scope.fileDataContent);
-            fdl.append("fileName", fileName);
-            fdl.append("fileType", $scope.editData.format);
-            fdl.append("format", $scope.editData.format);
-            fdl.append("mintype", $scope.editData.minType);
-            fdl.append("minsize", $scope.editData.minsize);
-            fdl.append("maxsize", $scope.editData.maxsize);
-            fdl.append("maxtype", $scope.editData.maxtype);
-            fdl.append("notifyAlert", $scope.editData.notifyAlert);
-            fdl.append("notifyEmail", $scope.editData.notifyEmail);
-
-            if ($scope.containHeader) {
-                fdl.append("hFlag", "true");
-                $scope.fileData.hFlag = "true";
-                $scope.fileDataContent = "";
-            } else {
-                fdl.append("hFlag", "false");
-                $scope.fileData.hFlag = "false";
-            }
-            if ($scope.mflag) {
-                //alert("inside meta");
-                fdl.append("mFlag", "true");
-                $scope.fileData.mFlag = "true";
-            } else {
-                fdl.append("mFlag", "false");
-                $scope.fileData.mFlag = "false";
-            }
-            if ($scope.editData.format == 'Fixed Width') {
-                fdl.append("noOfColumn", $scope.editData.noofColumn);
-                fdl.append("fixedValues", $scope.editData.fixedValues);
-                fdl.append("rowDeli", "");
-                fdl.append("colDeli", "");
-                $scope.fileData.noOfColumn = $scope.editData.noofColumn;
-                $scope.fileData.fixedValues = $scope.editData.fixedValues;
-            } else if ($scope.editData.format == 'Delimited') {
-                fdl.append("noOfColumn", "");
-                fdl.append("fixedValues", "");
-                fdl.append("rowDeli", $scope.editData.rowDeli);
-                fdl.append("colDeli", $scope.editData.colDeli);
-                $scope.fileData.rowDeli = $scope.editData.rowDeli;
-                $scope.fileData.colDeli = $scope.editData.colDeli;
-            } else {
-                fdl.append("noOfColumn", "");
-                fdl.append("fixedValues", "");
-                fdl.append("rowDeli", "");
-                fdl.append("colDeli", "");
-            }
-
-        } else if (filetype == 'fileUpload') {
-            $scope.fileData.notificationSet = $scope.editData.fileuploadNotificationSet;
-            $scope.fileData.mintype = $scope.editData.minType;
-            $scope.fileData.maxtype = $scope.editData.maxType;
-            $scope.fileData.contIngestion = $scope.editData.contLocalIngestion;
-
-            console.log(Object.keys($scope.fileDataContent).length);
-            if ($scope.fileDataContent.name == undefined) {
-                alert("Please upload file!");
-                return false
-            }
-
-            console.log($scope.editData.newSchemaName);
-
-            $('#uploadLoader_local').show();
-
-            var fdl = new FormData();
-            //var fileName = $scope.editData.filepath;
-
-            $scope.fileData.fileName = $scope.editData.newSchemaName + "." + $scope.editData.format;
-            newSchemaName = $scope.editData.newSchemaName;
-            $scope.fileData.fileType = $scope.editData.format;
-            $scope.fileData.format = $scope.editData.format;
-
-
-            fdl.append("profileName", $scope.editData.newSchemaName);
-            fdl.append("fileName", $scope.editData.newSchemaName + "." + $scope.editData.format);
-            fdl.append("fileType", $scope.editData.format);
-            fdl.append("format", $scope.editData.format);
-            fdl.append("mintype", $scope.editData.minType);
-            fdl.append("minsize", $scope.editData.minsize);
-            fdl.append("maxsize", $scope.editData.maxsize);
-            fdl.append("maxtype", $scope.editData.maxtype);
-            fdl.append("notifyAlert", $scope.editData.notifyAlert);
-            fdl.append("notifyEmail", $scope.editData.notifyEmail);
-
-            if ($scope.containHeader) {
-                fdl.append("hFlag", "true");
-                $scope.fileData.hFlag = "true";
-            } else {
-                fdl.append("hFlag", "false");
-                $scope.fileData.hFlag = "false";
-            }
-            fdl.append("mFlag", "false");
-            if ($scope.editData.format == 'Fixed Width') {
-                fdl.append("noOfColumn", $scope.editData.noofColumn);
-                fdl.append("fixedValues", $scope.editData.fixedValues);
-                fdl.append("rowDeli", "");
-                fdl.append("colDeli", "");
-                $scope.fileData.noOfColumn = $scope.editData.noofColumn;
-                $scope.fileData.fixedValues = $scope.editData.fixedValues;
-            } else if ($scope.editData.format == 'Delimited') {
-                fdl.append("noOfColumn", "");
-                fdl.append("fixedValues", "");
-                fdl.append("rowDeli", $scope.editData.rowDeli);
-                fdl.append("colDeli", $scope.editData.colDeli);
-                $scope.fileData.rowDeli = $scope.editData.rowDeli;
-                $scope.fileData.colDeli = $scope.editData.colDeli;
-            } else {
-                fdl.append("noOfColumn", "");
-                fdl.append("fixedValues", "");
-                fdl.append("rowDeli", "");
-                fdl.append("colDeli", "");
-            }
-
-            fdl.append("file", $scope.fileDataContent);
-
-
-            /*  for (var value of fdl.values()) {
-            	
-               console.log("values of form data :"+value); 
-            } 
-             */
-
-        } else {
-            //alert('rdbms');
-            newSchemaName = ''
-            delete $scope.editData.filepath;
-            delete $rootScope.fileName
-            $('#connectLoader').show();
-            $scope.fileData.dbType = $scope.editData.dbType;
-            $scope.fileData.hostName = $scope.editData.hostName;
-            $scope.fileData.port = $scope.editData.port;
-            $scope.fileData.dbName = $scope.editData.dbName;
-            $scope.fileData.tableName = $scope.editData.tableName;
-            $scope.fileData.notificationSet = $scope.editData.rdbmsNotificationSet;
-            $scope.fileData.minsize = $scope.editData.minSize;
-            $scope.fileData.maxsize = $scope.editData.maxSize;
-            $scope.fileData.userName = $scope.editData.userName;
-            $scope.fileData.password = $scope.editData.password;
-            $scope.fileData.notifyAlert = $scope.editData.myCheckAlert;
-            $scope.fileData.notifyEmail = $scope.editData.myCheckEmail;
-            $scope.fileData.contIngestion = $scope.editData.contRdbmsIngestion;
-
-            /* var newEdit = JSON.stringify($scope.fileData, null, 4);
-            console.log("editdata:" + newEdit); */
-
-
-
-        }
-        $scope.newStep = new Object();
-        $scope.newStep.fileData = $scope.fileData;
-        $scope.newStep.isEncrypted = $scope.isEncrypted
-        $scope.newStep.encryptionData = $scope.encryptionData
-        //myService.set($scope.fileData);
-        datapreview = new Array();
-
-        // alert(newSchemaName);
-        $scope.method = 'POST';
-        // fileName = encodeURIComponent(fileName)
-        // fileName = fileName.replace(/\./g, '\.');
-        // alert(fileName);
-        //	console.log($scope.multitable);
-
-
-        if ($scope.multitable == undefined || $scope.multitable === false) {
-
-            if ($scope.metaData) {
-
-                var promise = $http.post(
-                    'rest/service/getMetaSchema', fdl,
-
-                    {
-                        withCredentials: true,
-                        headers: headerObj,
-
-                        transformRequest: angular.identity
-                    }).then(function(response) {
-                    if (response.data == '') {
-                        $scope.errorCode = 'Some error has occured! Please Check file path.';
-                        $('#uploadLoader').hide();
-                        return false;
-                    }
-                    if (response == undefined) return false;
-                    if (response.status == 200) {
-                        if ($scope.multitable == undefined || $scope.multitable === false) {
-                            $scope.newStep.datapreview = response.data; // data;
-                            myService.set($scope.newStep);
-                            $rootScope.closeModal();
-                            $location.path("/DataSchemaPreview/");
-                        } else {
-                            $rootScope.Alltable = response.data;
-                            //console.log($rootScope.Alltable);
-                            myService.set($scope.newStep);
-                            $rootScope.closeModal();
-                            $rootScope.errorCode = '';
-                            $scope.errorCode = '';
-                            $('#AllTableModal').modal('show');
-                        }
-                    } else {
-                        if (response.status == 401) {
-                            $location.path('/');
-                        }
-                        $('#uploadLoader').hide();
-
-                        $scope.errorCode = response.data;
-                        return false;
-                    }
-                    //console.log(response);
-                    //$scope.columnNameArray=response.data;
-                    //console.log($scope.columnNameArray);
-                    //$('#addAtribute').show();
-                    //$('#uploadedTable').show();
-                    return {
-                        code: function() {
-                            return code;
-                        },
-                        fileName: function() {
-                            return fileName;
-                        },
-                        response: response,
-                    };
-                });
-                return promise;
-
-
-            } else {
-
-                if ($scope.editData.filepath == undefined) {
-
-                    if ($scope.editData.newSchemaName == undefined) {
-
-
-                        $rootScope.Alltable = new Array();
-                        $rootScope.Alltable[0] = $scope.editData.tableName;
-                        //console.log($rootScope.Alltable);
-                        $rootScope.checkedTab = [];
-                        $rootScope.checkedTab.push($scope.editData.tableName);
-                        $rootScope.multiTab = false
-                        myService.set($scope.newStep);
-                        $rootScope.errorCode = '';
-                        $scope.errorCode = '';
-
-                        $("#tableSelectConfirm").trigger("click");
-                        //$('#AllTableModal').modal('show');
-                    } else {
-
-                        //console.log('this is file uplaod');
-                        $http.post('rest/service/getSchemaForLocalFileUpload', fdl, {
-                            headers: {
-                                'X-Auth-Token': localStorage
-                                    .getItem('itc.authToken'),
-                                'Content-Type': undefined
-                            },
-                            transformRequest: angular.identity
-                        }).success(function(data, status) {
-                            $scope.status = status;
-
-                            $scope.newStep.datapreview = data;
-                            $scope.newStep.filetype = filetype;
-                            myService.set($scope.newStep);
-                            $rootScope.closeModal();
-                            $location.path("/DataSchemaPreview/");
-
-
-                            // datapreview = data
-
-                        }).error(function(data, status) {
-                            if (status == 401) {
-                                $location.path('/');
-                            }
-                            if (filetype == 'file') {
-                                $('#uploadLoader').hide();
-                            } else {
-                                $('#connectLoader').hide();
-                            }
-                            $scope.errorCode = data; // data;
-                            // console.log($scope.errorCode);
-                            // $scope.closeModal();
-                            // $location.path("/DataSchemaPreview/");
-                            /*
-                             * $scope.data = data || "Request failed"; $scope.status = status;
-                             */
-                        });
-                    }
-                } else {
-
-                    $scope.url = 'rest/service/getSchemaAuto';
-                    $http({
-                        method: $scope.method,
-                        url: $scope.url,
-                        data: $scope.fileData,
-                        // cache : $templateCache
-                        headers: headerObj
-                    }).success(function(data, status) {
-                        $scope.status = status;
-                        // alert("data :"+data);
-
-                        $scope.newStep.datapreview = data; // data;
-                        myService.set($scope.newStep);
-                        $rootScope.closeModal();
-                        $location.path("/DataSchemaPreview/");
-
-
-                        // datapreview = data
-
-                    }).error(function(data, status) {
-                        if (status == 401) {
-                            $location.path('/');
-                        }
-                        if (filetype == 'file') {
-                            $('#uploadLoader').hide();
-                        } else {
-                            $('#connectLoader').hide();
-                        }
-                        $scope.errorCode = data; // data;
-                        // console.log($scope.errorCode);
-                        // $scope.closeModal();
-                        // $location.path("/DataSchemaPreview/");
-                        /*
-                         * $scope.data = data || "Request failed"; $scope.status = status;
-                         */
-                    });
-
-                }
-
-            }
-        } else {
-            $scope.url = 'rest/service/getTablesList';
-
-            $http({
-                method: $scope.method,
-                url: $scope.url,
-                data: $scope.fileData,
-                // cache : $templateCache
-                headers: {
-                    'X-Auth-Token': localStorage.getItem('itc.authToken')
-                }
-            }).success(function(data, status) {
-                $scope.status = status;
-                // alert("data :"+data);
-
-                $rootScope.Alltable = data;
-                $rootScope.errorCode = '';
-                $scope.errorCode = '';
-                //console.log($rootScope.Alltable);
-                $scope.newSchemaName = '';
-                newSchemaName = '';
-                $('#table1Err').html('');
-                $rootScope.checkedTab = [];
-                $rootScope.multiTab = true
-                myService.set($scope.newStep);
-                $rootScope.closeModal();
-                $('#AllTableModal').modal('show');
-
-
-                // datapreview = data
-
-            }).error(function(data, status) {
-                if (status == 401) {
-                    $location.path('/');
-                }
-                if (filetype == 'file') {
-                    $('#uploadLoader').hide();
-                } else {
-                    $('#connectLoader').hide();
-                }
-                $scope.errorCode = data; // data;
-                // console.log($scope.errorCode);
-                // $scope.closeModal();
-                // $location.path("/DataSchemaPreview/");
-                /*
-                 * $scope.data = data || "Request failed"; $scope.status = status;
-                 */
-            });
-        }
-    };
-
-
+   
 
 
     $scope.submitStream = function(editData) {
@@ -1191,9 +641,10 @@ var mainController = function(myService, $scope, $http, $templateCache, $locatio
 			
 			$scope.method = 'GET';
         
-        //$scope.url = 'https://hpz7pbrlx6.execute-api.us-east-1.amazonaws.com/prod/alltopics';
-		$scope.url='http://13.126.228.155:8081/NotificationPlatform/getAllTopics';
-		
+        url1 = 'https://hpz7pbrlx6.execute-api.us-east-1.amazonaws.com/prod/alltopics';
+		url2='http://13.126.228.155:8081/NotificationPlatform/getAllTopics';
+		//$scope.url3="rest/service/topics"
+		/*
          $http({
             method: $scope.method,
             url: $scope.url,
@@ -1207,7 +658,26 @@ var mainController = function(myService, $scope, $http, $templateCache, $locatio
            
             $scope.data = data || "Request failed";
             $scope.status = status;
-        }); /*
+        }); 
+		*/
+		 $.ajax({
+            type: 'GET',
+            url: url2,
+            crossDomain: true,
+            success: function (data) {
+                $scope.topics =data;
+				console.log('ajax'+$scope.topics);
+
+            },
+            error: function (request, status, error) {
+
+                alert(error);
+            }
+        });
+		
+		
+		
+		/*
 		
 			$scope.topics=[
 					{
@@ -1216,16 +686,23 @@ var mainController = function(myService, $scope, $http, $templateCache, $locatio
 					}
 				]*/
 		}
-		
-		
+		var openCreateTopic=function(){
+			console.log('openCreateTopic');
+		}
+		var openSendMsg=function(){
+		console.log('openSendMsg');
+
+		}
 		var fetchDevices = function(){
 			console.log('devices')
 			
 			$scope.method = 'GET';
         
-        //$scope.url = 'https://hpz7pbrlx6.execute-api.us-east-1.amazonaws.com/prod/alldevice';
-		$scope.url='http://13.126.228.155:8081/NotificationPlatform/getAllDevices';
-		
+        url1 = 'https://hpz7pbrlx6.execute-api.us-east-1.amazonaws.com/prod/alldevice';
+		url2='http://13.126.228.155:8081/NotificationPlatform/getAllDevices';
+		//$scope.url3="rest/service/devices"
+
+		/*
          $http({
             method: $scope.method,
             url: $scope.url,
@@ -1239,7 +716,25 @@ var mainController = function(myService, $scope, $http, $templateCache, $locatio
            
             $scope.data = data || "Request failed";
             $scope.status = status;
-        }); 
+        }); */
+		
+		 $.ajax({
+            type: 'GET',
+            url: url2,
+            crossDomain: true,
+            success: function (data) {
+                $scope.devices =data;
+				console.log('ajax'+$scope.devices);
+
+            },
+            error: function (request, status, error) {
+
+                console.log(error);
+            }
+        });
+		
+		
+		
 		
 		/*
 			$scope.devices=[

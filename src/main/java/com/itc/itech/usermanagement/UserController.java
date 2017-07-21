@@ -1,4 +1,4 @@
-package com.itc.zeas.usermanagement;
+package com.itc.itech.usermanagement;
 
 import java.sql.SQLException;
 import java.util.List;
