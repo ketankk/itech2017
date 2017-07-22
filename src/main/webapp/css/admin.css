@@ -1211,7 +1211,7 @@ a.text-success:hover {
   height: 64px;
   z-index: 76;
   /*background: rgb(6, 45, 112);*/
-  background: #212134 none repeat scroll 0 0;
+  background: #1a64db none repeat scroll 0 0;
   color:rgb(6,45,112);
   /*color: rgba(49, 53, 52, 0.6);*/
   -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
@@ -1243,7 +1243,7 @@ a.text-success:hover {
 }
 .headerbar-left {
   position: absolute;
-  background-color: #1A1A2B;
+  background-color: #6e6eea;/*#1A1A2B;*/
   width:186px;
 }
 .headerbar-left a {
@@ -5353,7 +5353,7 @@ section.style-default-bright,
 .card.style-default-bright {
   background-color: #ffffff;
   border-color: #ffffff;
-  color: #313534;
+  color: #ffffff;/*#313534;*/
 }
 section .style-default-bright .btn-icon-toggle:hover,
 .offcanvas-pane .style-default-bright .btn-icon-toggle:hover,

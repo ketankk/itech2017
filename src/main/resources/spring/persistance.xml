@@ -35,7 +35,7 @@
 				</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
-				<prop key="hibernate.connection.url">jdbc:mysql://10.6.186.5:3306/itech</prop>
+				<prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/itech</prop>
 				<prop key="hibernate.connection.username">itech</prop>
 				<prop key="hibernate.connection.password">itech2017</prop>
 				<prop key="hibernate.show_sql">true</prop>

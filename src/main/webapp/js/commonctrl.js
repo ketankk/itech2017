@@ -180,20 +180,6 @@ userApp.controller('ModalInstanceCtrl', function(myService, $scope,
     }
 
 
-
-
-    $scope.getName = function(s) {
-        return s.replace(/^.*[\\\/]/, '');
-    };
-    $scope.selectPort = function(dbType) {
-        if (dbType == $scope.databaseType[0]) {
-            $scope.editData.port = $scope.porArr[0];
-        } else if (dbType == $scope.databaseType[1]) {
-            $scope.editData.port = $scope.porArr[1];
-        } else {
-            $scope.editData.port = $scope.porArr[2];
-        }
-    }
     $scope.saveAddUpdateSchema = function(editData, dd, isQuit) {
 
         $scope.data = new Object();
@@ -225,7 +211,7 @@ userApp.controller('ModalInstanceCtrl', function(myService, $scope,
 
 
         /*if (editData.fileData.fileName){
-        	$scope.editData.fileData.fileName = editData.fileData.fileName;
+            $scope.editData.fileData.fileName = editData.fileData.fileName;
         }*/
 
         /*$scope.editData.fileData = new Object();*/
@@ -356,7 +342,7 @@ userApp.controller('ModalInstanceCtrl', function(myService, $scope,
         $scope.method = 'POST';
         $scope.data.createdBy = localStorage.getItem('itc.username');
         $scope.data.updatedBy = localStorage.getItem('itc.username');
-        //	$scope.data.createdDate = new Date();
+        //  $scope.data.createdDate = new Date();
         $scope.url = 'rest/service/addEntity/';
         $http({
                 method: $scope.method,
@@ -373,8 +359,8 @@ userApp.controller('ModalInstanceCtrl', function(myService, $scope,
                     $rootScope.closeModal();
                     $('#addDataset').modal('show');
                     /*schemaSourceDetails(myService, $scope, $http,
-                    		$templateCache, $rootScope, $location,
-                    		'Streaming');
+                            $templateCache, $rootScope, $location,
+                            'Streaming');
                     $location.path('/Streaming/');*/
                 }).error(function(data, status) {
                 if (status == 401) {
@@ -403,88 +389,7 @@ var headerCtrl = function(myService, $scope, $http, $templateCache, $location,
     var promise;
     $scope.showLog = true;
 
-    $scope.getLogDetails = function(action, name) {
-
-
-        //$("#logModal").resizable();
-        $("#logModal").draggable({
-            handle: '.draggableSection'
-        });
-        $("#logModal").modal('show');
-
-        $scope.logtype = '';
-
-        /*if($scope.logtype == ''){
-			$scope.logData = new Array();
-			$scope.totalPages = 0;
-			return false;
-		}
-		 if(action == 'first')
-			 $scope.currentPage  =  1;
-		 else if(action == 'next')
-	        	$scope.currentPage  =  $scope.currentPage+1;
-	        else
-	        	$scope.currentPage  =  $scope.currentPage-1;*/
-        $scope.lastcount = $scope.lastcount == undefined ? 0 : $scope.lastcount;
-        if ($scope.lastcount == 0) {
-            $scope.logData = new Array();
-        }
-        /*console.log(stopLog);
-         promise = $interval(setRandomizedCollection, 1000);*/
-        console.log($scope.promise);
-        if (!$scope.promise) {
-            $scope.promise = $interval(function() {
-                $scope.getLogDetails(action, name);
-            }, 3000);
-        }
-
-
-        $scope.method = 'GET';
-        var userName = localStorage.getItem('itc.username');
-        $scope.url = 'rest/service/getLogDetails/' + action + '/' + name + '/0' + '/' + $scope.lastcount;
-        $http({
-            method: $scope.method,
-            url: $scope.url,
-            //cache : $templateCache,
-            headers: headerObj
-        }).success(function(data, status) {
-            $scope.status = status;
-
-            /*$scope.logData = data;
-				
-            $scope.currentPage = 1;
-            $scope.totalItems = $scope.logData.length;
-            console.log($scope.totalItems);
-            $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);*/
-            //$scope.logData        = $scope.logData.push(data);
-
-            $scope.lastcount = data[0]
-            data.shift();
-            $.merge($scope.logData, data)
-            $scope.totalPages = $scope.logData.length;
-
-            //console.log($scope.totalPages);
-            //console.log($scope.currentPage);
-
-            // Pagination Range
-            /*var pages = [];
-		      $scope.noOfPages = Math.ceil($scope.totalPages / $scope.entryLimit);
-		      for(var i=1;i<= $scope.noOfPages;i++) {          
-		        pages.push(i);
-	          }
-
-	      	$scope.range = pages; 
-
-			menu._resetMenu();
-			menu = null;*/
-        }).error(function(data, status) {
-            //if (status == 401) {
-            $location.path('/');
-            //}
-            $scope.logData = data || "Request failed";
-            $scope.status = status;
-        });
-    }
+    
     $scope.search = {};
 
     $scope.resetFilters = function() {
@@ -494,7 +399,7 @@ var headerCtrl = function(myService, $scope, $http, $templateCache, $location,
 
     // pagination controls
     $scope.currentPage = 1;
-    //	$scope.totalItems = $scope.logData.length;
+    //  $scope.totalItems = $scope.logData.length;
     // items per page
     $scope.clearlog = function() {
 
@@ -510,7 +415,6 @@ var headerCtrl = function(myService, $scope, $http, $templateCache, $location,
 
 
 }
-
 var leftbarCtrl = function(myService, $scope, $http, $templateCache, $location,
     $rootScope, $route) {
 
@@ -530,77 +434,8 @@ var leftbarCtrl = function(myService, $scope, $http, $templateCache, $location,
         }
 
     }
-    $scope.callSubMenu();
-    $scope.getScope = function(menuID) {
-
-        if ($scope.userProfileData.haveWritePermissionOnProject === true || $scope.userProfileData.isSuperUser == true) {
-
-            $(".dragMe").draggable({
-                helper: 'clone',
-                cursor: 'move',
-                tolerance: 'fit'
-            });
-        }
-
-        if (menuID != 'firstLink') {
-            $('#firstLink').removeClass('in');
-            $("#firstLinkSpan").html('<img src="images/expand.png">');
-        }
-
-        if (menuID != 'secondLink') {
-            if (menuID != 'secondSubLink' && menuID != 'thirdSubLink1') {
-                $('#secondLink').removeClass('in');
-                $("#secondLinkSpan").html('<img src="images/expand.png">');
-            }
-
-        }
-
-        if (menuID != 'thirdLink') {
-            if (menuID != 'sixthSubLink' && menuID != 'fifthSubLink') {
-                $('#thirdLink').removeClass('in');
-                $("#thirdLinkLinkSpan").html('<img src="images/expand.png">');
-            }
-        }
-        if (menuID != 'secondSubLink') {
-            $('#secondSubLink').removeClass('in');
-            $("#secondSubLinkSpan").html('<img src="images/expand.png">');
-        }
-        if (menuID != 'thirdSubLink') {
-            $('#thirdSubLink').removeClass('in');
-            $("#thirdSubLinkSpan").html('<img src="images/expand.png">');
-        }
-        if (menuID != 'thirdSubLink1') {
-            $('#thirdSubLink1').removeClass('in');
-            $("#thirdSubLink1Span").html('<img src="images/expand.png">');
-        }
-        if (menuID != 'sixthSubLink') {
-            $('#sixthSubLink').removeClass('in');
-            $("#sixthSubLinkSpan").html('<img src="images/expand.png">');
-        }
-        if (menuID != 'fifthSubLink') {
-            $('#fifthSubLink').removeClass('in');
-            $("#fifthSubLinkSpan").html('<img src="images/expand.png">');
-        }
-        $('#' + menuID).collapse("toggle");
-        //alert($('#'+menuID).hasClass('collapse in'));
-
-        setTimeout(function() {
-
-            if ($('#' + menuID).hasClass('collapse in')) {
-
-                $('#' + menuID + 'Span').html('<img src="images/collapse.png">');
-            } else {
-
-                $('#' + menuID + 'Span').html('<img src="images/expand.png">');
-            }
-        }, 400);
-
-
-        //	jsPlumb.draggable(document.querySelectorAll(".window"), { grid: [20, 20] });
-        //jsPlumb.fire("jsPlumbDemoLoaded", instance);
-    }
-    $scope.addDragClass = function() {
-        //	console.log('inside');
+    $scope.callSubMenu();    $scope.addDragClass = function() {
+        //  console.log('inside');
         if ($scope.userProfileData.haveWritePermissionOnProject === true || $scope.userProfileData.isSuperUser == true) {
 
             //if(menuID != 'thirdLink'){
@@ -627,24 +462,25 @@ var leftbarCtrl = function(myService, $scope, $http, $templateCache, $location,
     };
 
 }
+
 var mainController = function(myService, $scope, $http, $templateCache, $location,
     $rootScope, $route, $interval) {
-		
-		/* topics */
-		
-		
-		
-				
-				
-		var fetchTopics = function(){
-			console.log('topics')
-			
-			$scope.method = 'GET';
+        
+        /* topics */
+        
+        
+        
+                
+                
+        var fetchTopics = function(){
+            console.log('topics')
+            
+            $scope.method = 'GET';
         
         url1 = 'https://hpz7pbrlx6.execute-api.us-east-1.amazonaws.com/prod/alltopics';
-		url2='http://13.126.228.155:8081/NotificationPlatform/getAllTopics';
-		//$scope.url3="rest/service/topics"
-		/*
+        url2='http://13.126.228.155:8081/NotificationPlatform/getAllTopics';
+        //$scope.url3="rest/service/topics"
+        /*
          $http({
             method: $scope.method,
             url: $scope.url,
@@ -659,14 +495,14 @@ var mainController = function(myService, $scope, $http, $templateCache, $locatio
             $scope.data = data || "Request failed";
             $scope.status = status;
         }); 
-		*/
-		 $.ajax({
+        */
+         $.ajax({
             type: 'GET',
             url: url2,
             crossDomain: true,
             success: function (data) {
                 $scope.topics =data;
-				console.log('ajax'+$scope.topics);
+                console.log('ajax'+$scope.topics);
 
             },
             error: function (request, status, error) {
@@ -674,35 +510,251 @@ var mainController = function(myService, $scope, $http, $templateCache, $locatio
                 alert(error);
             }
         });
-		
-		
-		
-		/*
-		
-			$scope.topics=[
-					{
-					"name": "test123",
-					"arn": "arn:aws:sns:us-east-1:038184107766:test123"
-					}
-				]*/
-		}
-		var openCreateTopic=function(){
-			console.log('openCreateTopic');
-		}
-		var openSendMsg=function(){
-		console.log('openSendMsg');
+        
+        
+        
+        /*
+        
+            $scope.topics=[
+                    {
+                    "name": "test123",
+                    "arn": "arn:aws:sns:us-east-1:038184107766:test123"
+                    }
+                ]*/
+        }
 
-		}
-		var fetchDevices = function(){
-			console.log('devices')
-			
-			$scope.method = 'GET';
+
+
+
+        /**
+method to create a topic
+**/
+$scope.sendmsg=function(msgbody){
+    console.log('sendmsg');
+   console.log(msgbody);
+
+
+       url1='http://13.126.228.155:8081/NotificationPlatform/publishToTopic';
+
+$scope.data=new Object();
+
+
+   $scope.data.topicArn=msgbody.topic.arn;
+   $scope.data.message=msgbody.msg;
+   $scope.data.sender=msgbody.sender;
+
+
+
+
+
+ $http({
+            method: 'POST',
+            url: url1,
+            data:$scope.data,
+            //cache : $templateCache,
+            headers: headerObj
+        }).success(function(data, status) {
+            $scope.status = status;
+            $scope.devices = data;
+            console.log(data)
+
+
+            $('#sendMessage').modal('hide');
+        }).error(function(data, status) {
+           
+            $scope.data = data || "Request failed";
+            $scope.status = status;
+        }); 
+
+
+
+}
+
+
+/**
+method to send /publish message to Any topic
+**/
+$scope.createTopic=function(topic){
+    console.log('createTopic');
+
+
+
+    url1='http://13.126.228.155:8081/NotificationPlatform/createTopic';
+
+   console.log(topic);
+$scope.data=new Object();
+
+
+   $scope.data.name=topic.name;
+  
+
+ $http({
+            method: 'POST',
+            url: url1,
+            data:$scope.data,
+            //cache : $templateCache,
+            headers: headerObj
+        }).success(function(data, status) {
+            $scope.status = status;
+            $scope.devices = data;
+            console.log(data)
+
+
+            $('#createTopic').modal('hide');
+        }).error(function(data, status) {
+           
+            $scope.data = data || "Request failed";
+            $scope.status = status;
+        }); 
+
+
+
+}
+
+
+$scope.selectedDevice=[];
+$scope.toggleSelection = function(device) {
+    console.log("toggle"+device+$scope.selectedDevice);
+    var idx = $scope.selectedDevice.indexOf(device);
+
+    // Is currently selected
+    if (idx > -1) {
+      $scope.selectedDevice.splice(idx, 1);
+    }
+
+    // Is newly selected
+    else {
+      $scope.selectedDevice.push(device);
+    }
+};
+
+
+/**
+method to subscribe devices to Any topic
+**/
+$scope.subscribeToTopic=function(subscribe){
+    console.log('subscribeToTopic');
+   console.log(subscribe);
+console.log('selected device'+ $scope.selectedDevice);
+   $scope.data=new Object();
+
+
+   $scope.data.deviceArns=$scope.selectedDevice;
+   $scope.data.topicArn=subscribe.topicName.arn;
+   console.log($scope.data+"suscribe");
+   //$scope.data.msgText=subscribe.msg;
+   //$scope.data.msgSender=subscribe.sender;
+
+
+
+
+        url1='http://13.126.228.155:8081/NotificationPlatform/subscribeDevicesToTopic';
+
+
+ $http({
+            method:'POST',
+            url:url1,
+            data:$scope.data,
+            //cache : $templateCache,
+            headers: headerObj
+        }).success(function(data, status) {
+            $scope.status = status;
+            $scope.devices = data;
+            console.log(data)
+        }).error(function(data, status) {
+           
+            $scope.data = data || "Request failed";
+            $scope.status = status;
+        }); 
+
+
+
+}
+/*
+Get All messages for topic
+*/
+$scope.showMessages=function(topic){
+//open modal
+topicArn=topic.arn;
+$scope.topicHeaderName=topic.name;
+
+        url1='http://13.126.228.155:8081/NotificationPlatform/getAllMessagesOfTopic?arn='+topicArn;
+
+
+ $http({
+            method:'GET',
+            url:url1,
+            headers: headerObj
+        }).success(function(data, status) {
+            $scope.status = status;
+            $scope.topicMsgs = data;
+                        console.log("TopicMsgs"+$scope.topicMsgs)
+
+                    $('#topicMsg').modal('show');
+
+        }).error(function(data, status) {
+           
+            $scope.data = data || "Request failed";
+            $scope.status = status;
+        }); 
+
+}
+
+
+$scope.deliveryReport=function(msg){
+console.log(msg+"del")
+
+msgId=msg.messageId;
+
+        url1='http://13.126.228.155:8081/NotificationPlatform/getDeliveryResults?messageId='+msgId;
+
+
+ $http({
+            method:'GET',
+            url:url1,
+            headers: headerObj
+        }).success(function(data, status) {
+            $scope.status = status;
+            $scope.deliveryReport = data;
+            console.log("DeliveryReports"+$scope.topicMsgs)
+
+        $('#msgDelivery').modal('show');
+
+        }).error(function(data, status) {
+           
+            $scope.data = data || "Request failed";
+            $scope.status = status;
+        }); 
+
+    
+}
+
+
+
+$scope.openCreateTopic=function(){
+        $('#createTopic').modal('show');
+
+            console.log('openCreateTopic');
+        }
+
+$scope.openSendMsg=function(){
+        console.log('openSendMsg');
+                $('#sendMessage').modal('show');
+
+
+
+        }
+        var fetchDevices = function(){
+                        fetchTopics();  
+            console.log('devices')
+            
+            $scope.method = 'GET';
         
         url1 = 'https://hpz7pbrlx6.execute-api.us-east-1.amazonaws.com/prod/alldevice';
-		url2='http://13.126.228.155:8081/NotificationPlatform/getAllDevices';
-		//$scope.url3="rest/service/devices"
+        url2='http://13.126.228.155:8081/NotificationPlatform/getAllDevices';
+        //$scope.url3="rest/service/devices"
 
-		/*
+        /*
          $http({
             method: $scope.method,
             url: $scope.url,
@@ -717,14 +769,39 @@ var mainController = function(myService, $scope, $http, $templateCache, $locatio
             $scope.data = data || "Request failed";
             $scope.status = status;
         }); */
-		
-		 $.ajax({
+        
+         $.ajax({
             type: 'GET',
             url: url2,
             crossDomain: true,
             success: function (data) {
                 $scope.devices =data;
-				console.log('ajax'+$scope.devices);
+                console.log('ajax'+$scope.devices);
+
+
+
+/**
+
+*/
+
+$scope.selectedDevice = function selectedDevice() {
+        console.log("filter");
+
+    return filterFilter($scope.devices, { selected: true });
+  };
+
+$selection=[];
+
+  // Watch fruits for changes
+  $scope.$watch('devices|filter:{selected:true}', function (nv) {
+    console.log("watcher");
+    $scope.selection = nv.map(function (device) {
+      return device;
+    });
+  }, true);
+  /*
+*/
+
 
             },
             error: function (request, status, error) {
@@ -732,12 +809,12 @@ var mainController = function(myService, $scope, $http, $templateCache, $locatio
                 console.log(error);
             }
         });
-		
-		
-		
-		
-		/*
-			$scope.devices=[
+        
+        
+        
+        
+        /*
+            $scope.devices=[
     {
         "id": 8,
         "arn": "arn:aws:sns:us-east-1:038184107766:endpoint/GCM/iTechGCM/dca98fe6-e214-31e1-a916-f50096575110",
@@ -762,17 +839,17 @@ var mainController = function(myService, $scope, $http, $templateCache, $locatio
     }
 ]*/
 
-		}
+        }
 
 
 $('#streamLoader').hide()
-		
-		/* ends */
-		
-		
-		
-		
-		
+        
+        /* ends */
+        
+        
+        
+        
+        
 
     $scope.pipeEdit = false;
     $scope.pipelineStart = false;
@@ -781,7 +858,7 @@ $('#streamLoader').hide()
     delete mydiv_selector;
     delete mydiv_type;
     $(document).off("keyup");
-    //	$('#templteSlide').hide();	
+    //  $('#templteSlide').hide();  
 
     var getViewId = function() {
         var test = window.location.pathname;
@@ -814,18 +891,18 @@ $('#streamLoader').hide()
     };
     $scope.icon = 'icon-data';
     $scope.golocation = function(path, icon) {
-        console.log(path);	
+        console.log(path);  
         if (path != "#")
             $location.path("/" + path + "/");
         $scope.icon = icon;
-		
-		
-		if(path=="Topics"){
-			fetchTopics();
-		}
-		if(path=="Devices"){
-			fetchDevices();
-		}
+        
+        
+        if(path=="Topics"){
+            fetchTopics();
+        }
+        if(path=="Devices"){
+            fetchDevices();
+        }
 
         /*
          *  Added by 19726 on 23-11-2016
@@ -893,84 +970,8 @@ $('#streamLoader').hide()
     }
     
     
-    $scope.redirectNotiPage = function(id, compType, opType) {
-        //alert(id);
-        console.log(id + '' + compType + '' + opType);
-        var pPath = $location.path().split("/");
-        console.log(pPath);
-        $scope.method = 'GET';
-        $scope.url = 'rest/service/getNotificationObject/' + compType + '/' + id;
+    
 
-        $http({
-            method: $scope.method,
-            url: $scope.url,
-            headers: headerObj
-        }).success(function(data, status) {
-
-            $scope.status = status;
-
-            //console.log($scope.notiData);
-            //console.log($scope.notiData.length);
-            console.log(data)
-            $scope.data = data;
-            myService.set($scope.data);
-            if (compType == 'INGESTION') {
-                /*if( pPath[1] != 'DataSchema'){
-					 $location.path('/DataSchema/');
-					 }
-					 else{
-						 $rootScope.selectPipeline(id,'',8); 
-					 }*/
-            } else if (compType == 'PROJECT') {
-                $location.path('/project/')
-
-            }
-        }).error(function(data, status) {
-            if (status == 401) {
-                $location.path('/');
-            }
-            $scope.data = data || "Request failed";
-            $scope.status = status;
-        });
-
-    }
-
-    $scope.fetchNoti = function() {
-        $scope.method = 'GET';
-        $scope.url = 'rest/service/getNotifications';
-
-        $http({
-            method: $scope.method,
-            url: $scope.url,
-            headers: headerObj
-        }).success(function(data, status) {
-
-            $scope.status = status;
-
-            //console.log($scope.notiData);
-            //console.log($scope.notiData.length);
-            $scope.notiDataArr = new Array();
-            $scope.notiDataArr = data;
-            $scope.noNoti = '';
-            $scope.notiLen = $scope.notiDataArr.length;
-            if ($scope.notiDataArr.length > 0) {
-                /*for(var i=0;i<$scope.notiData.length;i++){
-                	$scope.notiDataArr[i] = $scope.notiData[i].split('|');
-                }*/
-                $scope.getNotiCount();
-            } else {
-                $scope.noNoti = 'No notification'
-            }
-            //console.log($scope.notiDataArr[0]);
-
-        }).error(function(data, status) {
-            if (status == 401) {
-                $location.path('/');
-            }
-            $scope.data = data || "Request failed";
-            $scope.status = status;
-        });
-    }
     $scope.getDDRecord = function() {
         $scope.method = 'GET';
         $scope.url = 'rest/service/listsourcer';
@@ -1096,7 +1097,7 @@ var userController = function($scope, $rootScope, $location, $http, $interval) {
             localStorage.setItem('itc.userRole', $scope.userRole);
             headerObj = {
                 'X-Auth-Token': localStorage.getItem('itc.authToken'),
-				'Cache-Control': "no-cache"
+                'Cache-Control': "no-cache"
             };
             if ($scope.rememberMe) {
                 $cookieStore.put('authToken', authToken);
@@ -1177,102 +1178,5 @@ var userController = function($scope, $rootScope, $location, $http, $interval) {
 
 }
 
-function SortableCTRL($scope, $http, $templateCache, $location, $rootScope,
-    $route) {
 
-    // console.log($scope.userRole);
-    $scope.model = new Object();
-    $scope.model.link = 'Select';
-    $scope.stramORDriver = function(linkname) {
-        // alert(linkname);
-        if (linkname == 'Streaming') {
-            $location.path('/Streaming/');
-        } else if (linkname == 'Driver') {
-            $location.path('/Driver/');
-        } else if (linkname == 'Profile') {
-            $location.path('/DataSchema/');
-        }
-        // $scope.model.link = 'Select';
-    }
-    $scope.userRole = localStorage.getItem('itc.userRole');
-    // console.log(localStorage.getItem('itc.dUsername'));
-    //$("#userDName").text(localStorage.getItem('itc.dUsername'));
-    $scope.method = 'GET';
-    $scope.url = 'rest/service/TabName';
-
-    // $scope.url = 'https://jsonblob.com/api/54d5d294e4b0af9761b3a0c8';
-    $http({
-        method: $scope.method,
-        url: $scope.url,
-        //cache : $templateCache,
-        headers: headerObj
-    }).success(function(data, status) {
-        $scope.status = status;
-        var i = 0;
-        $scope.dataTab = {}
-        angular.forEach(data, function(attr) {
-            // console.log(attr.jsonblob);
-            $scope.dataTab[i] = angular.fromJson(attr.jsonblob);
-
-            // $scope.datasetArr[i] = attr.name;
-            i++;
-        });
-        // console.log($scope.dataTab);
-    }).error(function(data, status) {
-        if (status == 401) {
-            $location.path('/');
-        }
-        $scope.dataTab = data || "Request failed";
-        $scope.status = status;
-    });
-
-    var sortableEle;
-    $rootScope.Tab = 1;
-    $scope.active = function() {
-        return $scope.panes.filter(function(pane) {
-            return pane.active;
-        })[0];
-    };
-    $scope.sortableArray = ['One', 'Two', 'Three'];
-    /*
-     * $scope.progressArray =['Configure Data Schema','Configure Data Locations
-     * and Scheduler','Validation Rule Definition'];
-     */
-    $scope.progressArray = [{
-        "tab": "/DataSchemaPreview/",
-        "title": " Data Schema  "
-    }, {
-        "tab": "/IngestionSummary/",
-        "title": " Data Source "
-    }, {
-        "tab": "/ValidationRule/",
-        "title": " Data Quality "
-    }];
-    // console.log($scope.progressArray[0].tab);
-    $scope.$route = $route;
-    $scope.pageLocation = $location.path();
-    /*
-     * if($scope.pageLocation == '/DataSchema/'){ $scope.pageLocation1 =
-     * '/DataSchemaPreview/'; } else{ $scope.pageLocation1 = $location.path(); }
-     */
-
-    // console.log($scope.progressArray);
-    $scope.isActive = function(viewLocation) {
-        var pageLocation = $location.path();
-        if ($rootScope.Tab == 1) {
-            pageLocation = '/DataSchema/';
-        } else {
-            pageLocation = '/admin/';
-        }
-        return viewLocation === pageLocation;
-    };
-    /*
-     * $scope.add = function() { $scope.sortableArray.push('Item:
-     * '+$scope.sortableArray.length);
-     * 
-     * sortableEle.refresh(); }
-     */
-
-
-}
 //------------------------------------------------------------------------------------------------------------------------------------

@@ -1138,7 +1138,7 @@ div.combobox	{
 	 margin: 134px auto;
 }
 .modal-header {
-    background-color: #212134;
+    background-color: #1a64db;/*212134;*/
     border-bottom: 1px solid #e5e5e5;
     color: #fff;
     min-height: 16.4286px;

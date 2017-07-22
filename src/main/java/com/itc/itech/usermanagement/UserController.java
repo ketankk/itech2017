@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dao.Roles;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,10 +45,31 @@ public class UserController {
 		return users;
 
 	}
+	public static void main(String[] args){
+	UserController uc=new UserController();
+		UserDetails ud=new UserDetails();
+		ud.setName("ketan");
+		ud.setPassword("login@123");
+		ud.setDateOfBirth("2017-07-01");
+		ud.setGender("Male");
+		ud.setAddress("sdsa");
+		ud.setUserName("ketan");
+		ud.setEmail("ketank90@gmail.com");
+		ud.setDisplayName("KK");
+		Roles role=new Roles();
+		role.setRolesName("admin");
+		ud.setRoles(role);
+		try {
+			uc.addUsers(ud);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST, headers = "Accept=application/json")
 	public @ResponseBody
 	UserDetails addUsers(@RequestBody UserDetails userDetails) throws SQLException {
+
 		UserService userService = new UserService();
 		try {
 			userService.addUsers(userDetails);

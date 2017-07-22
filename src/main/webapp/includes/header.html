@@ -7,7 +7,7 @@
 				<li class="header-nav-brand" >
 					<div class="brand-holder">
 						<!-- <a href="index.html"> -->
-							<h2  class="icon" style="color: #FFFFFF; font-weight: bold;">iTech-2017<!-- <img title="" src="images/logo.png" style="height:40px;"> --></h2>
+							<h2  class="icon" style="color: #FFFFFF; font-weight: bold;font-size:20px">iTech-2017<!-- <img title="" src="images/logo.png" style="height:40px;"> --></h2>
 						<!-- </a> -->
 					</div>
 				</li>
@@ -19,66 +19,20 @@
 
 		<div class="headerbar-middle col-sm-7" ng-hide="isLoginPage()">
 		<ul class="header-nav header-nav-options">
-				<li ng-click="golocation('Dashboard','icon-data');" class="pointerCursor"><b>Home</b></li>
-		<ul class="header-nav header-nav-options">
-				<li><b>Tutorial</b></li>
-		</ul>
-		<ul class="header-nav header-nav-options">
-				<li><b>Resources</b></li>
-		</ul>
-		<ul class="header-nav header-nav-options">
-				<li><b>Help</b></li>
-		</ul>
-		<!-- <ul class="header-nav header-nav-options">
-				<li><b>Theme</b></li>
-				<select  ng-model="css" ng-options="bootstrap.url as bootstrap.name for bootstrap in bootstraps" > Theme 
-                </select>
-		</ul> -->
-		<!-- <ul class="header-nav header-nav-options pointerCursor">
-				<li data-toggle="modal" data-target="#logModal" ng-click="clearLog();"><b>Log</b></li>
-		</ul> -->
+				<li ng-click="golocation('Topics','icon-data');" class="pointerCursor"><b>Home</b></li>
+		
+		
 		</div>
 		<div class="headerbar-right" ng-hide="isLoginPage()">
 			<ul class="header-nav header-nav-options">
-				
-				<li style="padding-top:18px;cursor:pointer;  padding-right: 12px;"><i class="fa fa-search icon-color" aria-hidden="true"></i></li>
-				<li style="padding-top:18px;cursor:pointer"><i class="fa fa-bullhorn icon-color" aria-hidden="true"></i></li>
-				<li style="padding-top:18px;cursor:pointer;  padding-right: 12px;">
-					<!-- Search form -->
+								<!-- Search form -->
 					<form class="navbar-search" role="search">
 						<div class="form-group">
 							<input type="text" class="form-control" name="headerSearch" placeholder="Enter your keyword">
 						</div>
-						<!--button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button-->
 					</form>
 				</li>
-				<li class="dropdown hidden-xs" style="padding-top:18px;cursor:pointer;  padding-right: 12px;">
-					<a href="javascript:void(0);"  data-toggle="dropdown" ng-click="fetchNoti();">
-					<i class="fa fa-bell-o icon-color" aria-hidden="true"></i>
-					<sup class="badge style-danger" ng-show="notiCount != 0">{{notiCount}}</sup>
-					</a>
-					<ul class="dropdown-menu animation-expand" style="top:60px;overflow-y: auto;overflow-x: hidden;max-height:546px;" id="ex3">
-						<li class="col-md-6"><span style="color:black" class="ng-binding"><font color="black">Notifications</font> ({{notiLen}})</span></li>
-						<li ng-repeat="obj in notiDataArr" ng-show="notiLen > 0">
-								<a class="alert alert-callout alert-warning notiWrap" href="javascript:void(0);" ><!-- ng-click="redirectNotiPage(obj.component_id,obj.component_type,obj.operation_type);" -->
-									<img class="pull-right img-circle dropdown-avatar" />
-									{{obj.status_message}}<br/>
-									<span style="color:grey"><small>{{obj.timeInfo}}</small></span>
-								</a>
-							
-						</li>
-						<li><a class="alert alert-callout alert-warning" href="javascript:void(0);" ng-show="notiLen == 0">
-								<img class="pull-right img-circle dropdown-avatar" />{{noNoti}}</a></li>
-						<!-- <li>
-							<a class="alert alert-callout alert-info" href="javascript:void(0);">
-								<img class="pull-right img-circle dropdown-avatar"  />
-								<strong>Data Source</strong><br/>
-								<small>MySql datasource deployed.</small>
-							</a>
-						</li> -->
-
-					</ul><!--end .dropdown-menu -->
-				</li><!--end .dropdown -->
+				
 
 			</ul><!--end .header-nav-options -->
 			<ul class="header-nav header-nav-profile" >
