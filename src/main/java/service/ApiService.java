@@ -1,19 +1,15 @@
 package service;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.xml.bind.DatatypeConverter;
-
 public class ApiService {
 
-	private static final String username = null;
 
 	public static void main(String[] args) throws MalformedURLException, Exception {
-		String url = "http://13.126.228.155:8081/NotificationPlatform/getAllTopics";
+		String url = "https://lwkwmlb7f7.execute-api.us-east-1.amazonaws.com/prod/alldevice";
 		
 		
 		String res = new ApiService().getResponse(new URL(url));
@@ -26,10 +22,10 @@ public class ApiService {
 	    System.getProperties().put("http.proxyPort", "8080");
 	}
 
-	private String getResponse(URL url) throws Exception {
+	public String getResponse(URL url) throws Exception {
 		try {
 			//copmment this when not in ITC network
-			setProxy();
+			//setProxy();
 			
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setConnectTimeout(15000);
@@ -48,7 +44,35 @@ public class ApiService {
 			return result;
 
 		} catch (Exception e) {
-			throw new Exception("Exception while accessing Atlas api " + e.getMessage());
+			throw new Exception("Exception while accessing AWS api " + e.getMessage());
+		}
+	}
+
+
+
+	public String putResponse(URL url,String data) throws Exception {
+		try {
+
+			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+			urlConnection.setRequestMethod("POST");
+			urlConnection.setDoOutput(true);
+			urlConnection.setDoInput(true);
+
+			OutputStream out = urlConnection.getOutputStream();
+
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+			bw.write(data);
+			bw.flush();
+			bw.close();
+			out.close();
+
+			urlConnection.connect();
+			int res = urlConnection.getResponseCode();
+			return res+"";
+
+		} catch (Exception e) {
+			throw new Exception("Exception while accessing AWS api " + e.getMessage());
 		}
 	}
 }
